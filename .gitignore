@@ -4,5 +4,6 @@ api/
 database/
 venv/__pycache__/
 venv/Lib/
+venv/Scripts/
 
 *.cfg
