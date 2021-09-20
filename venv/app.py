@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect
 from flask.helpers import url_for
-from ssis import userFound
+from SSIShelper import userFound, verified
 
 app = Flask(__name__)
 
@@ -11,18 +11,31 @@ def login():
     return render_template('index.html')
 
 
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+
 @app.route('/homepage', methods=['GET', 'POST'])
 def homepage():
     username = request.form.get('username')
     password = request.form.get('password')
+
     if userFound(username,password):
-        return "<h1>Here</h1>"
+        return render_template('homepage.html')
     else:
         return render_template('index.html')
 
-@app.route('/signup')
-def signup():
-    return "<h1>Sign Up</h1>"
+
+@app.route('/confirm_identity', methods=['GET', 'POST'])
+def confirm_identity():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    password2 = request.form.get('passwordConfirmation')
+
+    if verified(username, password, password2):
+        return render_template('homepage.html')
+    return render_template('signup.html')
 
 
 
