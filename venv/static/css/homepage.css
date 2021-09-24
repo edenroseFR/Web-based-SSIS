@@ -1,8 +1,31 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import 
+url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+#main-content{
+    background-color: white; 
+    border-radius: 30px; 
+    box-shadow: 12px 12px 22px grey;
+    height: 600px;
+    padding: auto;
 }
-.bg{
-    background-image: url('MSUIITlogo.png');
+
+#btn-student{
+    font-weight: 500;
+}
+
+.table{
+    background: #fff;
+}
+
+#caption{
+    padding-top: 10px;
+    position: -webkit-sticky;
+}
+
+.caption-upper, .caption-lower{
+    justify-content: center;
+}
+.searchfield{
+    width: 600px;
+    max-width: 100%;
 }

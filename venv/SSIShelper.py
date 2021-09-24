@@ -1,4 +1,8 @@
-from SSISdb import registeredUser, existingUsernames, registerAdmin
+from mysql_connection import registeredUser, existingUsernames, registerAdmin, getStudents
+from models.student import Student
+from models.course import Course
+from models.college import College
+import re
 
 def userFound(username, password):
     if registeredUser(username,password):
@@ -6,6 +10,50 @@ def userFound(username, password):
 
 def verified(username=None, password=None, password2=None):
     if username not in existingUsernames() and password == password2:
-        print('verified')
         registerAdmin(username,password)
         return True
+
+def allStudent():
+    return Student().showAll()
+
+def allCourse():
+    return Course().showAll()
+
+def allCollege():
+    return College().showAll()
+
+def searchStudent(search=None):
+    return Student().search(keyword=search)
+
+def addStudent(student):
+    id = student['id'].strip()
+    firstname = student['firstname'].strip()
+    middlename = student['middlename'].strip()
+    lastname = student['lastname'].strip()
+    gender = student['gender'].strip()
+    yearlevel = student['yearlevel']
+    course = student['course']
+    print(gender)
+    # ID validation
+    if id:
+        id_pattern = '^[0-9]{4}-[0-9]{4}$'
+        if re.search(id_pattern, id) and id not in Student().IDlist():
+            # Name validation
+            if firstname and lastname:
+                Student(
+                    id=id, 
+                    firstName=firstname, 
+                    middleName=middlename, 
+                    lastName=lastname,
+                    yearLevel=yearlevel,
+                    gender=gender,  
+                    course=Course().courseCode(course), 
+                    college=Course().collegeCode(course)
+                ).addNew()
+                return
+            else:
+                return False
+        else:
+            return False
+
+

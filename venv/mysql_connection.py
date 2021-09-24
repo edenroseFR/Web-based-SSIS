@@ -44,3 +44,15 @@ def registerAdmin(username=None, password=None):
 
     return
 
+
+def getStudents():
+    query = f'''
+        SELECT id, firstname, middlename, lastname, gender, year, coursecode, collegecode
+        FROM students;
+    '''
+    cursor.execute(query)
+    result = cursor.fetchall()
+    students = [list(student) for student in result]
+    
+    return students
+
