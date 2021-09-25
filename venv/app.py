@@ -1,5 +1,5 @@
 from models.college import College
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, flash
 from flask.helpers import url_for
 from SSIShelper import (
     userFound,
@@ -8,9 +8,12 @@ from SSIShelper import (
     allCourse,
     allCollege,
     searchStudent,
-    addStudent)
+    addStudent,
+    getStudent,
+    updateStudent)
 
 app = Flask(__name__)
+app.secret_key = 'super_secret_key'
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -83,6 +86,24 @@ def add_student():
         return redirect(url_for('homepage'))
 
 
+@app.route('/update_student/<string:id>', methods=['GET', 'POST'])
+def update_student(id):
+    data = getStudent(id)
+    if request.method == 'POST':
+        student = {
+            'id': id,
+            'firstname': request.form.get('firstname'),
+            'middlename': request.form.get('middlename'),
+            'lastname': request.form.get('lastname'),
+            'gender': request.form.get('gender'),
+            'yearlevel': request.form.get('yearlevel'),
+            'course': request.form.get('course')
+        }
+        updateStudent(student)
+        flash('Student updated succesfully!', 'info')
+        return redirect(url_for('homepage'))
+    else:
+        return redirect(url_for('homepage'))
 
 if __name__ == '__main__':
     app.run(debug=True)

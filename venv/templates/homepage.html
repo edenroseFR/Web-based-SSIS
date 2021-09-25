@@ -74,6 +74,13 @@
                 <table class="table table-hover caption-top table-responsive-xl">
 
                     <caption>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}
                         <div id="caption">
                             <div class="d-flex caption-upper">
                                 <h4 class="p-2" id="table-title">Student Information</h4>
@@ -87,7 +94,7 @@
                             </div>
                         </div>
                     </caption>
-
+                    
                     <thead class="table-light">
                         <tr>
                             <th scope="col">ID</th>
@@ -101,7 +108,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for student in data[0] %}
+                    {% for student in data[0] %}
                         <tr>
                             <th>{{student[0]}}</th>
                             <td>{{student[1]}}</td>
@@ -111,14 +118,99 @@
                             <td>{{student[5]}}</td>
                             <td>{{student[6]}}</td>
                             <td>
-                                <button type="submit" class="btn btn-warning">Edit</button>
+                                <a href="{{url_for('update_student', id=student[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateStudent{{student[0]}}">Update</a>
+                                <!-- <button type="submit" class="btn btn-warning">Edit</button> -->
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
-                        {% endfor %}
+
+                    <!-- update_student Modal -->
+                    <div class="modal fade" id="updateStudent{{student[0]}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <div class="d-flex">
+                                        <img src="../static/images/SSISlogo.png" alt="SSIS logo">
+                                        <h5 class="modal-title" id="studentformtitle">Update Student</h5>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form class="needs-validation" novalidate action="{{ url_for('update_student', id=student.0) }}" method="post">
+                                        <div class="mb-3">
+                                            <label for="student-id" class="form-label">Student ID</label>
+                                            <input type="studentinfo" class="form-control" id="student-id" value="{{student.0}}" name="student-id" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="firstname" class="form-label">First Name</label>
+                                            <input type="studentinfo" class="form-control" id="firstname" value="{{student.1}}" name="firstname" required>
+                                            <div class="invalid-feedback">Please enter First Name</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="middlename" class="form-label">Middle Name</label>
+                                            <input type="studentinfo" class="form-control" id="middlename" value="{{student.2}}" name="middlename">
+                                            <small id="middlenameHelp" class="form-text text-muted">Type NA if not applicable</small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="lastname" class="form-label" required>Last Name</label>
+                                            <input type="studentinfo" class="form-control" id="lastname" value="{{student.3}}" name="lastname">
+                                            <div class="invalid-feedback">Please enter Last Name</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select id="gender" name="gender" class="form-select">
+                                                <option value="{{student[4]}}">{{student[4]}}</option>
+                                                {% for gender in ['Male', 'Female', 'Gay', 'Bisexual', 'Unknown'] %}
+                                                    {% if gender != student[4] %}
+                                                        <option value="{{gender}}">{{gender}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="yearlevel" class="form-label">Year Level</label>
+                                            <select id="yearlevel" name="yearlevel" class="form-select">
+                                                <option value="{{student.5}}" selected>{{student.5}}</option>
+                                                {% for year in range (1,7) %}
+                                                    {% if year != student[5] %}
+                                                        <option value="{{year}}">{{year}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="course" class="form-label">Course</label>
+                                            <select id="course" name="course" class="form-select">
+                                                <option value="{{student.7}}" name="course">{{student.7}}</option>
+                                                {% for course in data[1] %}
+                                                    {% if course[1] != student[7] %}
+                                                        <option value="{{course[1]}}" name="course">{{course[1]}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                    </form>
+                                </div>
+
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
+            
         
 
 
@@ -149,10 +241,10 @@
     -->
   </body>
 
-  <!-- Modal -->
+  <!-- add_student Modal -->
   <div class="modal fade" id="addStudentForm" data-bs-backdrop="static"
-  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-  aria-hidden="true">
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
 
@@ -228,5 +320,6 @@
           </div>
       </div>
   </div>
+
   
 </html>

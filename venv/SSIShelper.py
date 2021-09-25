@@ -33,7 +33,6 @@ def addStudent(student):
     gender = student['gender'].strip()
     yearlevel = student['yearlevel']
     course = student['course']
-    print(gender)
     # ID validation
     if id:
         id_pattern = '^[0-9]{4}-[0-9]{4}$'
@@ -57,3 +56,31 @@ def addStudent(student):
             return False
 
 
+
+def getStudent(id=None):
+    return Student().get(id)
+
+
+def updateStudent(student=None):
+    id = student['id'].strip()
+    firstname = student['firstname'].strip()
+    middlename = student['middlename'].strip()
+    lastname = student['lastname'].strip()
+    gender = student['gender'].strip()
+    yearlevel = student['yearlevel']
+    course = student['course']
+    
+    if firstname and lastname:
+        Student(
+            id=id, 
+            firstName=firstname,
+            middleName=middlename, 
+            lastName=lastname,
+            yearLevel=yearlevel,
+            gender=gender, 
+            course=Course().courseCode(course), 
+            college=Course().collegeCode(course)
+        ).update()
+        return
+    else:
+        return False

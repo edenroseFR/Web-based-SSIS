@@ -25,8 +25,12 @@ class Student():
 
     def showAll(self):
         query = '''
-            SELECT id, firstname, middlename, lastname, gender, year, coursecode, collegecode
-            FROM students;
+            SELECT id, firstname, middlename, lastname, gender, year, coursecode, course.name, collegecode, college.name
+            FROM students
+            JOIN course
+            ON students.coursecode = course.code
+            JOIN college
+            ON students.collegecode = college.code
         '''
         cursor.execute(query)
         result = cursor.fetchall()
@@ -55,6 +59,17 @@ class Student():
         result = cursor.fetchall()
         IDs = [id[0] for id in result]
         return IDs
+    
+    @staticmethod
+    def get(id=None):
+        query = f'''
+            SELECT id, firstname, middlename, lastname, gender, year, coursecode, collegecode
+            FROM students
+            WHERE id = '{id}'
+        '''
+        cursor.execute(query)
+        student = list(cursor.fetchone())
+        return student
 
     def addNew(self):
         query = f'''
