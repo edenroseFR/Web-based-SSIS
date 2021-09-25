@@ -11,7 +11,9 @@ from SSIShelper import (
     addStudent,
     getStudent,
     updateStudent,
-    deleteStudent)
+    deleteStudent,
+    addCourse,
+    searchCourse)
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
@@ -29,6 +31,7 @@ def signup():
 
 
 @app.route('/homepage', methods=['GET', 'POST'])
+@app.route('/students', methods=['GET', 'POST'])
 def homepage():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -39,11 +42,11 @@ def homepage():
     if request.method == 'POST ':
         if userFound(username,password):
             
-            return render_template('homepage.html', data = [students,courses,colleges])
+            return render_template('students.html', data = [students,courses,colleges])
         else:
             return render_template('index.html')
     else:
-        return render_template('homepage.html', data = [students,courses,colleges])
+        return render_template('students.html', data = [students,courses,colleges])
 
 
 @app.route('/confirm_identity', methods=['GET', 'POST'])
@@ -53,16 +56,16 @@ def confirm_identity():
     password2 = request.form.get('passwordConfirmation')
 
     if verified(username, password, password2):
-        return render_template('homepage.html')
+        return render_template('students.html')
     return render_template('signup.html')
 
 
-@app.route('/studentSearch', methods=['GET', 'POST'])
+@app.route('/student-search', methods=['GET', 'POST'])
 def studentSearch():
     user_input = request.form.get('user-input')
     result = searchStudent(user_input)
     if len(result) != 0:
-        return render_template('homepage.html', data=[result])
+        return render_template('students.html', data=[result])
     else:
         return redirect(url_for('homepage'))
 
@@ -114,6 +117,41 @@ def delete_student(id):
     deleteStudent(id)
     flash(f'{data[0]} deleted from the database.', 'info')
     return redirect(url_for('homepage'))
+
+
+# Courses routes
+@app.route('/courses')
+def courses():
+    students = allStudent()
+    courses = allCourse()
+    colleges = allCollege()
+    return render_template('courses.html', data=[students,courses,colleges])
+
+
+@app.route('/add_course', methods=['GET', 'POST'])
+def add_course():
+    courses = allCourse()
+    colleges = allCollege()
+    if request.method == 'POST':
+        course = {
+            'code': request.form.get('course-code'),
+            'name': request.form.get('course-name'),
+            'college': request.form.get('course-college')
+        }
+        addCourse(course)
+        flash(f'{course["code"]} added succesfully!', 'info')
+        return redirect(url_for('courses'))
+    else:
+        return redirect(url_for('courses'))
+
+@app.route('/course-search', methods=['GET', 'POST'])
+def courseSearch():
+    user_input = request.form.get('user-input')
+    result = searchCourse(user_input)
+    if len(result) != 0:
+        return render_template('courses.html', data=['', result])
+    else:
+        return redirect(url_for('courses'))
 
 if __name__ == '__main__':
     app.run(debug=True)

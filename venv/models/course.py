@@ -23,7 +23,31 @@ class Course():
         return courses
 
 
-    def createNew(self):
+    def search(self, keyword=None):
+        keyword = keyword.upper()
+        courses = self.showAll()
+        result = []
+
+        for course in courses:
+            course_allcaps = [str(info).upper() for info in course]
+            if keyword in course_allcaps:
+                result.append(course)
+        return result
+
+
+    @staticmethod
+    def codeList():
+        query = '''
+            SELECT code
+            FROM course
+        '''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        CODES = [code[0] for code in result]
+        return CODES
+
+
+    def addNew(self):
         query = f'''
             INSERT INTO course (
                 code,
@@ -89,3 +113,5 @@ class Course():
         cursor.execute(query)
         coursecode = cursor.fetchone()
         return coursecode[0]
+
+

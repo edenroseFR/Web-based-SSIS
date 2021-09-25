@@ -27,9 +27,9 @@ def searchStudent(search=None):
 
 def addStudent(student):
     id = student['id'].strip()
-    firstname = student['firstname'].strip()
-    middlename = student['middlename'].strip()
-    lastname = student['lastname'].strip()
+    firstname = (student['firstname'].strip()).title()
+    middlename = (student['middlename'].strip()).title()
+    lastname = (student['lastname'].strip()).title()
     gender = student['gender'].strip()
     yearlevel = student['yearlevel']
     course = student['course']
@@ -90,3 +90,30 @@ def deleteStudent(id=None):
     Student().delete(id)
     print('here')
     return
+
+
+#Courses
+def addCourse(course=None):
+    code = (course['code'].strip()).upper()
+    name = (course['name'].strip()).title()
+    college = College().collegeCode(course['college'])
+    # code validation
+    if code and code not in Course().codeList():
+        # name validation
+        if name:
+            Course(
+                code,
+                name,
+                college
+            ).addNew()
+            return
+        else:
+            return False
+    return False
+
+
+def searchCourse(search=None):
+    return Course().search(keyword=search)
+
+
+print(searchCourse('coet'))

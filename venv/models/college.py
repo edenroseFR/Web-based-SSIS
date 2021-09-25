@@ -58,3 +58,16 @@ class College():
         cursor.execute(query)
         db.commit()
 
+    @staticmethod
+    def collegeCode(course_name=None):
+        query = f'''
+            SELECT code
+            FROM college
+            WHERE name = '{course_name}'
+        '''
+        cursor.execute(query)
+        code = cursor.fetchone()[0]
+        return code
+
+
+
