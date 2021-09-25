@@ -84,3 +84,9 @@ def updateStudent(student=None):
         return
     else:
         return False
+
+
+def deleteStudent(id=None):
+    Student().delete(id)
+    print('here')
+    return

@@ -119,8 +119,8 @@
                             <td>{{student[6]}}</td>
                             <td>
                                 <a href="{{url_for('update_student', id=student[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateStudent{{student[0]}}">Update</a>
-                                <!-- <button type="submit" class="btn btn-warning">Edit</button> -->
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <a href="{{url_for('delete_student', id=student[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{student.1}} ?')">Delete</a>
+                                
                             </td>
                         </tr>
 
@@ -320,6 +320,7 @@
           </div>
       </div>
   </div>
+
 
   
 </html>

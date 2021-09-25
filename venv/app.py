@@ -10,7 +10,8 @@ from SSIShelper import (
     searchStudent,
     addStudent,
     getStudent,
-    updateStudent)
+    updateStudent,
+    deleteStudent)
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
@@ -81,6 +82,7 @@ def add_student():
             'course': request.form.get('course')
         }
         addStudent(student)
+        flash(f'{student["firstname"]} added succesfully!', 'info')
         return redirect(url_for('homepage'))
     else:
         return redirect(url_for('homepage'))
@@ -100,10 +102,18 @@ def update_student(id):
             'course': request.form.get('course')
         }
         updateStudent(student)
-        flash('Student updated succesfully!', 'info')
+        flash(f"{student['firstname']}'s data has been changed succesfully!", 'info')
         return redirect(url_for('homepage'))
     else:
         return redirect(url_for('homepage'))
+
+
+@app.route('/delete_student/<string:id>')
+def delete_student(id):
+    data = getStudent(id)
+    deleteStudent(id)
+    flash(f'{data[0]} deleted from the database.', 'info')
+    return redirect(url_for('homepage'))
 
 if __name__ == '__main__':
     app.run(debug=True)
