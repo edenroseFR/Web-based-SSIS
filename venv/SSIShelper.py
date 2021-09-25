@@ -88,7 +88,6 @@ def updateStudent(student=None):
 
 def deleteStudent(id=None):
     Student().delete(id)
-    print('here')
     return
 
 
@@ -116,4 +115,7 @@ def searchCourse(search=None):
     return Course().search(keyword=search)
 
 
-print(searchCourse('coet'))
+def deleteCourse(id=None):
+    Course().delete(id)
+    return
+

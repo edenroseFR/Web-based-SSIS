@@ -13,7 +13,8 @@ from SSIShelper import (
     updateStudent,
     deleteStudent,
     addCourse,
-    searchCourse)
+    searchCourse,
+    deleteCourse)
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
@@ -152,6 +153,13 @@ def courseSearch():
         return render_template('courses.html', data=['', result])
     else:
         return redirect(url_for('courses'))
+
+
+@app.route('/delete_course/<string:id>')
+def delete_course(id):
+    deleteCourse(id)
+    flash(f'{id} deleted from the database.', 'info')
+    return redirect(url_for('courses'))
 
 if __name__ == '__main__':
     app.run(debug=True)

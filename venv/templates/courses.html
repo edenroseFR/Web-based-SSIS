@@ -60,7 +60,7 @@
             <td>{{course[2]}}</td>
             <td>
                 <a href="" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="">Update</a>
-                <a href="" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="{{url_for('delete_course', id=course[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{course.0}} ?')">Delete</a>
                 
             </td>
         </tr>
