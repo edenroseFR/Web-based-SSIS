@@ -135,3 +135,46 @@ def updateCourse(course=None):
         return
     else:
         return False
+
+
+def searchCollege(search=None):
+    return College().search(keyword=search)
+
+
+def deleteCollege(id=None):
+    College().delete(id)
+    return
+
+
+def addCollege(college=None):
+    code = (college['code'].strip()).upper()
+    name = (college['name'].strip()).title()
+    # code validation
+    if code and code not in College().codeList():
+        # name validation
+        if name:
+            College(
+                code,
+                name
+            ).addNew()
+            return
+        else:
+            return False
+    return False
+
+def updateCollege(college=None):
+    code = college['code']
+    name = college['name'].strip()
+    
+    if name:
+        College(
+            code,
+            name
+        ).update()
+        return
+    else:
+        return False
+
+def collegeStatistics():
+    return College().statistics()
+

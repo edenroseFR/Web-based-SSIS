@@ -15,7 +15,12 @@ from SSIShelper import (
     addCourse,
     searchCourse,
     deleteCourse,
-    updateCourse)
+    updateCourse,
+    searchCollege,
+    deleteCollege,
+    updateCollege,
+    addCollege,
+    collegeStatistics)
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
@@ -158,9 +163,13 @@ def courseSearch():
 
 @app.route('/delete_course/<string:id>')
 def delete_course(id):
-    deleteCourse(id)
-    flash(f'{id} deleted from the database.', 'info')
-    return redirect(url_for('courses'))
+    try:
+        deleteCourse(id)
+        flash(f'{id} deleted from the database.', 'info')
+        return redirect(url_for('courses'))
+    except:
+        flash(f'{id} cannot be deleted. Students are enrolled in this program', 'info')
+        return redirect(url_for('courses'))
 
 
 @app.route('/update_course/<string:id>', methods=['GET', 'POST'])
@@ -176,6 +185,69 @@ def update_course(id):
         return redirect(url_for('courses'))
     else:
         return redirect(url_for('courses'))
+
+
+# Colleges routes
+@app.route('/colleges', methods=['GET', 'POST'])
+def colleges():
+    students = allStudent()
+    courses = allCourse()
+    colleges = collegeStatistics()
+    return render_template('colleges.html', data=[students,courses,colleges])
+
+
+@app.route('/add_college', methods=['GET', 'POST'])
+def add_college():
+    courses = allCourse()
+    colleges = allCollege()
+    if request.method == 'POST':
+        college = {
+            'code': request.form.get('college-code'),
+            'name': request.form.get('college-name')
+        }
+        addCollege(college)
+        flash(f'{college["code"]} added succesfully!', 'info')
+        return redirect(url_for('colleges'))
+    else:
+        return redirect(url_for('colleges'))
+
+
+@app.route('/college-search', methods=['GET', 'POST'])
+def collegeSearch():
+    user_input = request.form.get('user-input')
+    result = searchCollege(user_input)
+    if len(result) != 0:
+        return render_template('colleges.html', data=['', '', result])
+    else:
+        return redirect(url_for('colleges'))
+
+
+@app.route('/delete_college/<string:id>')
+def delete_college(id):
+    try:
+        deleteCollege(id)
+        flash(f'{id} deleted from the database.', 'info')
+        return redirect(url_for('colleges'))
+    except:
+        flash(f'{id} cannot be deleted. Students or courses are registered under the selected college.', 'info')
+        return redirect(url_for('colleges'))
+
+
+@app.route('/update_college/<string:id>', methods=['GET', 'POST'])
+def update_college(id):
+    if request.method == 'POST':
+        college = {
+            'code': id,
+            'name': request.form.get('college-name')
+        }
+        updateCollege(college)
+        flash(f"{id} has been updated succesfully!", 'info')
+        return redirect(url_for('colleges'))
+    else:
+        return redirect(url_for('colleges'))
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

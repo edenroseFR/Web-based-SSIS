@@ -14,7 +14,7 @@
             <a onclick="window.location.reload()" class="nav-link active">Courses</a>
         </li>
         <li class="nav-item" id="btn-student">
-            <a href="" class="nav-link">Colleges</a>
+            <a href="{{url_for('colleges')}}" class="nav-link">Colleges</a>
         </li>
     </ul>
 </div>
@@ -33,7 +33,7 @@
         <div id="caption">
             <div class="d-flex caption-upper">
                 <h4 class="p-2" id="table-title">Courses Information</h4>
-                <button class="btn btn-primary" id="addStudent" data-bs-toggle="modal" data-bs-target="#addCourseForm">Add New</button>
+                <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCourseForm">Add New</button>
             </div>
             <div>
                 <form class="pt-3 pb-3 d-flex caption-lower" method="post" action="{{ url_for("courseSearch") }}">

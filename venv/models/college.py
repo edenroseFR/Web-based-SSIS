@@ -20,8 +20,46 @@ class College():
         colleges = [list(college) for college in result]
         return colleges
 
+    
+    def statistics(self):
+        colleges = self.showAll()
+        query = '''
+            SELECT college.code, college.name, COUNT(*) AS courses, enrolled.student as enrolled
+            FROM college
+            JOIN course
+            ON college.code = course.college
+            LEFT JOIN (SELECT collegecode, COUNT(*) as student
+                        FROM students
+                        GROUP BY collegecode) enrolled
+            ON college.code = enrolled.collegecode
+            GROUP BY college.code
+        '''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        stat = [list(college) for college in result]
 
-    def createNew(self):
+        for college in colleges:
+            if college[0] not in [code[0] for code in stat]:
+                stat.append([college[0], college[1], None, None])
+        
+        return stat
+
+
+
+    def search(self, keyword=None):
+        keyword = keyword.upper()
+        colleges = self.statistics()
+        result = []
+
+        for college in colleges:
+            college_allcaps = [str(info).upper() for info in college]
+            if keyword in college_allcaps:
+                result.append(college)
+        return result
+
+
+
+    def addNew(self):
         query = f'''
             INSERT INTO college (
                 code,
@@ -68,6 +106,18 @@ class College():
         cursor.execute(query)
         code = cursor.fetchone()[0]
         return code
+
+
+    @staticmethod
+    def codeList():
+        query = '''
+            SELECT code
+            FROM college
+        '''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        CODES = [code[0] for code in result]
+        return CODES
 
 
 

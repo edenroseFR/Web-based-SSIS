@@ -192,6 +192,39 @@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
 </div>
 </div>
 
+  <!-- add_college Modal  -->
+  <div class="modal fade" id="addCollegeForm" data-bs-backdrop="static"
+  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+      <div class="modal-header">
+          <div class="d-flex">
+              <img src="../static/images/SSISlogo.png" alt="SSIS logo">
+              <h5 class="modal-title" id="courseformtitle">Add New College</h5>
+          </div>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+  
+      <div class="modal-body">
+          <form action="{{ url_for("add_college") }}" class="needs-validation" method="post">
+              <div class="mb-3">
+                  <label for="college-code" class="form-label">College Code</label>
+                  <input type="courseinfo" class="form-control" id="college-code" name="college-code" required>
+              </div>
+              <div class="mb-3">
+                  <label for="college-name" class="form-label">College Name</label>
+                  <input type="courseinfo" class="form-control" id="college-name" name="college-name" required>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                  <button class="btn btn-primary" type="submit" id="addCourseclicked">Add College</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  </div>
+  </div>
 
   
 </html>
