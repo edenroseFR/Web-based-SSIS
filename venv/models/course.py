@@ -14,8 +14,10 @@ class Course():
 
     def showAll(self):
         query = '''
-            SELECT code, name, college
-            FROM course;
+            SELECT course.code, course.name, course.college, college.name
+            FROM course
+            JOIN college
+            ON course.college = college.code
         '''
         cursor.execute(query)
         result = cursor.fetchall()

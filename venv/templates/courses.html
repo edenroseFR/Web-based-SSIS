@@ -59,13 +59,56 @@
             <td>{{course[1]}}</td>
             <td>{{course[2]}}</td>
             <td>
-                <a href="" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="">Update</a>
+                <a href="{{url_for('update_course', id=course[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCourseForm{{course.0}}">Update</a>
                 <a href="{{url_for('delete_course', id=course[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{course.0}} ?')">Delete</a>
                 
             </td>
         </tr>
 
+          <!-- edit_course Modal  -->
+        <div class="modal fade" id="editCourseForm{{course.0}}" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <div class="d-flex">
+                    <img src="../static/images/SSISlogo.png" alt="SSIS logo">
+                    <h5 class="modal-title" id="courseformtitle">Edit Course</h5>
+                </div>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for('update_course', id=course.0) }}" class="needs-validation" method="post">
+                    <div class="mb-3">
+                        <label for="course-code" class="form-label">Course Code</label>
+                        <input type="courseinfo" class="form-control" id="course-code" value="{{course.0}}" name="course-code" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="course-name" class="form-label">Course Name</label>
+                        <input type="courseinfo" class="form-control" id="course-name" value="{{course.1}}" name="course-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="course-college" class="form-label">College</label>
+                        <select name="course-college" id="course-college" class="form-select">
+                            <option value="{{course.3}}">{{course.3}}</option>
+                            {% for college in data[2] %}
+                            {% if college.1 != course[3] %}
+                                <option value="{{college.1}}" name="college">{{college.1}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="submit" id="addCourseclicked">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        </div>
     {% endfor %}
     </tbody>
 </table>

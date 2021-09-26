@@ -14,7 +14,8 @@ from SSIShelper import (
     deleteStudent,
     addCourse,
     searchCourse,
-    deleteCourse)
+    deleteCourse,
+    updateCourse)
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
@@ -160,6 +161,21 @@ def delete_course(id):
     deleteCourse(id)
     flash(f'{id} deleted from the database.', 'info')
     return redirect(url_for('courses'))
+
+
+@app.route('/update_course/<string:id>', methods=['GET', 'POST'])
+def update_course(id):
+    if request.method == 'POST':
+        course = {
+            'code': id,
+            'name': request.form.get('course-name'),
+            'college': request.form.get('course-college')
+        }
+        updateCourse(course)
+        flash(f"{id} has been updated succesfully!", 'info')
+        return redirect(url_for('courses'))
+    else:
+        return redirect(url_for('courses'))
 
 if __name__ == '__main__':
     app.run(debug=True)

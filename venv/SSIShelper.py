@@ -119,3 +119,19 @@ def deleteCourse(id=None):
     Course().delete(id)
     return
 
+
+def updateCourse(course=None):
+    code = course['code']
+    name = course['name'].strip()
+    college = course['college']
+    print(code,name,College().collegeCode(college))
+    
+    if code and name:
+        Course(
+            code,
+            name,
+            College().collegeCode(college)
+        ).update()
+        return
+    else:
+        return False
