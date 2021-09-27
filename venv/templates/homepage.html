@@ -32,7 +32,11 @@
                                  alt="SSIS logo">
                         </a>
 
-                        <a href="{{url_for('login')}}"><img src="../static/images/logout.png" alt="" class="logout-btn"></a>
+                        <a href="{{url_for('login')}}">
+                            <div class="logout row align-items-center text-center">
+                                <p class="logout-text">Logout</p>
+                            </div>
+                        </a>
                         <button
                         class="navbar-toggler"
                         type="button"
@@ -54,7 +58,7 @@
         <br>
 
         <main>
-            <div class="container table-responsive-xl d-flex p-5 overflow-auto" id="main-content">
+            <div class="container table-responsive-xl d-flex overflow-auto" id="main-content">
                 {% block table %}
                 {% endblock %}
             </div>

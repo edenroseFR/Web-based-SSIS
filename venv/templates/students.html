@@ -37,14 +37,18 @@
         {% endif %}
         {% endwith %}
         <div id="caption">
-            <div class="d-flex caption-upper">
+            <div class="d-flex align-items-center caption-upper">
                 <h4 class="p-2" id="table-title">Student Information</h4>
                 <button id="addNew" data-bs-toggle="modal" data-bs-target="#addStudentForm"><img src="../static/images/addICON.png" alt="" id="addICON"></button>
             </div>
             <div>
-                <form class="pt-3 pb-3 d-flex caption-lower" method="post" action="{{ url_for("studentSearch") }}">
+                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for("studentSearch") }}">
                     <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using ID, Name, Gender, Level, and Course">
-                    <button class="btn btn-primary p-2 searchbutton">Search</button>
+                    <button class="p-2 btn-search">
+                        <div class="search">
+                            <div class="icon"></div>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
@@ -65,7 +69,7 @@
     <tbody>
     {% for student in data[0] %}
         <tr>
-            <th>{{student[0]}}</th>
+            <td><b>{{student.0}}</b></td>
             <td>{{student[1]}}</td>
             <td>{{student[2]}}</td>
             <td>{{student[3]}}</td>

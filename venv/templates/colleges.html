@@ -31,14 +31,18 @@
         {% endif %}
         {% endwith %}
         <div id="caption">
-            <div class="d-flex caption-upper">
+            <div class="d-flex align-items-center caption-upper">
                 <h4 class="p-2" id="table-title">Colleges Information</h4>
                 <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCollegeForm"><img src="../static/images/addcollegeICON.png" alt="" id="addcollegeICON"></button>
             </div>
             <div>
-                <form class="pt-3 pb-3 d-flex caption-lower" method="post" action="{{url_for('collegeSearch')}}">
+                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{url_for('collegeSearch')}}">
                     <input id="searchfield" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using College Code, and College Name">
-                    <button class="btn btn-primary p-2 searchbutton">search</button>
+                    <button class="btn-search">
+                        <div class="search">
+                            <div class="icon"></div>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
@@ -56,7 +60,7 @@
     <tbody>
     {% for college in data[2] %}
         <tr>
-            <th>{{college.0}}</th>
+            <th><b>{{college.0}}</b></th>
             <td>{{college.1}}</td>
             <td>{{college.2}}</td>
             <td>{{college.3}}</td>

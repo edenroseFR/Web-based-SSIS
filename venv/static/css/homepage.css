@@ -19,6 +19,11 @@ body{
     height: 600px;
     padding: auto;
 }
+.nav-item:hover{
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
+    border-radius: 30px;
+}
 
 #activeLink{
     color: #F93939;
@@ -35,12 +40,16 @@ body{
 .table{
     background: #fff;
 }
-
-#caption{
-    padding-top: 10px;
-    position: -webkit-sticky;
+th{
+    position: sticky;
+    top: 25%;
 }
-
+caption{
+    background-color: white;
+    position: sticky;
+    padding-top: 0%;
+    top: 0;
+}
 .caption-upper, .caption-lower{
     justify-content: center;
 }
@@ -61,15 +70,76 @@ body{
     height: 50px;
     width: 54px;
 }
+.logout{
+    position: relative;
+    width: 80px;
+    height: 25px;
+    background-color: #898989;
+    border-radius: 45px;
+    transition: 0.5s;
+}
+.logout-text{
+    text-decoration: none;
+    color: white;
+    font-weight: 500px;
+}
+
 .searchfield{
     width: 600px;
     max-width: 100%;
+    height: 10%;
     border: 2px solid #F93939;
     border-radius: 30px;
 }
-.searchbutton{
-    border-radius: 10px;
-    margin-left: 10px;
+
+.btn-search{
+    border: transparent;
+    background-color: transparent;
+}
+.search{
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background-color: #88ABFC;
+    border-radius: 45px;
+    transition: 0.5s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
+}
+.search:active{
+    box-shadow: 12px 12px 4px white ;
+}
+
+.search .icon{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    background-color: #88ABFC;
+    border-radius: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.search .icon:before{
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid white;
+    border-radius: 50%;
+    transform: translate(-4px, -4px) rotate(315deg);
+}
+
+.search .icon:after{
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background-color: white;
+    transform: translate(7px, 7px) rotate(315deg);
 }
 
 footer{
