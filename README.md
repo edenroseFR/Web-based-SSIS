@@ -7,7 +7,7 @@
 - Delete data
 - Search data
 
-##TO RUN
+## TO RUN
 ```bash
 python app.py
 ```
