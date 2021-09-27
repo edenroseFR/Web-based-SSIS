@@ -1,7 +1,7 @@
 {% extends "homepage.html" %}
 
 {% block title %}
-<title>[SSIS] - Courses</title>
+<title>[SSIS] Courses</title>
 {% endblock %}
 
 {% block navigation %}
@@ -10,8 +10,8 @@
         <li class="nav-item" id="btn-student">
             <a href="{{url_for('homepage')}}" class="nav-link">Students</a>
         </li>
-        <li class="nav-item" id="btn-courses">
-            <a onclick="window.location.reload()" class="nav-link active">Courses</a>
+        <li class="nav-item active" id="btn-courses">
+            <a onclick="window.location.reload()" class="nav-link active" id="activeLink">Courses</a>
         </li>
         <li class="nav-item" id="btn-student">
             <a href="{{url_for('colleges')}}" class="nav-link">Colleges</a>
@@ -33,12 +33,12 @@
         <div id="caption">
             <div class="d-flex caption-upper">
                 <h4 class="p-2" id="table-title">Courses Information</h4>
-                <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCourseForm">Add New</button>
+                <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCourseForm"><img src="../static/images/addcourseICON.png" alt="" id="addICON"></button>
             </div>
             <div>
                 <form class="pt-3 pb-3 d-flex caption-lower" method="post" action="{{ url_for("courseSearch") }}">
                     <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using Course Code, Course Name, and College Code">
-                    <button class="btn btn-primary p-2">Search</button>
+                    <button class="btn btn-primary p-2 searchbutton">Search</button>
                 </form>
             </div>
         </div>

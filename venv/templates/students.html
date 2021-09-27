@@ -1,14 +1,14 @@
 {% extends "homepage.html" %}
 
 {% block title %}
-<title>SSIS Home</title> 
+<title>[SSIS] Students</title> 
 {% endblock %}
 
 {%block navigation%}
 <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item active" id="btn-student">
-            <a onclick="window.location.reload()" class="nav-link active">
+            <a onclick="window.location.reload()" class="nav-link active" id="activeLink">
                 Students
             </a>
         </li>
@@ -39,12 +39,12 @@
         <div id="caption">
             <div class="d-flex caption-upper">
                 <h4 class="p-2" id="table-title">Student Information</h4>
-                <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addStudentForm">Add New</button>
+                <button id="addNew" data-bs-toggle="modal" data-bs-target="#addStudentForm"><img src="../static/images/addICON.png" alt="" id="addICON"></button>
             </div>
             <div>
                 <form class="pt-3 pb-3 d-flex caption-lower" method="post" action="{{ url_for("studentSearch") }}">
                     <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using ID, Name, Gender, Level, and Course">
-                    <button class="btn btn-primary p-2">Search</button>
+                    <button class="btn btn-primary p-2 searchbutton">Search</button>
                 </form>
             </div>
         </div>

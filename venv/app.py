@@ -63,7 +63,7 @@ def confirm_identity():
     password2 = request.form.get('passwordConfirmation')
 
     if verified(username, password, password2):
-        return render_template('students.html')
+        return redirect(url_for('homepage'))
     return render_template('signup.html')
 
 
