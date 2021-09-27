@@ -36,10 +36,10 @@ class Admin():
     
     def registeredUser(self):
         query = f'''
-        SELECT username, password 
-        FROM admin
-        WHERE username = '{self.username}' and password = '{self.password}';
-    '''
+            SELECT username, password 
+            FROM admin
+            WHERE username = '{self.username}' and password = '{self.password}';
+        '''
         cursor.execute(query)
         admin = cursor.fetchone()
         if admin:
