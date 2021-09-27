@@ -71,3 +71,13 @@ body{
     border-radius: 10px;
     margin-left: 10px;
 }
+
+footer{
+    background-color: #211C1C;
+    color: white;
+}
+
+#footer1 {
+    font-size: 12px;
+    margin: 10px;
+}
