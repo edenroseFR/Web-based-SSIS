@@ -51,7 +51,7 @@ def homepage():
             
             return render_template('students.html', data = [students,courses,colleges])
         else:
-            return render_template('index.html')
+            return redirect(url_for('login'))
     else:
         return render_template('students.html', data = [students,courses,colleges])
 

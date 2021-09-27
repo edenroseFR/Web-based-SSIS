@@ -1,16 +1,16 @@
-from mysql_connection import registeredUser, existingUsernames, registerAdmin, getStudents
 from models.student import Student
 from models.course import Course
 from models.college import College
+from models.admin import Admin
 import re
 
 def userFound(username, password):
-    if registeredUser(username,password):
+    if Admin(username,password).registeredUser():
         return True
 
 def verified(username=None, password=None, password2=None):
-    if username not in existingUsernames() and password == password2:
-        registerAdmin(username,password)
+    if username not in Admin().existingUsernames() and password == password2:
+        Admin(username,password).register()
         return True
 
 def allStudent():
@@ -177,4 +177,3 @@ def updateCollege(college=None):
 
 def collegeStatistics():
     return College().statistics()
-
