@@ -13,9 +13,7 @@
 
     <!--ICON-->
     <link rel="shortcut icon" href="../static/images/SSISlogo.png" type="image/x-icon">
-
-    <!-- JAVASCRIPT -->
-    <script type="text/JavaScript" src="../static/js/base.js?v=10.0.0"></script>
+    
     {% block title %} {% endblock %}
 
   </head>
@@ -105,6 +103,21 @@
 
               <div class="modal-body">
                   <form class="needs-validation" action="{{ url_for("add_student") }}" method="post">
+
+                      <div class="image-container flex-column">
+                          <div class="image-wrapper ">
+                              <div class="image">
+                                  <img id="selected-image" src="../static/images/student-profile-template.png" alt="">
+                              </div>
+                              <div id="file-name" hidden></div>
+                          </div>
+                          <div>
+                            <input type="file" accept="image/png, image/jpeg" id="default-btn" value="" name="selected-image" hidden>
+                            <button onclick="defaultBtnActive()" id="custom-btn">CHOOSE PHOTO</button>
+                          </div>
+                        
+                      </div>
+
                       <div class="mb-3">
                           <label for="student-id" class="form-label">Student ID</label>
                           <input type="studentinfo" class="form-control" id="student-id" name="student-id" placeholder="YYYY-NNNN" required>
@@ -168,7 +181,7 @@
   <!-- add_course Modal  -->
 <div class="modal fade" id="addCourseForm" data-bs-backdrop="static"
 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-<div class="modal-dialog">
+<div class="modal-dialog ">
 <div class="modal-content">
 
     <div class="modal-header">
@@ -179,7 +192,7 @@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
 
-    <div class="modal-body">
+    <div class="modal-body ">
         <form action="{{ url_for("add_course") }}" class="needs-validation" method="post">
             <div class="mb-3">
                 <label for="course-code" class="form-label">Course Code</label>
@@ -241,5 +254,32 @@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
   </div>
   </div>
 
+    <script>
+        const defaultBtn = document.querySelector("#default-btn");
+        const customBtn = document.querySelector("#custom-btn");
+        const img = document.querySelector("#selected-image");
+        const fileName = document.querySelector("#file-name");
+
+        function defaultBtnActive(){
+            defaultBtn.click();
+        }
+        defaultBtn.addEventListener("change", function(){
+            const file = this.files[0];
+            if(file){
+                const reader = new FileReader();
+                reader.onload = function(){
+                const result = reader.result;
+                img.src = result;
+                defaultBtn.value = result;
+                }
+                reader.readAsDataURL(file);
+            }
+            if (this.value){
+                let filename = this.file;
+                fileName.value = filename;
+                
+            }
+        });
+    </script>
   
 </html>
