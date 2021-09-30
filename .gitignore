@@ -7,3 +7,4 @@ venv/Lib/
 venv/Scripts/
 
 *.cfg
+*.python

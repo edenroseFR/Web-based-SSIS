@@ -23,13 +23,6 @@
 {% block table %}
 <table class="table table-hover caption-top table-responsive-xl">
     <caption>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
         <div id="caption">
             <div class="d-flex align-items-center caption-upper">
                 <h4 class="p-2" id="table-title">Courses Information</h4>
@@ -46,6 +39,7 @@
                 </form>
             </div>
         </div>
+        {% include "alert_message.html"%}
     </caption>
     
     <thead class="table-light">

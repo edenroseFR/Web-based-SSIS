@@ -53,6 +53,9 @@ caption{
 .caption-upper, .caption-lower{
     justify-content: center;
 }
+#table-photo{
+    border-radius: 50px;
+}
 
 #addNew{
     border: 0px;
