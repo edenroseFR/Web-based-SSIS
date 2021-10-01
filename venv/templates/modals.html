@@ -14,7 +14,7 @@
               </div>
 
               <div class="modal-body">
-                  <form class="needs-validation" action="{{ url_for("add_student") }}" method="post">
+                  <form class="needs-validation" action="{{ url_for('add_student') }}" method="post" enctype="multipart/form-data">
 
                       <div class="image-container flex-column">
                           <div class="image-wrapper ">
@@ -24,10 +24,9 @@
                               <div id="file-name" hidden></div>
                           </div>
                           <div>
-                            <input type="file" accept="image/png, image/jpeg" id="default-btn" value="" name="selected-image" hidden>
+                            <input type="file" class="form-control" accept="image/png, image/jpeg" id="default-btn" value="" name="selected-image" required hidden>
                             <button onclick="defaultBtnActive()" id="custom-btn">CHOOSE PHOTO</button>
                           </div>
-                        
                       </div>
 
                       <div class="mb-3">
@@ -165,3 +164,5 @@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
   </div>
   </div>
   </div>
+
+  

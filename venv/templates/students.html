@@ -51,6 +51,7 @@
     <thead class="table-light">
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">Photo</th>
             <th scope="col">First</th>
             <th scope="col">Middle</th>
             <th scope="col">Last</th>
@@ -64,6 +65,18 @@
     {% for student in data[0] %}
         <tr>
             <td><b>{{student.0}}</b></td>
+            {% if student.7 %}
+                <td>
+                    <img style="height: 50px; border-radius: 50px;" 
+                    src="../static/entity_photos/students/{{student.7}}">
+                </td>
+            {% endif %}
+            {% if not student.7 %}
+                <td>
+                    <img style="height: 50px; border-radius: 50px;" 
+                    src="../static/entity_photos/students/student-profile-template.png">
+                </td>
+            {% endif %}
             <td>{{student[1]}}</td>
             <td>{{student[2]}}</td>
             <td>{{student[3]}}</td>
@@ -93,7 +106,30 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate action="{{ url_for('update_student', id=student.0) }}" method="post">
+                    <form class="needs-validation" action="{{ url_for('update_student', id=student.0) }}" method="post" enctype="multipart/form-data">
+                    
+                        <div class="image-container flex-column">
+                            <div class="image-wrapper ">
+                                <div class="image">
+                                    {% if student.7 %}
+                                    <img id="selected-image" name="photo" src="../static/entity_photos/students/{{student.7}}" alt="">
+                                    {% endif %}
+                                    {% if not student.7 %}
+                                    <img id="selected-image" src="../static/entity_photos/students/student-profile-template.png" alt="">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div>
+                              <input type="file" id="default-btn" class="form-control-file" accept="image/png, image/jpeg" name="selected-image" value="" hidden>
+                              <button onclick="defaultBtnActive();" id="custom-btn">CHOOSE PHOTO</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="waiter" class="form-label">waiter</label>
+                            <input type="studentinfo" class="form-control" id="waiter" value="" name="waiter" required>
+                        </div>
+
                         <div class="mb-3">
                             <label for="student-id" class="form-label">Student ID</label>
                             <input type="studentinfo" class="form-control" id="student-id" value="{{student.0}}" name="student-id" disabled>
@@ -138,9 +174,9 @@
                         <div class="mb-3">
                             <label for="course" class="form-label">Course</label>
                             <select id="course" name="course" class="form-select">
-                                <option value="{{student.7}}" name="course">{{student.7}}</option>
+                                <option value="{{student.8}}" name="course">{{student.8}}</option>
                                 {% for course in data[1] %}
-                                    {% if course[1] != student[7] %}
+                                    {% if course[1] != student[8] %}
                                         <option value="{{course[1]}}" name="course">{{course[1]}}</option>
                                     {% endif %}
                                 {% endfor %}
@@ -158,9 +194,37 @@
             </div>
         </div>
     </div>
+    <script>
+        var defaultBtn = document.getElementById("default-btn");
+
+        function editBtnActive(){
+            defaultBtn.click();
+        }
+        defaultBtn.addEventListener("change", function(){
+            var customBtn = document.getElementById("custom-btn");
+            var img = document.getElementById('selected-image');
+            var fileName = document.getElementById("file-name");
+            var waiter = document.getElementById("waiter");
+            var file = this.files[0];
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    img.src = reader.result;
+                    waiter.value = img.src;
+                    defaultBtn.value = reader.result;
+                }
+                reader.readAsDataURL(file);
+            }
+            if (this.value){
+                let filename = this.file;
+                fileName.value = filename;
+            }
+        });
+    </script>
 
     {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}
 

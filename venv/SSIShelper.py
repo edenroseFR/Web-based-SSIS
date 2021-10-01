@@ -3,6 +3,8 @@ from models.course import Course
 from models.college import College
 from models.admin import Admin
 import re
+import os
+from werkzeug.utils import secure_filename
 
 def userFound(username, password):
     if Admin(username,password).registeredUser():
@@ -33,6 +35,7 @@ def addStudent(student):
     gender = student['gender'].strip()
     yearlevel = student['yearlevel']
     course = student['course']
+    photo = student['photo']
     # ID validation
     if id:
         id_pattern = '^[0-9]{4}-[0-9]{4}$'
@@ -47,7 +50,8 @@ def addStudent(student):
                     yearLevel=yearlevel,
                     gender=gender,  
                     course=Course().courseCode(course), 
-                    college=Course().collegeCode(course)
+                    college=Course().collegeCode(course),
+                    photo = photo
                 ).addNew()
                 return
             else:
@@ -177,3 +181,10 @@ def updateCollege(college=None):
 
 def collegeStatistics():
     return College().statistics()
+
+
+def save_image(file=None, config=None):
+    image = file
+    filename = secure_filename(file.filename)
+    image.save(os.path.join(config, filename))
+    return filename

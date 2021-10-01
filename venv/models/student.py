@@ -11,7 +11,8 @@ class Student():
         yearLevel=None,
         gender=None,
         course=None,
-        college=None):
+        college=None,
+        photo=None):
         
         self.id = id
         self.firstName = firstName
@@ -21,11 +22,12 @@ class Student():
         self.course = course
         self.college = college
         self.gender = gender
+        self.photo = photo
 
 
     def showAll(self):
         query = '''
-            SELECT id, firstname, middlename, lastname, gender, year, coursecode, course.name, collegecode, college.name
+            SELECT id, firstname, middlename, lastname, gender, year, coursecode, photo, course.name, collegecode, college.name
             FROM students
             JOIN course
             ON students.coursecode = course.code
@@ -81,7 +83,8 @@ class Student():
                 year, 
                 gender, 
                 coursecode, 
-                collegecode
+                collegecode,
+                photo
             )
             VALUES (
                 '{self.id}',
@@ -91,7 +94,8 @@ class Student():
                 {self.yearLevel},
                 '{self.gender}',
                 '{self.course}',
-                '{self.college}'
+                '{self.college}',
+                '{self.photo}'
             )
         '''
         cursor.execute(query)
@@ -118,7 +122,8 @@ class Student():
                 year = {self.yearLevel},
                 gender = '{self.gender}',
                 coursecode = '{self.course}',
-                collegecode = '{self.college}'
+                collegecode = '{self.college}',
+                photo = '{self.photo}'
             WHERE
                 id = '{self.id}'
         '''

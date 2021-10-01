@@ -1,3 +1,4 @@
+from werkzeug.utils import secure_filename
 from models.college import College
 from flask import Flask, request, render_template, redirect, flash
 from flask.helpers import url_for
@@ -20,7 +21,8 @@ from SSIShelper import (
     deleteCollege,
     updateCollege,
     addCollege,
-    collegeStatistics)
+    collegeStatistics,
+    save_image)
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
@@ -76,12 +78,22 @@ def studentSearch():
     else:
         return redirect(url_for('homepage'))
 
+
+
+app.config['UPLOAD_PATH'] = 'static/entity_photos/students/'
 @app.route('/add_student', methods=['GET', 'POST'])
 def add_student():
     students = allStudent()
     courses = allCourse()
     colleges = allCollege()
+
     if request.method == 'POST':
+        image = request.files['selected-image']
+        try:
+            filename = save_image(image, app.config['UPLOAD_PATH'])
+        except:
+            print("Cant save image")
+        
         student = {
             'id': request.form.get('student-id'),
             'firstname': request.form.get('firstname'),
@@ -89,7 +101,8 @@ def add_student():
             'lastname': request.form.get('lastname'),
             'gender': request.form.get('gender'),
             'yearlevel': request.form.get('yearlevel'),
-            'course': request.form.get('course')
+            'course': request.form.get('course'),
+            'photo': filename
         }
         addStudent(student)
         flash(f'{student["firstname"]} added succesfully!', 'info')
@@ -102,6 +115,8 @@ def add_student():
 def update_student(id):
     data = getStudent(id)
     if request.method == 'POST':
+        image = request.files['selected-image']
+
         student = {
             'id': id,
             'firstname': request.form.get('firstname'),

@@ -1,4 +1,4 @@
-{% include "addModal.html" %}
+{% include "modals.html" %}
 
 <!doctype html>
 <html lang="en">
@@ -74,35 +74,10 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+    {% block script %}
+    {% endblock %}
   </body>
 
 
-    <script>
-        const defaultBtn = document.querySelector("#default-btn");
-        const customBtn = document.querySelector("#custom-btn");
-        const img = document.querySelector("#selected-image");
-        const fileName = document.querySelector("#file-name");
-
-        function defaultBtnActive(){
-            defaultBtn.click();
-        }
-        defaultBtn.addEventListener("change", function(){
-            const file = this.files[0];
-            if(file){
-                const reader = new FileReader();
-                reader.onload = function(){
-                const result = reader.result;
-                img.src = result;
-                defaultBtn.value = result;
-                }
-                reader.readAsDataURL(file);
-            }
-            if (this.value){
-                let filename = this.file;
-                fileName.value = filename;
-                
-            }
-        });
-    </script>
   
 </html>
