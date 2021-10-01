@@ -45,6 +45,19 @@ class College():
         return stat
 
 
+    @staticmethod
+    def departments():
+        query = '''
+            SELECT college.code, course.name
+            FROM college
+            JOIN course
+            ON college.code = course.college
+        '''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        departments = [list(department) for department in result]
+        return departments
+
 
     def search(self, keyword=None):
         keyword = keyword.upper()
@@ -56,7 +69,6 @@ class College():
             if keyword in college_allcaps:
                 result.append(college)
         return result
-
 
 
     def addNew(self):
@@ -95,6 +107,7 @@ class College():
         '''
         cursor.execute(query)
         db.commit()
+
 
     @staticmethod
     def collegeCode(course_name=None):

@@ -45,16 +45,28 @@
     <thead class="table-light">
         <tr>
             <th scope="col">Code</th>
+            <th scope="col">Logo</th>
             <th scope="col">Name</th>
-            <th scope="col">course Count</th>
+            <th scope="col">Course Count</th>
             <th scope="col">Student Count</th>
             <th scope="col">ACTION</th>
         </tr>
     </thead>
     <tbody>
     {% for college in data[2] %}
-        <tr>
+        <tr data-bs-toggle="modal" data-bs-target="#CollegeDepartments{{college.0}}">
             <th><b>{{college.0}}</b></th>
+            <td>
+                <div style="
+                width: 50px; 
+                height: 50px; 
+                border-radius: 50px; 
+                display: flex;">
+                    <img style="flex: 1; justify-content: center; object-fit: cover; background-position: center;" 
+                    src="../static/entity_photos/colleges/{{(college[1].lower()).replace('%20', ' ')}}.jpg">
+                </div>
+                
+            </td>
             <td>{{college.1}}</td>
             <td>{{college.2}}</td>
             <td>{{college.3}}</td>
@@ -92,6 +104,32 @@
                       </div>
                   </form>
               </div>
+          </div>
+          </div>
+          </div>
+
+          <!-- view_courses Modal  -->
+          <div class="modal fade" id="CollegeDepartments{{college.0}}" data-bs-backdrop="static"
+          data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+          <div class="modal-dialog">
+          <div class="modal-content">
+  
+              <div class="modal-header">
+                  <div class=" d-flex college-logo">
+                      <div class="logo">
+                          <img src="../static/entity_photos/colleges/{{(college[1].lower()).replace('%20', ' ')}}.jpg">
+                      </div>
+                  </div>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  {% for department in data[3] %}
+                    {% if department.0 == college.0 %}
+                        <p>{{department.1}}</p>
+                    {% endif %}
+                  {% endfor %}
+              </div>
+  
           </div>
           </div>
           </div>

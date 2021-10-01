@@ -2,30 +2,37 @@ from models.student import Student
 from models.course import Course
 from models.college import College
 from models.admin import Admin
+from werkzeug.utils import secure_filename
 import re
 import os
-from werkzeug.utils import secure_filename
+
 
 def userFound(username, password):
     if Admin(username,password).registeredUser():
         return True
+
 
 def verified(username=None, password=None, password2=None):
     if username not in Admin().existingUsernames() and password == password2:
         Admin(username,password).register()
         return True
 
+
 def allStudent():
     return Student().showAll()
+
 
 def allCourse():
     return Course().showAll()
 
+
 def allCollege():
     return College().showAll()
 
+
 def searchStudent(search=None):
     return Student().search(keyword=search)
+
 
 def addStudent(student):
     id = student['id'].strip()
@@ -58,7 +65,6 @@ def addStudent(student):
                 return False
         else:
             return False
-
 
 
 def getStudent(id=None):
@@ -166,6 +172,7 @@ def addCollege(college=None):
             return False
     return False
 
+
 def updateCollege(college=None):
     code = college['code']
     name = college['name'].strip()
@@ -179,8 +186,13 @@ def updateCollege(college=None):
     else:
         return False
 
+
 def collegeStatistics():
     return College().statistics()
+
+
+def collegeDepartments():
+    return College().departments()
 
 
 def save_image(file=None, config=None):
@@ -188,3 +200,4 @@ def save_image(file=None, config=None):
     filename = secure_filename(file.filename)
     image.save(os.path.join(config, filename))
     return filename
+

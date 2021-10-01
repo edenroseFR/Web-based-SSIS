@@ -5,8 +5,7 @@ class Admin():
         self,
         username=None,
         password=None,
-        password2=None
-    ):
+        password2=None):
 
         self.username = username
         self.password = password
@@ -16,11 +15,12 @@ class Admin():
         query = f'''
             INSERT INTO admin(username, password)
             VALUE('{self.username}',
-                    '{self.password}')
+                  '{self.password}')
         '''
         cursor.execute(query)
         db.commit()
         return
+
 
     @staticmethod
     def existingUsernames():
@@ -33,6 +33,7 @@ class Admin():
         usernames = [name[0] for name in result]
 
         return usernames
+
     
     def registeredUser(self):
         query = f'''

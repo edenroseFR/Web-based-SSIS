@@ -2,30 +2,12 @@ from werkzeug.utils import secure_filename
 from models.college import College
 from flask import Flask, request, render_template, redirect, flash
 from flask.helpers import url_for
-from SSIShelper import (
-    userFound,
-    verified,
-    allStudent,
-    allCourse,
-    allCollege,
-    searchStudent,
-    addStudent,
-    getStudent,
-    updateStudent,
-    deleteStudent,
-    addCourse,
-    searchCourse,
-    deleteCourse,
-    updateCourse,
-    searchCollege,
-    deleteCollege,
-    updateCollege,
-    addCollege,
-    collegeStatistics,
-    save_image)
+from SSIShelper import *
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
+app.config['UPLOAD_PATH'] = 'static/entity_photos/students/'
+
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -50,7 +32,6 @@ def homepage():
 
     if request.method == 'POST ':
         if userFound(username,password):
-            
             return render_template('students.html', data = [students,courses,colleges])
         else:
             return redirect(url_for('login'))
@@ -79,8 +60,6 @@ def studentSearch():
         return redirect(url_for('homepage'))
 
 
-
-app.config['UPLOAD_PATH'] = 'static/entity_photos/students/'
 @app.route('/add_student', methods=['GET', 'POST'])
 def add_student():
     students = allStudent()
@@ -92,7 +71,7 @@ def add_student():
         try:
             filename = save_image(image, app.config['UPLOAD_PATH'])
         except:
-            print("Cant save image")
+            print("Can't save image")
         
         student = {
             'id': request.form.get('student-id'),
@@ -166,6 +145,7 @@ def add_course():
     else:
         return redirect(url_for('courses'))
 
+
 @app.route('/course-search', methods=['GET', 'POST'])
 def courseSearch():
     user_input = request.form.get('user-input')
@@ -208,7 +188,8 @@ def colleges():
     students = allStudent()
     courses = allCourse()
     colleges = collegeStatistics()
-    return render_template('colleges.html', data=[students,courses,colleges])
+    departments = collegeDepartments()
+    return render_template('colleges.html', data=[students,courses,colleges,departments])
 
 
 @app.route('/add_college', methods=['GET', 'POST'])

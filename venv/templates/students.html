@@ -67,14 +67,25 @@
             <td><b>{{student.0}}</b></td>
             {% if student.7 %}
                 <td>
-                    <img style="height: 50px; border-radius: 50px;" 
-                    src="../static/entity_photos/students/{{student.7}}">
+                    <div style="
+                    width: 50px; 
+                    height: 50px; 
+                    border-radius: 50px; 
+                    display: flex; 
+                    border: 1px solid #F93939;
+                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
+                    overflow: hidden; ">
+                        <img style="flex: 1; justify-content: center; object-fit: cover; background-position: center;" 
+                        src="../static/entity_photos/students/{{student.7}}">
+                    </div>
                 </td>
             {% endif %}
             {% if not student.7 %}
                 <td>
-                    <img style="height: 50px; border-radius: 50px;" 
-                    src="../static/entity_photos/students/student-profile-template.png">
+                    <div style="width: 50px; height: 50px; border-radius: 50px; display: flex; overflow: hidden;">
+                        <img style="display: flex; justify-content: center;" 
+                        src="../static/entity_photos/students/student-profile-template.png">
+                    </div>
                 </td>
             {% endif %}
             <td>{{student[1]}}</td>
@@ -108,27 +119,28 @@
                 <div class="modal-body">
                     <form class="needs-validation" action="{{ url_for('update_student', id=student.0) }}" method="post" enctype="multipart/form-data">
                     
-                        <div class="image-container flex-column">
+                        <!-- <div class="image-container flex-column">
                             <div class="image-wrapper ">
                                 <div class="image">
+                                    <img id="selected-image" src="../static/entity_photos/students/student-profile-template.png" alt="">
                                     {% if student.7 %}
                                     <img id="selected-image" name="photo" src="../static/entity_photos/students/{{student.7}}" alt="">
                                     {% endif %}
                                     {% if not student.7 %}
                                     <img id="selected-image" src="../static/entity_photos/students/student-profile-template.png" alt="">
-                                    {% endif %}
-                                </div>
+                                    {% endif %} -->
+                                <!-- </div>
                             </div>
                             <div>
                               <input type="file" id="default-btn" class="form-control-file" accept="image/png, image/jpeg" name="selected-image" value="" hidden>
                               <button onclick="defaultBtnActive();" id="custom-btn">CHOOSE PHOTO</button>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="waiter" class="form-label">waiter</label>
                             <input type="studentinfo" class="form-control" id="waiter" value="" name="waiter" required>
-                        </div>
+                        </div> -->
 
                         <div class="mb-3">
                             <label for="student-id" class="form-label">Student ID</label>
@@ -197,7 +209,7 @@
     <script>
         var defaultBtn = document.getElementById("default-btn");
 
-        function editBtnActive(){
+        function defaultBtnActive(){
             defaultBtn.click();
         }
         defaultBtn.addEventListener("change", function(){
@@ -209,9 +221,10 @@
             if(file){
                 var reader = new FileReader();
                 reader.onload = function(){
+                    defaultBtn.value = reader.result;
                     img.src = reader.result;
                     waiter.value = img.src;
-                    defaultBtn.value = reader.result;
+                    
                 }
                 reader.readAsDataURL(file);
             }

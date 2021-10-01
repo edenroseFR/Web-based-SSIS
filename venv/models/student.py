@@ -1,4 +1,3 @@
-from re import search
 from mysql_connection import cursor, db
 
 class Student():
@@ -27,7 +26,17 @@ class Student():
 
     def showAll(self):
         query = '''
-            SELECT id, firstname, middlename, lastname, gender, year, coursecode, photo, course.name, collegecode, college.name
+            SELECT id, 
+                   firstname, 
+                   middlename, 
+                   lastname, 
+                   gender, 
+                   year, 
+                   coursecode, 
+                   photo, 
+                   course.name, 
+                   collegecode, 
+                   college.name
             FROM students
             JOIN course
             ON students.coursecode = course.code
@@ -65,7 +74,14 @@ class Student():
     @staticmethod
     def get(id=None):
         query = f'''
-            SELECT id, firstname, middlename, lastname, gender, year, coursecode, collegecode
+            SELECT id, 
+                   firstname, 
+                   middlename, 
+                   lastname, 
+                   gender, 
+                   year, 
+                   coursecode, 
+                   collegecode
             FROM students
             WHERE id = '{id}'
         '''

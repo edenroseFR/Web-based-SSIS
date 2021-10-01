@@ -29,9 +29,18 @@ body{
     color: #F93939;
     font-weight: 500;
 }
+#activeLink:hover{
+    color: white;
+}
 
 .active{
     background-color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
+    border-radius: 30px;
+    border: 1px solid #F93939;
+}
+.active:hover{
+    background-color: #F93939;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
     border-radius: 30px;
     border: 1px solid #F93939;
@@ -211,3 +220,16 @@ footer{
     background-color: #666262;
 }
 
+/*College Department*/
+.modal-header{
+    display: flex;
+    justify-content: center;
+}
+.college-logo{
+    display: flex;
+}
+.logo{
+    display: flex;
+    width: 100px; 
+    height: 100px;
+}

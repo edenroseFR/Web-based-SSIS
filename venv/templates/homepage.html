@@ -77,7 +77,33 @@
     {% block script %}
     {% endblock %}
   </body>
+  <script>
+    var defaultBtn = document.getElementById("default-btn");
 
+    function defaultBtnActive(){
+        defaultBtn.click();
+    }
+    defaultBtn.addEventListener("change", function(){
+        var customBtn = document.getElementById("custom-btn");
+        var img = document.getElementById('selected-image');
+        var fileName = document.getElementById("file-name");
+        var waiter = document.getElementById("waiter");
+        var file = this.files[0];
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                img.src = reader.result;
+                waiter.value = img.src;
+                defaultBtn.value = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+        if (this.value){
+            let filename = this.file;
+            fileName.value = filename;
+        }
+    });
+</script>
 
   
 </html>
