@@ -31,7 +31,7 @@
 
                       <div class="mb-3">
                           <label for="student-id" class="form-label">Student ID</label>
-                          <input type="studentinfo" class="form-control" id="student-id" name="student-id" placeholder="YYYY-NNNN" required>
+                          <input type="studentinfo" class="form-control" id="student-id" name="student-id" placeholder="YYYY-NNNN" maxlength="9" minlength="9" pattern="^[0-9]{4}-[0-9]{4}$" required>
                           <small id="IDhelp" class="form-text text-muted">Please follow the format. Example: 2019-0000</small>
                           <div class="invalid-feedback">Please enter an ID</div>
                       </div>

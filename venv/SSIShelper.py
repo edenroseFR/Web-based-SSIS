@@ -3,7 +3,6 @@ from models.course import Course
 from models.college import College
 from models.admin import Admin
 from werkzeug.utils import secure_filename
-import re
 import os
 
 
@@ -45,8 +44,7 @@ def addStudent(student):
     photo = student['photo']
     # ID validation
     if id:
-        id_pattern = '^[0-9]{4}-[0-9]{4}$'
-        if re.search(id_pattern, id) and id not in Student().IDlist():
+        if id not in Student().IDlist():
             # Name validation
             if firstname and lastname:
                 Student(

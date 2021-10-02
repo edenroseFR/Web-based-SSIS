@@ -52,9 +52,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Photo</th>
-            <th scope="col">First</th>
-            <th scope="col">Middle</th>
-            <th scope="col">Last</th>
+            <th scope="col">Name</th>
             <th scope="col">Gender</th>
             <th scope="col">Level</th>
             <th scope="col">Course</th>
@@ -88,9 +86,12 @@
                     </div>
                 </td>
             {% endif %}
-            <td>{{student[1]}}</td>
-            <td>{{student[2]}}</td>
-            <td>{{student[3]}}</td>
+            {% if student.2 != 'Na' %}
+            <td>{{student.1}} {{student[2][0]}}. {{student.3}}</td>
+            {% endif %}
+            {% if student.2 == 'Na' %}
+            <td>{{student.1}} {{student.3}}</td>
+            {% endif %}
             <td>{{student[4]}}</td>
             <td>{{student[5]}}</td>
             <td>{{student[6]}}</td>
