@@ -14,7 +14,9 @@
     <!--ICON-->
     <link rel="shortcut icon" href="../static/images/SSISlogo.png" type="image/x-icon">
     
-    <title>Login</title>
+    {% block title %} 
+    <title>Log in</title>
+    {% endblock %}
 
   </head>
   <body>
@@ -30,8 +32,10 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="col-lg-7 px-5 pt-5"></div>
+                    {% block header_text %}
                     <h1 class="font-weight-bold py-3">Hi there.</h1>
                     <h6>Let me know it's you!</h6>
+                    {% endblock %}
                     <form action="{{ url_for("homepage") }}" method="post">
                         <!--Username entry field-->
                         <div class="form-row">
@@ -45,13 +49,16 @@
                                 <input type="password" name="password" placeholder="Password" class="form-control my-3 p-2">
                             </div>
                         </div> <!--end of Password entry field-->
+                        {% block password2 %} {% endblock %}
                         <!--Login Button-->
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <button type="submit" class="btn1">Login</button>
+                                <button type="submit" class="btn1">{% block button %} Log in {% endblock %}</button>
                             </div>
                         </div> <!--end of Login Button-->
+                        {% block switchPage_prompt %}
                         <p>No account? <a href="{{ url_for("signup") }}">Sign Up</a></p>
+                        {% endblock %}
                     </form>
                 </div>
             </div>
