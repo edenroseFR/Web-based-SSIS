@@ -64,6 +64,7 @@ class Course():
         '''
         cursor.execute(query)
         db.commit()
+        return None
     
 
     @staticmethod
@@ -74,6 +75,7 @@ class Course():
         '''
         cursor.execute(query)
         db.commit()
+        return None
 
 
     def update(self):
@@ -88,6 +90,7 @@ class Course():
         '''
         cursor.execute(query)
         db.commit()
+        return None
 
 
     @staticmethod

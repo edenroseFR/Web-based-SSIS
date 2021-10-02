@@ -98,7 +98,7 @@ def updateStudent(student=None):
 
 def deleteStudent(id=None):
     Student().delete(id)
-    return
+    return None
 
 
 #Courses
@@ -127,7 +127,7 @@ def searchCourse(search=None):
 
 def deleteCourse(id=None):
     Course().delete(id)
-    return
+    return None
 
 
 def updateCourse(course=None):
@@ -153,7 +153,7 @@ def searchCollege(search=None):
 
 def deleteCollege(id=None):
     College().delete(id)
-    return
+    return None
 
 
 def addCollege(college=None):

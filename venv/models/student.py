@@ -60,6 +60,7 @@ class Student():
                 result.append(student)
         return result
 
+
     @staticmethod
     def IDlist():
         query = '''
@@ -71,6 +72,7 @@ class Student():
         IDs = [id[0] for id in result]
         return IDs
     
+
     @staticmethod
     def get(id=None):
         query = f'''
@@ -116,6 +118,7 @@ class Student():
         '''
         cursor.execute(query)
         db.commit()
+        return None
     
 
     @staticmethod
@@ -126,6 +129,7 @@ class Student():
         '''
         cursor.execute(query)
         db.commit()
+        return None
 
 
     def update(self):
@@ -145,5 +149,6 @@ class Student():
         '''
         cursor.execute(query)
         db.commit()
+        return None
 
 

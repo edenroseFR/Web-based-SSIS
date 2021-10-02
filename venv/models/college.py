@@ -84,6 +84,7 @@ class College():
         '''
         cursor.execute(query)
         db.commit()
+        return None
     
 
     @staticmethod
@@ -94,6 +95,7 @@ class College():
         '''
         cursor.execute(query)
         db.commit()
+        return None
 
 
     def update(self):
@@ -107,6 +109,7 @@ class College():
         '''
         cursor.execute(query)
         db.commit()
+        return None
 
 
     @staticmethod

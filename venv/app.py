@@ -5,7 +5,7 @@ from flask.helpers import url_for
 from SSIShelper import *
 
 app = Flask(__name__)
-app.secret_key = 'super_secret_key'
+app.config['SECRET_KEY'] = 'piesXfrenchwatermelon'
 app.config['UPLOAD_PATH'] = 'static/entity_photos/students/'
 
 

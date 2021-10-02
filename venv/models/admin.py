@@ -21,7 +21,6 @@ class Admin():
         db.commit()
         return
 
-
     @staticmethod
     def existingUsernames():
         query = f'''
