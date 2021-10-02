@@ -233,3 +233,98 @@ footer{
     width: 100px; 
     height: 100px;
 }
+
+
+.student-details-image-container{
+    width: 140px; 
+    height: 140px; 
+    border-radius: 140px; 
+    display: flex;
+    overflow: hidden;
+}
+
+.student-table-image, .student-details-image{
+    flex: 1; 
+    justify-content: center; 
+    object-fit: cover; 
+    background-position: center;
+}
+
+.student-table-image-container{
+    width: 50px;
+    height: 50px; 
+    border-radius: 50px; 
+    display: flex; 
+    border: 1px solid #F93939;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
+    overflow: hidden;
+}
+
+.student-detailed-view{
+    background-color: #4E4E50;
+}
+
+#more-about{
+    color: white;
+}
+
+.basic-info{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    width: 80%;
+}
+
+.basic-info #name {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    padding-right: 3px;
+}
+
+.basic-info #IDno {
+    color: #666262;
+    font-weight: bold;
+    font-size: 15px;
+    padding-left: 3px;
+}
+
+.college{
+    width: fit-content;
+    height: 10%;
+    left: 611px;
+    top: 776px;
+    padding-left: 2%;
+    padding-right: 2%;
+
+    background: #666262;
+    border-radius: 20px;
+}
+
+.college p{
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
+    letter-spacing: 100%;
+
+    color: #FFFFFF;
+}
+
+.contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.contact i{
+    color: white;
+}
+.contact p{
+    color: white;
+    font-size: small;
+    margin-left: 2%;
+    margin-top: 3%;
+    text-align: center;
+}

@@ -64,16 +64,9 @@
         <tr>
             <td><b>{{student.0}}</b></td>
             {% if student.7 %}
-                <td>
-                    <div style="
-                    width: 50px; 
-                    height: 50px; 
-                    border-radius: 50px; 
-                    display: flex; 
-                    border: 1px solid #F93939;
-                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
-                    overflow: hidden; ">
-                        <img style="flex: 1; justify-content: center; object-fit: cover; background-position: center;" 
+                <td data-bs-toggle="modal" data-bs-target="#student{{student.0}}">
+                    <div class="student-table-image-container">
+                        <img class="student-table-image"
                         src="../static/entity_photos/students/{{student.7}}">
                     </div>
                 </td>
@@ -94,7 +87,7 @@
             {% endif %}
             <td>{{student[4]}}</td>
             <td>{{student[5]}}</td>
-            <td>{{student[6]}}</td>
+            <td title="{{student.8}}">{{student[6]}}</td>
             <td>
                 <a href="{{url_for('update_student', id=student[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateStudent{{student[0]}}">Update</a>
                 <a href="{{url_for('delete_student', id=student[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{student.1}} ?')">Delete</a>
@@ -206,7 +199,38 @@
 
             </div>
         </div>
-    </div>
+    </div> <!-- end of uppdate_student modal -->
+
+    <!-- student detailed view -->
+    <div class="modal fade" tabindex="-1" id="student{{student.0}}">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content student-detailed-view">
+            <div class="modal-header">
+              <h5 class="modal-title" id="more-about">More about {{student.1}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <center>
+                  <div class="student-details-image-container">
+                    <img class="student-details-image" src="../static/entity_photos/students/{{student.7}}">
+                  </div>
+                  
+                  <div class="basic-info">
+                    <h2 id="name">{{student[1].upper()}} {{student[3].upper()}}</h2>
+                    <h2 id="IDno">#{{student.0}}</h2>
+                  </div>
+                  <div class="college">
+                    <p>{{student.10}}</p>
+                  </div>
+                  <div class="contact">
+                      <i class="fas fa-envelope"></i>
+                      <p>{{(student[1]).lower().replace(' ','')}}.{{(student[3]).lower()}}@gmail.com</p>
+                  </div>
+              </center>
+          </div>
+        </div>
+      </div> <!-- end of student detailed view-->
+
     <script>
         var defaultBtn = document.getElementById("default-btn");
 
