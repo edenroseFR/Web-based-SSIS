@@ -1,5 +1,3 @@
-from werkzeug.utils import secure_filename
-from models.college import College
 from flask import Flask, request, render_template, redirect, flash
 from flask.helpers import url_for
 from SSIShelper import *
@@ -53,7 +51,7 @@ def confirm_identity():
 @app.route('/student-search', methods=['GET', 'POST'])
 def studentSearch():
     user_input = request.form.get('user-input')
-    result = searchStudent(user_input)
+    result = searchStudent(user_input) #ang searchStudent() nga func mao na tong gisend nako 
     if len(result) != 0:
         return render_template('students.html', data=[result])
     else:
@@ -62,10 +60,6 @@ def studentSearch():
 
 @app.route('/add_student', methods=['GET', 'POST'])
 def add_student():
-    students = allStudent()
-    courses = allCourse()
-    colleges = allCollege()
-
     if request.method == 'POST':
         image = request.files['selected-image']
         try:
@@ -92,9 +86,7 @@ def add_student():
 
 @app.route('/update_student/<string:id>', methods=['GET', 'POST'])
 def update_student(id):
-    data = getStudent(id)
     if request.method == 'POST':
-        image = request.files['selected-image']
 
         student = {
             'id': id,
@@ -131,8 +123,6 @@ def courses():
 
 @app.route('/add_course', methods=['GET', 'POST'])
 def add_course():
-    courses = allCourse()
-    colleges = allCollege()
     if request.method == 'POST':
         course = {
             'code': request.form.get('course-code'),
@@ -194,8 +184,6 @@ def colleges():
 
 @app.route('/add_college', methods=['GET', 'POST'])
 def add_college():
-    courses = allCourse()
-    colleges = allCollege()
     if request.method == 'POST':
         college = {
             'code': request.form.get('college-code'),
