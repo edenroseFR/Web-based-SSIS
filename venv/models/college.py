@@ -10,7 +10,7 @@ class College():
         self.name = name
     
 
-    def showAll(self):
+    def get_all(self):
         query = '''
             SELECT code, name
             FROM college;
@@ -21,8 +21,8 @@ class College():
         return colleges
 
     
-    def statistics(self):
-        colleges = self.showAll()
+    def get_statistics(self):
+        colleges = self.get_all()
         query = '''
             SELECT college.code, college.name, COUNT(*) AS courses, enrolled.student as enrolled
             FROM college
@@ -46,7 +46,7 @@ class College():
 
 
     @staticmethod
-    def departments():
+    def get_departments():
         query = '''
             SELECT college.code, course.name
             FROM college
@@ -61,7 +61,7 @@ class College():
 
     def search(self, keyword=None):
         keyword = keyword.upper()
-        colleges = self.statistics()
+        colleges = self.get_statistics()
         result = []
 
         for college in colleges:
@@ -71,7 +71,7 @@ class College():
         return result
 
 
-    def addNew(self):
+    def add_new(self):
         query = f'''
             INSERT INTO college (
                 code,
@@ -113,7 +113,7 @@ class College():
 
 
     @staticmethod
-    def collegeCode(course_name=None):
+    def get_collegecode_for(course_name=None):
         query = f'''
             SELECT code
             FROM college
@@ -125,7 +125,7 @@ class College():
 
 
     @staticmethod
-    def codeList():
+    def get_collegecodes():
         query = '''
             SELECT code
             FROM college

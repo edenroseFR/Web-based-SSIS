@@ -24,7 +24,7 @@ class Student():
         self.photo = photo
 
 
-    def showAll(self):
+    def get_all(self):
         query = '''
             SELECT id, 
                    firstname, 
@@ -51,7 +51,7 @@ class Student():
 
     def search(self, keyword=None):
         keyword = keyword.upper()
-        students = self.showAll()
+        students = self.get_all()
         result = []
 
         for student in students:
@@ -62,7 +62,7 @@ class Student():
 
 
     @staticmethod
-    def IDlist():
+    def get_IDs():
         query = '''
             SELECT id
             FROM students
@@ -74,7 +74,7 @@ class Student():
     
 
     @staticmethod
-    def get(id=None):
+    def get_student(id=None):
         query = f'''
             SELECT id, 
                    firstname, 
@@ -91,7 +91,7 @@ class Student():
         student = list(cursor.fetchone())
         return student
 
-    def addNew(self):
+    def add_new(self):
         query = f'''
             INSERT INTO students (
                 id, 
@@ -142,8 +142,7 @@ class Student():
                 year = {self.yearLevel},
                 gender = '{self.gender}',
                 coursecode = '{self.course}',
-                collegecode = '{self.college}',
-                photo = '{self.photo}'
+                collegecode = '{self.college}'
             WHERE
                 id = '{self.id}'
         '''

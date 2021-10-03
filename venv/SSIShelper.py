@@ -6,34 +6,19 @@ from werkzeug.utils import secure_filename
 import os
 
 
-def userFound(username, password):
-    if Admin(username,password).registeredUser():
+def admin_found(username, password):
+    if Admin(username,password).registered_user():
         return True
 
 
 def verified(username=None, password=None, password2=None):
-    if username not in Admin().existingUsernames() and password == password2:
+    if username not in Admin().get_usernames() and password == password2:
         Admin(username,password).register()
         return True
 
 
-def allStudent():
-    return Student().showAll()
 
-
-def allCourse():
-    return Course().showAll()
-
-
-def allCollege():
-    return College().showAll()
-
-
-def searchStudent(search=None):
-    return Student().search(keyword=search)
-
-
-def addStudent(student):
+def add_student_to_db(student):
     id = student['id'].strip()
     firstname = (student['firstname'].strip()).title()
     middlename = (student['middlename'].strip()).title()
@@ -44,7 +29,7 @@ def addStudent(student):
     photo = student['photo']
     # ID validation
     if id:
-        if id not in Student().IDlist():
+        if id not in Student().get_IDs():
             # Name validation
             if firstname and lastname:
                 Student(
@@ -54,10 +39,10 @@ def addStudent(student):
                     lastName=lastname,
                     yearLevel=yearlevel,
                     gender=gender,  
-                    course=Course().courseCode(course), 
-                    college=Course().collegeCode(course),
+                    course=Course().get_coursecode_for(course),
+                    college=Course().get_collegecode(course),
                     photo = photo
-                ).addNew()
+                ).add_new()
                 return
             else:
                 return False
@@ -65,11 +50,9 @@ def addStudent(student):
             return False
 
 
-def getStudent(id=None):
-    return Student().get(id)
 
 
-def updateStudent(student=None):
+def update_student_record(student=None):
     id = student['id'].strip()
     firstname = student['firstname'].strip()
     middlename = student['middlename'].strip()
@@ -86,92 +69,76 @@ def updateStudent(student=None):
             lastName=lastname,
             yearLevel=yearlevel,
             gender=gender, 
-            course=Course().courseCode(course), 
-            college=Course().collegeCode(course)
+            course=Course().get_coursecode_for(course),
+            college=Course().get_collegecode(course)
         ).update()
         return
     else:
         return False
 
 
-def deleteStudent(id=None):
-    Student().delete(id)
-    return None
 
 
 #Courses
-def addCourse(course=None):
+def add_course_to_db(course=None):
     code = (course['code'].strip()).upper()
     name = (course['name'].strip()).title()
-    college = College().collegeCode(course['college'])
+    college = College().get_collegecode_for(course['college'])
     # code validation
-    if code and code not in Course().codeList():
+    if code and code not in Course().get_coursecodes():
         # name validation
         if name:
             Course(
                 code,
                 name,
                 college
-            ).addNew()
+            ).add_new()
             return
         else:
             return False
     return False
 
 
-def searchCourse(search=None):
-    return Course().search(keyword=search)
 
 
-def deleteCourse(id=None):
-    Course().delete(id)
-    return None
 
-
-def updateCourse(course=None):
+def update_course_record(course=None):
     code = course['code']
     name = course['name'].strip()
     college = course['college']
-    print(code,name,College().collegeCode(college))
+    print(code, name, College().get_collegecode_for(college))
     
     if code and name:
         Course(
             code,
             name,
-            College().collegeCode(college)
+            College().get_collegecode_for(college)
         ).update()
         return
     else:
         return False
 
 
-def searchCollege(search=None):
-    return College().search(keyword=search)
 
-
-def deleteCollege(id=None):
-    College().delete(id)
-    return None
-
-
-def addCollege(college=None):
+# Colleges
+def add_college_to_db(college=None):
     code = (college['code'].strip()).upper()
     name = (college['name'].strip()).title()
     # code validation
-    if code and code not in College().codeList():
+    if code and code not in College().get_collegecodes():
         # name validation
         if name:
             College(
                 code,
                 name
-            ).addNew()
+            ).add_new()
             return
         else:
             return False
     return False
 
 
-def updateCollege(college=None):
+def update_college_record(college=None):
     code = college['code']
     name = college['name'].strip()
     
@@ -185,12 +152,7 @@ def updateCollege(college=None):
         return False
 
 
-def collegeStatistics():
-    return College().statistics()
 
-
-def collegeDepartments():
-    return College().departments()
 
 
 def save_image(file=None, config=None):

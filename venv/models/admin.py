@@ -22,7 +22,7 @@ class Admin():
         return
 
     @staticmethod
-    def existingUsernames():
+    def get_usernames():
         query = f'''
             SELECT username
             FROM admin
@@ -34,7 +34,7 @@ class Admin():
         return usernames
 
     
-    def registeredUser(self):
+    def registered_user(self):
         query = f'''
             SELECT username, password 
             FROM admin

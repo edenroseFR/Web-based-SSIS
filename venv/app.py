@@ -1,10 +1,21 @@
-from flask import Flask, request, render_template, redirect, flash
+from flask import request, render_template, redirect, flash
 from flask.helpers import url_for
-from SSIShelper import *
+from models.student import Student
+from models.course import Course
+from models.college import College
+from config import app
+from SSIShelper import (
+    admin_found, 
+    verified, 
+    save_image,
+    add_student_to_db, 
+    update_student_record,
+    add_course_to_db, 
+    update_course_record,
+    add_college_to_db, 
+    update_college_record)
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'piesXfrenchwatermelon'
-app.config['UPLOAD_PATH'] = 'static/entity_photos/students/'
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -24,12 +35,12 @@ def signup():
 def homepage():
     username = request.form.get('username')
     password = request.form.get('password')
-    students = allStudent()
-    courses = allCourse()
-    colleges = allCollege()
+    students = Student().get_all()
+    courses = Course().get_all()
+    colleges = College().get_all()
 
     if request.method == 'POST ':
-        if userFound(username,password):
+        if admin_found(username, password):
             return render_template('students.html', data = [students,courses,colleges])
         else:
             return redirect(url_for('login'))
@@ -51,7 +62,7 @@ def confirm_identity():
 @app.route('/student-search', methods=['GET', 'POST'])
 def studentSearch():
     user_input = request.form.get('user-input')
-    result = searchStudent(user_input) #ang searchStudent() nga func mao na tong gisend nako 
+    result = Student().search(keyword=user_input)
     if len(result) != 0:
         return render_template('students.html', data=[result])
     else:
@@ -77,8 +88,8 @@ def add_student():
             'course': request.form.get('course'),
             'photo': filename
         }
-        addStudent(student)
-        flash(f'{student["firstname"]} added succesfully!', 'info')
+        add_student_to_db(student)
+        flash(f'{student["firstname"]} is added succesfully!', 'info')
         return redirect(url_for('homepage'))
     else:
         return redirect(url_for('homepage'))
@@ -97,7 +108,7 @@ def update_student(id):
             'yearlevel': request.form.get('yearlevel'),
             'course': request.form.get('course')
         }
-        updateStudent(student)
+        update_student_record(student)
         flash(f"{student['firstname']}'s data has been changed succesfully!", 'info')
         return redirect(url_for('homepage'))
     else:
@@ -106,8 +117,8 @@ def update_student(id):
 
 @app.route('/delete_student/<string:id>')
 def delete_student(id):
-    data = getStudent(id)
-    deleteStudent(id)
+    data = Student().get_student(id)
+    Student().delete(id)
     flash(f'{data[0]} deleted from the database.', 'info')
     return redirect(url_for('homepage'))
 
@@ -115,9 +126,9 @@ def delete_student(id):
 # Courses routes
 @app.route('/courses')
 def courses():
-    students = allStudent()
-    courses = allCourse()
-    colleges = allCollege()
+    students = Student().get_all()
+    courses = Course().get_all()
+    colleges = College().get_all()
     return render_template('courses.html', data=[students,courses,colleges])
 
 
@@ -129,7 +140,7 @@ def add_course():
             'name': request.form.get('course-name'),
             'college': request.form.get('course-college')
         }
-        addCourse(course)
+        add_course_to_db(course)
         flash(f'{course["code"]} added succesfully!', 'info')
         return redirect(url_for('courses'))
     else:
@@ -139,7 +150,7 @@ def add_course():
 @app.route('/course-search', methods=['GET', 'POST'])
 def courseSearch():
     user_input = request.form.get('user-input')
-    result = searchCourse(user_input)
+    result = Course().search(keyword=user_input)
     if len(result) != 0:
         return render_template('courses.html', data=['', result])
     else:
@@ -149,7 +160,7 @@ def courseSearch():
 @app.route('/delete_course/<string:id>')
 def delete_course(id):
     try:
-        deleteCourse(id)
+        Course().delete(id)
         flash(f'{id} deleted from the database.', 'info')
         return redirect(url_for('courses'))
     except:
@@ -165,7 +176,7 @@ def update_course(id):
             'name': request.form.get('course-name'),
             'college': request.form.get('course-college')
         }
-        updateCourse(course)
+        update_course_record(course)
         flash(f"{id} has been updated succesfully!", 'info')
         return redirect(url_for('courses'))
     else:
@@ -175,10 +186,10 @@ def update_course(id):
 # Colleges routes
 @app.route('/colleges', methods=['GET', 'POST'])
 def colleges():
-    students = allStudent()
-    courses = allCourse()
-    colleges = collegeStatistics()
-    departments = collegeDepartments()
+    students = Student().get_all()
+    courses = Course().get_all()
+    colleges = College().get_statistics()
+    departments = College().get_departments()
     return render_template('colleges.html', data=[students,courses,colleges,departments])
 
 
@@ -189,7 +200,7 @@ def add_college():
             'code': request.form.get('college-code'),
             'name': request.form.get('college-name')
         }
-        addCollege(college)
+        add_college_to_db(college)
         flash(f'{college["code"]} added succesfully!', 'info')
         return redirect(url_for('colleges'))
     else:
@@ -199,7 +210,7 @@ def add_college():
 @app.route('/college-search', methods=['GET', 'POST'])
 def collegeSearch():
     user_input = request.form.get('user-input')
-    result = searchCollege(user_input)
+    result = College().search(keyword=user_input)
     if len(result) != 0:
         return render_template('colleges.html', data=['', '', result])
     else:
@@ -209,7 +220,7 @@ def collegeSearch():
 @app.route('/delete_college/<string:id>')
 def delete_college(id):
     try:
-        deleteCollege(id)
+        College().delete(id)
         flash(f'{id} deleted from the database.', 'info')
         return redirect(url_for('colleges'))
     except:
@@ -224,7 +235,7 @@ def update_college(id):
             'code': id,
             'name': request.form.get('college-name')
         }
-        updateCollege(college)
+        update_college_record(college)
         flash(f"{id} has been updated succesfully!", 'info')
         return redirect(url_for('colleges'))
     else:

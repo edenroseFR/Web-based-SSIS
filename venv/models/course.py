@@ -12,7 +12,7 @@ class Course():
         self.college = college
     
 
-    def showAll(self):
+    def get_all(self):
         query = '''
             SELECT course.code, course.name, course.college, college.name
             FROM course
@@ -27,7 +27,7 @@ class Course():
 
     def search(self, keyword=None):
         keyword = keyword.upper()
-        courses = self.showAll()
+        courses = self.get_all()
         result = []
 
         for course in courses:
@@ -38,7 +38,7 @@ class Course():
 
 
     @staticmethod
-    def codeList():
+    def get_coursecodes():
         query = '''
             SELECT code
             FROM course
@@ -49,7 +49,19 @@ class Course():
         return CODES
 
 
-    def addNew(self):
+    @staticmethod
+    def get_coursecode_for(course_name):
+        query = f'''
+                SELECT code
+                FROM course
+                WHERE name = '{course_name}'
+            '''
+        cursor.execute(query)
+        coursecode = cursor.fetchone()
+        return coursecode[0]
+
+
+    def add_new(self):
         query = f'''
             INSERT INTO course (
                 code,
@@ -94,7 +106,7 @@ class Course():
 
 
     @staticmethod
-    def collegeCode(course_name):
+    def get_collegecode(course_name):
         query = f'''
             SELECT course.name, college.code
             FROM course
@@ -106,17 +118,5 @@ class Course():
         cursor.execute(query)
         _, collegecode = cursor.fetchone()
         return collegecode
-
-
-    @staticmethod
-    def courseCode(course_name):
-        query = f'''
-            SELECT code
-            FROM course
-            WHERE name = '{course_name}'
-        '''
-        cursor.execute(query)
-        coursecode = cursor.fetchone()
-        return coursecode[0]
 
 
