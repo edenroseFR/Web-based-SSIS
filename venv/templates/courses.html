@@ -11,7 +11,7 @@
             <a href="{{url_for('homepage')}}" class="nav-link">Students</a>
         </li>
         <li class="nav-item active" id="btn-courses">
-            <a onclick="window.location.reload()" class="nav-link active" id="activeLink">Courses</a>
+            <a class="nav-link active" id="activeLink">Courses</a>
         </li>
         <li class="nav-item" id="btn-student">
             <a href="{{url_for('colleges')}}" class="nav-link">Colleges</a>
@@ -29,7 +29,7 @@
                 <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCourseForm"><img src="../static/images/addcourseICON.png" alt="" id="addICON"></button>
             </div>
             <div>
-                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for("courseSearch") }}">
+                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('course_search') }}">
                     <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using Course Code, Course Name, and College Code">
                     <button class="btn-search">
                         <div class="search">

@@ -17,7 +17,6 @@ from SSIShelper import (
 
 
 
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -60,7 +59,7 @@ def confirm_identity():
 
 
 @app.route('/student-search', methods=['GET', 'POST'])
-def studentSearch():
+def student_search():
     user_input = request.form.get('user-input')
     result = Student().search(keyword=user_input)
     if len(result) != 0:
@@ -148,7 +147,7 @@ def add_course():
 
 
 @app.route('/course-search', methods=['GET', 'POST'])
-def courseSearch():
+def course_search():
     user_input = request.form.get('user-input')
     result = Course().search(keyword=user_input)
     if len(result) != 0:
@@ -208,7 +207,7 @@ def add_college():
 
 
 @app.route('/college-search', methods=['GET', 'POST'])
-def collegeSearch():
+def college_search():
     user_input = request.form.get('user-input')
     result = College().search(keyword=user_input)
     if len(result) != 0:
