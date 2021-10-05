@@ -55,9 +55,10 @@ class Student():
         result = []
 
         for student in students:
-            student_allcaps = [str(info).upper() for info in student]
+            student_allcaps = [str(info).upper() for info in student if info != '']
             if keyword in student_allcaps:
                 result.append(student)
+        
         return result
 
 

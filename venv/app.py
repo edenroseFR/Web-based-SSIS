@@ -40,11 +40,17 @@ def homepage():
 
     if request.method == 'POST ':
         if admin_found(username, password):
-            return render_template('students.html', data = [students,courses,colleges])
+            return render_template(
+                'students.html', 
+                data = [students,courses,colleges], 
+                datacount = f'{len(students)} Students')
         else:
             return redirect(url_for('login'))
     else:
-        return render_template('students.html', data = [students,courses,colleges])
+        return render_template(
+            'students.html', 
+            data = [students,courses,colleges],
+            datacount = f'{len(students)} Students')
 
 
 @app.route('/confirm_identity', methods=['GET', 'POST'])
@@ -63,7 +69,10 @@ def student_search():
     user_input = request.form.get('user-input')
     result = Student().search(keyword=user_input)
     if len(result) != 0:
-        return render_template('students.html', data=[result])
+        return render_template(
+            'students.html', 
+            data=[result],
+            datacount = f'Search Result: {len(result)}')
     else:
         return redirect(url_for('homepage'))
 
@@ -128,7 +137,10 @@ def courses():
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_all()
-    return render_template('courses.html', data=[students,courses,colleges])
+    return render_template(
+        'courses.html', 
+        data=[students,courses,colleges],
+        datacount = f'{len(courses)} Courses')
 
 
 @app.route('/add_course', methods=['GET', 'POST'])
@@ -151,7 +163,10 @@ def course_search():
     user_input = request.form.get('user-input')
     result = Course().search(keyword=user_input)
     if len(result) != 0:
-        return render_template('courses.html', data=['', result])
+        return render_template(
+            'courses.html', 
+            data=['', result],
+            datacount = f'Search Result: {len(result)}')
     else:
         return redirect(url_for('courses'))
 
@@ -189,7 +204,10 @@ def colleges():
     courses = Course().get_all()
     colleges = College().get_statistics()
     departments = College().get_departments()
-    return render_template('colleges.html', data=[students,courses,colleges,departments])
+    return render_template(
+        'colleges.html', 
+        data=[students,courses,colleges,departments],
+        datacount = f'{len(colleges)} Colleges')
 
 
 @app.route('/add_college', methods=['GET', 'POST'])
@@ -211,7 +229,10 @@ def college_search():
     user_input = request.form.get('user-input')
     result = College().search(keyword=user_input)
     if len(result) != 0:
-        return render_template('colleges.html', data=['', '', result])
+        return render_template(
+            'colleges.html', 
+            data=['', '', result],
+            datacount = f'Search Result: {len(result)}')
     else:
         return redirect(url_for('colleges'))
 
