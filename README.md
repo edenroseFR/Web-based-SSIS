@@ -2,6 +2,7 @@
 
 ![crudwebapp](https://github.com/edenroseFR/Web-based-SSIS/blob/main/venv/image.PNG)
 ## FEATURES
+- Display data
 - Add data
 - Edit data
 - Delete data
