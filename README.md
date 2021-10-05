@@ -12,7 +12,7 @@
 ```bash
 clone 'https://github.com/edenroseFR/Web-based-SSIS.git'
 ```
-2. Navigate to the Web-based-SSIS folder and run the following on the same command-line
+2. Navigate to the Web-based-SSIS\venv folder and run the following on the command-line
 ```bash
-python app.py
+flask run
 ```
