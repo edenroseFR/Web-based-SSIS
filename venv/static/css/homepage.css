@@ -95,7 +95,11 @@ caption{
     color: white;
     font-weight: 500px;
 }
-
+#field{
+    width: 150px;
+    max-width: 100%;
+    height: 10%;
+}
 .searchfield{
     width: 600px;
     max-width: 100%;

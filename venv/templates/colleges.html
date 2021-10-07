@@ -30,6 +30,13 @@
             </div>
             <div>
                 <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{url_for('college_search')}}">
+                    <select id="field" name="field" class="form-select p-2">
+                        <option value="select">Select Field</option>
+                        <option value="code">College Code</option>
+                        <option value="name">College Name</option>
+                        <option value="coursecount">Course Count</option>
+                        <option value="studentcount">Student Count</option>
+                    </select>
                     <input id="searchfield" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using College Code, and College Name">
                     <button class="btn-search">
                         <div class="search">

@@ -49,16 +49,64 @@ class Student():
         return students
 
 
-    def search(self, keyword=None):
+    def search(self, keyword=None, field=None):
         keyword = keyword.upper()
         students = self.get_all()
         result = []
 
-        for student in students:
-            student_allcaps = [str(info).upper() for info in student if info != '']
-            if keyword in student_allcaps:
-                result.append(student)
+        if field is None: 
+            result = self.search_by_field(students, keyword, 'all')
+        elif field == 'id':
+            result = self.search_by_field(students, keyword, 'id')
+        elif field == 'firstname':
+            result = self.search_by_field(students, keyword, 'firstname')
+        elif field == 'middlename':
+            result = self.search_by_field(students, keyword, 'middlename')
+        elif field == 'lastname':
+            result = self.search_by_field(students, keyword, 'lastname')
+        elif field == 'gender':
+            result = self.search_by_field(students, keyword, 'gender')
+        elif field == 'year':
+            result = self.search_by_field(students, keyword, 'year')
+        elif field == 'course':
+            result = self.search_by_field(students, keyword, 'course')
         
+        return result
+
+
+    @staticmethod
+    def search_by_field(rows=None, keyword=None, field='id'):
+        result = []
+        for row in rows:
+            row_allcaps = [str(cell).upper() for cell in row]
+
+            if field == 'all':
+                if keyword in row_allcaps:
+                    result.append(row)
+            elif field == 'id':
+                if keyword == row_allcaps[0]:
+                    result.append(row)
+                    return result
+            elif field == 'firstname':
+                if keyword == row_allcaps[1]:
+                    result.append(row)
+            elif field == 'middlename':
+                if keyword == row_allcaps[2]:
+                    result.append(row)
+            elif field == 'lastname':
+                if keyword == row_allcaps[3]:
+                    result.append(row)
+            elif field == 'gender':
+                if keyword == row_allcaps[4]:
+                    result.append(row)
+            elif field == 'year':
+                if keyword == row_allcaps[5]:
+                    result.append(row)
+            elif field == 'course':
+                print('course', keyword, row_allcaps[6])
+                if keyword == row_allcaps[6]:
+                    result.append(row)
+
         return result
 
 

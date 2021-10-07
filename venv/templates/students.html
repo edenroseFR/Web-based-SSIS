@@ -37,6 +37,16 @@
             </div>
             <div>
                 <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('student_search') }}">
+                    <select id="field" name="field" class="form-select p-2">
+                        <option value="select">Select Field</option>
+                        <option value="id">Student ID</option>
+                        <option value="first">First Name</option>
+                        <option value="middle">Middle Name</option>
+                        <option value="last">Last Name</option>
+                        <option value="gender">Gender</option>
+                        <option value="year">Year Level</option>
+                        <option value="course">Course</option>
+                    </select>
                     <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using ID, Name, Gender, Level, and Course">
                     <button class="p-2 btn-search">
                         <div class="search">

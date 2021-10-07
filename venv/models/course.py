@@ -25,15 +25,42 @@ class Course():
         return courses
 
 
-    def search(self, keyword=None):
+    def search(self, keyword=None, field=None):
         keyword = keyword.upper()
         courses = self.get_all()
         result = []
 
-        for course in courses:
-            course_allcaps = [str(info).upper() for info in course]
-            if keyword in course_allcaps:
-                result.append(course)
+        if field is None: 
+            result = self.search_by_field(courses, keyword, 'all')
+        elif field == 'code':
+            result = self.search_by_field(courses, keyword, 'code')
+        elif field == 'name':
+            result = self.search_by_field(courses, keyword, 'name')
+        elif field == 'college':
+            result = self.search_by_field(courses, keyword, 'college')
+
+        return result
+
+
+    @staticmethod
+    def search_by_field(rows=None, keyword=None, field=None):
+        result = []
+        for row in rows:
+            row_allcaps = [str(cell).upper() for cell in row if cell != '']
+
+            if field == 'all':
+                if keyword in row_allcaps:
+                    result.append(row)
+            if field == 'code':
+                if keyword in row_allcaps[0]:
+                    result.append(row)
+            elif field == 'name':
+                if keyword in row_allcaps[1]:
+                    result.append(row)
+            elif field == 'college':
+                if keyword in row_allcaps[2]:
+                    result.append(row)
+
         return result
 
 

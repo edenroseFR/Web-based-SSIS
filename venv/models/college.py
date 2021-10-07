@@ -59,15 +59,47 @@ class College():
         return departments
 
 
-    def search(self, keyword=None):
+    def search(self, keyword=None, field=None):
         keyword = keyword.upper()
         colleges = self.get_statistics()
         result = []
 
-        for college in colleges:
-            college_allcaps = [str(info).upper() for info in college]
-            if keyword in college_allcaps:
-                result.append(college)
+        if field is None: 
+            result = self.search_by_field(colleges, keyword, 'all')
+        elif field == 'code':
+            result = self.search_by_field(colleges, keyword, 'code')
+        elif field == 'name':
+            result = self.search_by_field(colleges, keyword, 'name')
+        elif field == 'coursecount':
+            result = self.search_by_field(colleges, keyword, 'coursecount')
+        elif field == 'studentcount':
+            result = self.search_by_field(colleges, keyword, 'studentcount')
+
+        return result
+
+
+    @staticmethod
+    def search_by_field(rows=None, keyword=None, field=None):
+        result = []
+        for row in rows:
+            row_allcaps = [str(cell).upper() for cell in row if cell != '']
+
+            if field == 'all':
+                if keyword in row_allcaps:
+                    result.append(row)
+            if field == 'code':
+                if keyword in row_allcaps[0]:
+                    result.append(row)
+            elif field == 'name':
+                if keyword in row_allcaps[1]:
+                    result.append(row)
+            elif field == 'coursecount':
+                if keyword in row_allcaps[2]:
+                    result.append(row)
+            elif field == 'studentcount':
+                if keyword in row_allcaps[3]:
+                    result.append(row)
+
         return result
 
 

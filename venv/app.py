@@ -66,13 +66,42 @@ def confirm_identity():
 
 @app.route('/student-search', methods=['GET', 'POST'])
 def student_search():
-    user_input = request.form.get('user-input')
-    result = Student().search(keyword=user_input)
-    if len(result) != 0:
-        return render_template(
-            'students.html', 
-            data=[result],
-            datacount = f'Search Result: {len(result)}')
+    if request.method == 'POST':
+
+        user_input = request.form.get('user-input')
+        field = request.form.get('field')
+        print(user_input,field)
+
+        if field == 'select':
+            result = Student().search(keyword=user_input)
+        elif field == 'id':
+            result = Student().search(keyword=user_input, field='id')
+        elif field == 'first':
+            result = Student().search(keyword=user_input, field='firstname')
+        elif field == 'middle':
+            result = Student().search(keyword=user_input, field='middlename')
+        elif field == 'last':
+            result = Student().search(keyword=user_input, field='lastname')
+        elif field == 'gender':
+            result = Student().search(keyword=user_input, field='gender')
+        elif field == 'year':
+            result = Student().search(keyword=user_input, field='year')
+        elif field == 'course':
+            result = Student().search(keyword=user_input, field='course')
+        else:
+            result = []
+
+        if len(result) != 0:
+            return render_template(
+                'students.html', 
+                data=[result],
+                datacount = f'Search Result: {len(result)}')
+        else:
+            return redirect(url_for('homepage'))
+
+
+
+
     else:
         return redirect(url_for('homepage'))
 
@@ -161,7 +190,19 @@ def add_course():
 @app.route('/course-search', methods=['GET', 'POST'])
 def course_search():
     user_input = request.form.get('user-input')
-    result = Course().search(keyword=user_input)
+    field = request.form.get('field')
+
+    if field == 'select':
+        result = Course().search(keyword=user_input)
+    elif field == 'code':
+        result = Course().search(keyword=user_input, field='code')
+    elif field == 'name':
+        result = Course().search(keyword=user_input, field='name')
+    elif field == 'college':
+        result = Course().search(keyword=user_input, field='college')
+    else:
+        result = []
+
     if len(result) != 0:
         return render_template(
             'courses.html', 
@@ -227,7 +268,21 @@ def add_college():
 @app.route('/college-search', methods=['GET', 'POST'])
 def college_search():
     user_input = request.form.get('user-input')
-    result = College().search(keyword=user_input)
+    field = request.form.get('field')
+
+    if field == 'select':
+        result = College().search(keyword=user_input)
+    elif field == 'id':
+        result = College().search(keyword=user_input, field='code')
+    elif field == 'first':
+        result = College().search(keyword=user_input, field='name')
+    elif field == 'coursecount':
+        result = College().search(keyword=user_input, field='coursecount')
+    elif field == 'studentcount':
+        result = College().search(keyword=user_input, field='studentcount')
+    else:
+        result = []
+
     if len(result) != 0:
         return render_template(
             'colleges.html', 
