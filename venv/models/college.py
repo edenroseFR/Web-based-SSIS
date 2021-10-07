@@ -82,16 +82,17 @@ class College():
     def search_by_field(rows=None, keyword=None, field=None):
         result = []
         for row in rows:
-            row_allcaps = [str(cell).upper() for cell in row if cell != '']
+            row_allcaps = [str(cell).upper() for cell in row]
 
             if field == 'all':
                 if keyword in row_allcaps:
                     result.append(row)
             if field == 'code':
-                if keyword in row_allcaps[0]:
+                if keyword == row_allcaps[0]:
                     result.append(row)
+                    return result
             elif field == 'name':
-                if keyword in row_allcaps[1]:
+                if keyword == row_allcaps[1]:
                     result.append(row)
             elif field == 'coursecount':
                 if keyword in row_allcaps[2]:

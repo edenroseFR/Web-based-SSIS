@@ -272,9 +272,9 @@ def college_search():
 
     if field == 'select':
         result = College().search(keyword=user_input)
-    elif field == 'id':
+    elif field == 'code':
         result = College().search(keyword=user_input, field='code')
-    elif field == 'first':
+    elif field == 'name':
         result = College().search(keyword=user_input, field='name')
     elif field == 'coursecount':
         result = College().search(keyword=user_input, field='coursecount')
