@@ -2,9 +2,7 @@ __pycache__/
 .idea/
 api/
 database/
-venv/__pycache__/
-venv/Lib/
-venv/Scripts/
+venv/
 
 *.cfg
 *.python
