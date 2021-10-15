@@ -1,15 +1,13 @@
-from flask import Blueprint, request, render_template, redirect, flash
+from flask import request, render_template, redirect, flash
 from flask.helpers import url_for
 from .utils import add_student_to_db, update_student_record, save_image
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
 from ssis.admin.utils import admin_found
+from . import student
 
-student = Blueprint(name='student', import_name=__name__)
-
-
-@student.route('/', methods=['GET', 'POST'])
+@student.route('/students', methods=['GET', 'POST'])
 def students():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -24,7 +22,7 @@ def students():
                 data = [students,courses,colleges], 
                 datacount = f'{len(students)} Students')
         else:
-            return redirect(url_for('login'))
+            return redirect(url_for('admin.login'))
     else:
         return render_template(
             'students.html', 
@@ -33,7 +31,7 @@ def students():
 
 
 
-@student.route('/search', methods=['GET', 'POST'])
+@student.route('/students/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
 
@@ -66,20 +64,22 @@ def search():
                 data=[result],
                 datacount = f'Search Result: {len(result)}')
         else:
-            return redirect(url_for('/'))
+            flash(f'No student found', 'info')
+            return redirect(url_for('student.students'))
     else:
-        return redirect(url_for('homepage'))
+        return redirect(url_for('student.students'))
 
 
 
-@student.route('/add', methods=['GET', 'POST'])
+@student.route('/students/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
         image = request.files['selected-image']
         try:
-            filename = save_image(image, '\static\entity_photos\students')
-        except:
+            filename = save_image(image)
+        except Exception as e:
             print("Can't save image")
+            print(e)
         
         student = {
             'id': request.form.get('student-id'),
@@ -93,13 +93,13 @@ def add():
         }
         add_student_to_db(student)
         flash(f'{student["firstname"]} is added succesfully!', 'info')
-        return redirect(url_for('homepage'))
+        return redirect(url_for('student.students'))
     else:
-        return redirect(url_for('homepage'))
+        return redirect(url_for('student.students'))
 
 
 
-@student.route('/update/<string:id>', methods=['GET', 'POST'])
+@student.route('/students/update/<string:id>', methods=['GET', 'POST'])
 def update(id):
     if request.method == 'POST':
 
@@ -114,15 +114,15 @@ def update(id):
         }
         update_student_record(student)
         flash(f"{student['firstname']}'s data has been changed succesfully!", 'info')
-        return redirect(url_for('homepage'))
+        return redirect(url_for('student.students'))
     else:
-        return redirect(url_for('homepage'))
+        return redirect(url_for('student.students'))
 
 
 
-@student.route('/delete/<string:id>')
+@student.route('/students/delete/<string:id>')
 def delete(id):
     data = Student().get_student(id)
     Student().delete(id)
     flash(f'{data[0]} deleted from the database.', 'info')
-    return redirect(url_for('homepage'))
+    return redirect(url_for('student.students'))

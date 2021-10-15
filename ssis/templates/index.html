@@ -36,7 +36,7 @@
                     <h1 class="font-weight-bold py-3">Hi there.</h1>
                     <h6>Let me know it's you!</h6>
                     {% endblock %}
-                    <form action="{{ url_for("/students/") }}" method="post">
+                    <form action="{{ url_for("student.students") }}" method="post">
                         <!--Username entry field-->
                         <div class="form-row">
                             <div class="col-lg-7">
@@ -57,7 +57,7 @@
                             </div>
                         </div> <!--end of Login Button-->
                         {% block switchPage_prompt %}
-                        <p>No account? <a href="{{ url_for("/ssis/signup") }}">Sign Up</a></p>
+                        <p>No account? <a href="{{ url_for("admin.signup") }}">Sign Up</a></p>
                         {% endblock %}
                     </form>
                 </div>

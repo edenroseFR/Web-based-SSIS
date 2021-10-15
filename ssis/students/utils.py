@@ -63,7 +63,9 @@ def update_student_record(student=None):
 
 
 def save_image(file=None, config=None):
+    parent_folder = os.path.dirname(os.path.dirname(__file__)) + '\static\entity_photos\students'
     image = file
     filename = secure_filename(file.filename)
-    image.save(os.path.join(config, filename))
+    image.save(os.path.join(parent_folder, filename))
     return filename
+    

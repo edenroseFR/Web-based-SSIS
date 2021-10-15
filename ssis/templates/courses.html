@@ -8,13 +8,13 @@
 <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item" id="btn-student">
-            <a href="{{url_for('homepage')}}" class="nav-link">Students</a>
+            <a href="{{url_for('student.students')}}" class="nav-link">Students</a>
         </li>
         <li class="nav-item active" id="btn-courses">
             <a class="nav-link active" id="activeLink">Courses</a>
         </li>
         <li class="nav-item" id="btn-student">
-            <a href="{{url_for('colleges')}}" class="nav-link">Colleges</a>
+            <a href="{{url_for('college.colleges')}}" class="nav-link">Colleges</a>
         </li>
     </ul>
 </div>
@@ -29,7 +29,7 @@
                 <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCourseForm"><img src="../static/images/addcourseICON.png" alt="" id="addICON"></button>
             </div>
             <div>
-                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('course_search') }}">
+                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('course.search') }}">
                     <select id="field" name="field" class="form-select p-2">
                         <option value="select">Select Field</option>
                         <option value="code">Course Code</option>
@@ -63,8 +63,8 @@
             <td>{{course[1]}}</td>
             <td>{{course[2]}}</td>
             <td>
-                <a href="{{url_for('update_course', id=course[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCourseForm{{course.0}}">Update</a>
-                <a href="{{url_for('delete_course', id=course[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{course.0}} ?')">Delete</a>
+                <a href="{{url_for('course.update', id=course[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCourseForm{{course.0}}">Update</a>
+                <a href="{{url_for('course.delete', id=course[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{course.0}} ?')">Delete</a>
                 
             </td>
         </tr>
@@ -84,7 +84,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="{{ url_for('update_course', id=course.0) }}" class="needs-validation" method="post">
+                <form action="{{ url_for('course.update', id=course.0) }}" class="needs-validation" method="post">
                     <div class="mb-3">
                         <label for="course-code" class="form-label">Course Code</label>
                         <input type="courseinfo" class="form-control" id="course-code" value="{{course.0}}" name="course-code" disabled>

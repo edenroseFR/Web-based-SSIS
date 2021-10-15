@@ -14,7 +14,7 @@
               </div>
 
               <div class="modal-body">
-                  <form class="needs-validation" action="{{ url_for('add_student') }}" method="post" enctype="multipart/form-data">
+                  <form class="needs-validation" action="{{ url_for('student.add') }}" method="post" enctype="multipart/form-data">
 
                       <div class="image-container flex-column">
                           <div class="image-wrapper ">
@@ -104,7 +104,7 @@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
     </div>
 
     <div class="modal-body ">
-        <form action="{{ url_for("add_course") }}" class="needs-validation" method="post">
+        <form action="{{ url_for('course.add') }}" class="needs-validation" method="post">
             <div class="mb-3">
                 <label for="course-code" class="form-label">Course Code</label>
                 <input type="courseinfo" class="form-control" id="course-code" name="course-code" required>
@@ -146,7 +146,7 @@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
       </div>
   
       <div class="modal-body">
-          <form action="{{ url_for("add_college") }}" class="needs-validation" method="post">
+          <form action="{{ url_for('college.add') }}" class="needs-validation" method="post">
               <div class="mb-3">
                   <label for="college-code" class="form-label">College Code</label>
                   <input type="courseinfo" class="form-control" id="college-code" name="college-code" required>

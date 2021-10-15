@@ -4,10 +4,9 @@ from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
 from .utils import add_course_to_db, update_course_record
+from . import course
 
-course = Blueprint(name='course', import_name=__name__)
-
-@course.route('/')
+@course.route('/courses')
 def courses():
     students = Student().get_all()
     courses = Course().get_all()
@@ -18,7 +17,7 @@ def courses():
         datacount = f'{len(courses)} Courses')
 
 
-@course.route('/add', methods=['GET', 'POST'])
+@course.route('/course/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
         course = {
@@ -28,13 +27,13 @@ def add():
         }
         add_course_to_db(course)
         flash(f'{course["code"]} added succesfully!', 'info')
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))
     else:
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))
 
 
 
-@course.route('/search', methods=['GET', 'POST'])
+@course.route('/courses/search', methods=['GET', 'POST'])
 def search():
     user_input = request.form.get('user-input')
     field = request.form.get('field')
@@ -56,22 +55,22 @@ def search():
             data=['', result],
             datacount = f'Search Result: {len(result)}')
     else:
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))
 
 
 
-@course.route('/delete/<string:id>')
+@course.route('/courses/delete/<string:id>')
 def delete(id):
     try:
         Course().delete(id)
         flash(f'{id} deleted from the database.', 'info')
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))
     except:
         flash(f'{id} cannot be deleted. Students are enrolled in this program', 'info')
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))
 
 
-@course.route('/update/<string:id>', methods=['GET', 'POST'])
+@course.route('/courses/update/<string:id>', methods=['GET', 'POST'])
 def update(id):
     if request.method == 'POST':
         course = {
@@ -81,6 +80,6 @@ def update(id):
         }
         update_course_record(course)
         flash(f"{id} has been updated succesfully!", 'info')
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))
     else:
-        return redirect(url_for('courses'))
+        return redirect(url_for('course.courses'))

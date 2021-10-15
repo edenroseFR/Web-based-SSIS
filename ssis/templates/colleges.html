@@ -8,10 +8,10 @@
 <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item" id="btn-student">
-            <a href="{{url_for('homepage')}}" class="nav-link">Students</a>
+            <a href="{{url_for('student.students')}}" class="nav-link">Students</a>
         </li>
         <li class="nav-item" id="btn-courses">
-            <a href="{{url_for('courses')}}" class="nav-link">Courses</a>
+            <a href="{{url_for('course.courses')}}" class="nav-link">Courses</a>
         </li>
         <li class="nav-item active" id="btn-colleges">
             <a class="nav-link active" id="activeLink">Colleges</a>
@@ -29,7 +29,7 @@
                 <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCollegeForm"><img src="../static/images/addcollegeICON.png" alt="" id="addcollegeICON"></button>
             </div>
             <div>
-                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{url_for('college_search')}}">
+                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{url_for('college.search')}}">
                     <select id="field" name="field" class="form-select p-2">
                         <option value="select">Select Field</option>
                         <option value="code">College Code</option>
@@ -78,8 +78,8 @@
             <td>{{college.2}}</td>
             <td>{{college.3}}</td>
             <td>
-                <a href="{{url_for('update_college', id=college.0)}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCollegeForm{{college.0}}">Update</a>
-                <a href="{{url_for('delete_college', id=college.0)}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{college.1}} ?')">Delete</a>
+                <a href="{{url_for('college.update', id=college.0)}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCollegeForm{{college.0}}">Update</a>
+                <a href="{{url_for('college.delete', id=college.0)}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{college.1}} ?')">Delete</a>
         </tr>
           <!-- edit_course Modal  -->
           <div class="modal fade" id="editCollegeForm{{college.0}}" data-bs-backdrop="static"
@@ -96,7 +96,7 @@
               </div>
   
               <div class="modal-body">
-                  <form action="{{ url_for('update_college', id=college.0) }}" class="needs-validation" method="post">
+                  <form action="{{ url_for('college.update', id=college.0) }}" class="needs-validation" method="post">
                       <div class="mb-3">
                           <label for="college-code" class="form-label">College Code</label>
                           <input type="collegeinfo" class="form-control" id="college-code" value="{{college.0}}" name="college-code" disabled>

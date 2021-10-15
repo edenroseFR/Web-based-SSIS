@@ -1,11 +1,9 @@
 from flask import Blueprint, request, render_template, redirect, current_app
 from flask.helpers import url_for
 from .utils import verified
+from . import admin
 
-
-admin = Blueprint(name='admin', import_name=__name__)
-
-@admin.route('/admin', methods=['GET', 'POST'])
+@admin.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         redirect(url_for('homepage'))

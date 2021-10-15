@@ -13,12 +13,12 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url_for('courses')}}" class="nav-link">
+            <a href="{{url_for('course.courses')}}" class="nav-link">
                 Courses
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url_for('colleges')}}" class="nav-link">
+            <a href="{{url_for('college.colleges')}}" class="nav-link">
                 Colleges
             </a>
         </li>
@@ -36,7 +36,7 @@
                 <button id="addNew" data-bs-toggle="modal" data-bs-target="#addStudentForm"><img src="../static/images/addICON.png" alt="" id="addICON"></button>
             </div>
             <div>
-                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('student_search') }}">
+                <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('student.search') }}">
                     <select id="field" name="field" class="form-select p-2">
                         <option value="select">Select Field</option>
                         <option value="id">Student ID</option>
@@ -100,8 +100,8 @@
             <td>{{student[5]}}</td>
             <td title="{{student.8}}">{{student[6]}}</td>
             <td>
-                <a href="{{url_for('update_student', id=student[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateStudent{{student[0]}}">Update</a>
-                <a href="{{url_for('delete_student', id=student[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{student.1}} ?')">Delete</a>
+                <a href="{{url_for('student.update', id=student[0])}}" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateStudent{{student[0]}}">Update</a>
+                <a href="{{url_for('student.delete', id=student[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove {{student.1}} ?')">Delete</a>
                 
             </td>
         </tr>
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="needs-validation" action="{{ url_for('update_student', id=student.0) }}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ url_for('student.update', id=student.0) }}" method="post" enctype="multipart/form-data">
                     
                         <!-- <div class="image-container flex-column">
                             <div class="image-wrapper ">
