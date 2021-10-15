@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, current_app
+from flask import request, render_template, redirect
 from flask.helpers import url_for
 from .utils import verified
 from . import admin

@@ -1,5 +1,5 @@
 
-from flask import Blueprint, request, render_template, redirect, flash
+from flask import request, render_template, redirect, flash
 from flask.helpers import url_for
 from ssis.models.student import Student
 from ssis.models.course import Course
