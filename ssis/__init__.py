@@ -6,10 +6,10 @@ def create_app():
     app.config['SECRET_KEY'] = 'piesXfrenchwatermelon'
 
     # import blueprints
-    from .admin import admin
-    from .students import student
-    from .courses import course
-    from .colleges import college
+    from .views.admin import admin
+    from .views.students import student
+    from .views.courses import course
+    from .views.colleges import college
 
     # register blueprints
     app.register_blueprint(admin)

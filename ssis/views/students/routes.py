@@ -4,7 +4,7 @@ from .utils import add_student_to_db, update_student_record, save_image
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
-from ssis.admin.utils import admin_found
+from ssis.views.admin.utils import admin_found
 from . import student
 
 @student.route('/students', methods=['GET', 'POST'])
