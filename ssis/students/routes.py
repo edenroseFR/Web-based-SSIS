@@ -1,11 +1,10 @@
 from flask import Blueprint, request, render_template, redirect, flash
 from flask.helpers import url_for
-from utils import add_student_to_db, update_student_record, save_image
+from .utils import add_student_to_db, update_student_record, save_image
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
 from ssis.admin.utils import admin_found
-from config import app
 
 student = Blueprint(name='student', import_name=__name__)
 
@@ -78,7 +77,7 @@ def add():
     if request.method == 'POST':
         image = request.files['selected-image']
         try:
-            filename = save_image(image, app.config['UPLOAD_PATH'])
+            filename = save_image(image, '\static\entity_photos\students')
         except:
             print("Can't save image")
         

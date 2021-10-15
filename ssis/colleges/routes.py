@@ -4,7 +4,7 @@ from flask.helpers import url_for
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
-from utils import add_college_to_db, update_college_record
+from .utils import add_college_to_db, update_college_record
 
 
 

@@ -1,4 +1,4 @@
-from mysql_connection import cursor, db
+from . import cursor, db
 
 class Course():
     def __init__(

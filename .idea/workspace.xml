@@ -2,25 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0977c106-0f7a-4698-810b-ff35d46a1aef" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Scripts/activate" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/activate.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/activate.fish" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/activate.ps1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/activate.xsh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/activate_this.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/deactivate.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/flask.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip-3.9.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip3.9.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pip3.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pydoc.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/python.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/pythonw.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/wheel-3.9.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/wheel.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/wheel3.9.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/wheel3.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DreamTeam.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DreamTeam.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SSIShelper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_connection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/admin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/admin/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/admin/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/admin/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/colleges/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/colleges/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/colleges/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/colleges/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/courses/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/courses/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/courses/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/courses/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/models/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/models/college.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/models/college.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/models/course.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/models/course.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/models/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/models/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/students/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/students/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssis/students/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssis/students/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +50,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -110,21 +113,29 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="463" y="123" key="FileChooserDialogImpl/0.0.1366.738/1366.-349.1600.870@0.0.1366.738" timestamp="1632044374991" />
-    <state width="1367" height="189" key="GridCell.Tab.0.bottom" timestamp="1632059127807">
+    <state width="1367" height="189" key="GridCell.Tab.0.bottom" timestamp="1634261073868">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state width="1367" height="189" key="GridCell.Tab.0.bottom/0.0.1366.738/1366.-138.1600.870@0.0.1366.738" timestamp="1634261073868" />
     <state width="1367" height="189" key="GridCell.Tab.0.bottom/0.0.1366.738/1366.-349.1600.870@0.0.1366.738" timestamp="1632059127807" />
-    <state width="1367" height="189" key="GridCell.Tab.0.center" timestamp="1632059127807">
+    <state width="1367" height="189" key="GridCell.Tab.0.center" timestamp="1634261073868">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state width="1367" height="189" key="GridCell.Tab.0.center/0.0.1366.738/1366.-138.1600.870@0.0.1366.738" timestamp="1634261073868" />
     <state width="1367" height="189" key="GridCell.Tab.0.center/0.0.1366.738/1366.-349.1600.870@0.0.1366.738" timestamp="1632059127807" />
-    <state width="1367" height="189" key="GridCell.Tab.0.left" timestamp="1632059127807">
+    <state width="1367" height="189" key="GridCell.Tab.0.left" timestamp="1634261073868">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state width="1367" height="189" key="GridCell.Tab.0.left/0.0.1366.738/1366.-138.1600.870@0.0.1366.738" timestamp="1634261073868" />
     <state width="1367" height="189" key="GridCell.Tab.0.left/0.0.1366.738/1366.-349.1600.870@0.0.1366.738" timestamp="1632059127807" />
-    <state width="1367" height="189" key="GridCell.Tab.0.right" timestamp="1632059127807">
+    <state width="1367" height="189" key="GridCell.Tab.0.right" timestamp="1634261073868">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state width="1367" height="189" key="GridCell.Tab.0.right/0.0.1366.738/1366.-138.1600.870@0.0.1366.738" timestamp="1634261073868" />
     <state width="1367" height="189" key="GridCell.Tab.0.right/0.0.1366.738/1366.-349.1600.870@0.0.1366.738" timestamp="1632059127807" />
+    <state x="184" y="11" key="SettingsEditor" timestamp="1634259938900">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="184" y="11" key="SettingsEditor/0.0.1366.738/1366.-138.1600.870@0.0.1366.738" timestamp="1634259938900" />
   </component>
 </project>

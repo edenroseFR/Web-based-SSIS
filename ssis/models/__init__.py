@@ -1,2 +1,10 @@
-import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+import mysql.connector as mysql
+
+
+db = mysql.connect(
+            host = 'localhost',
+            user = 'root',
+            password = 'edenrose',
+            database = 'ssisdb'
+        )
+cursor = db.cursor()
