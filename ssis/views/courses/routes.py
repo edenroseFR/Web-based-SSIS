@@ -7,7 +7,7 @@ from .utils import add_course_to_db, update_course_record
 from . import course
 
 @course.route('/courses')
-def courses():
+def courses() -> str:
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_all()
@@ -18,7 +18,7 @@ def courses():
 
 
 @course.route('/course/add', methods=['GET', 'POST'])
-def add():
+def add() -> str:
     if request.method == 'POST':
         course = {
             'code': request.form.get('course-code'),
@@ -34,7 +34,7 @@ def add():
 
 
 @course.route('/courses/search', methods=['GET', 'POST'])
-def search():
+def search() -> str:
     user_input = request.form.get('user-input')
     field = request.form.get('field')
 
@@ -60,7 +60,7 @@ def search():
 
 
 @course.route('/courses/delete/<string:id>')
-def delete(id):
+def delete(id: str) -> str:
     try:
         Course().delete(id)
         flash(f'{id} deleted from the database.', 'info')
@@ -71,7 +71,7 @@ def delete(id):
 
 
 @course.route('/courses/update/<string:id>', methods=['GET', 'POST'])
-def update(id):
+def update(id: str) -> str:
     if request.method == 'POST':
         course = {
             'code': id,

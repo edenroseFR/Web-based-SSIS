@@ -1,7 +1,7 @@
 from ssis.models.course import Course
 from ssis.models.college import College
 
-def add_course_to_db(course=None):
+def add_course_to_db(course: str = None) -> bool:
     code = (course['code'].strip()).upper()
     name = (course['name'].strip()).title()
     college = College().get_collegecode_for(course['college'])
@@ -21,7 +21,7 @@ def add_course_to_db(course=None):
 
 
 
-def update_course_record(course=None):
+def update_course_record(course: str = None) -> bool:
     code = course['code']
     name = course['name'].strip()
     college = course['college']

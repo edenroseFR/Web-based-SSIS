@@ -8,7 +8,7 @@ from .utils import add_college_to_db, update_college_record
 from . import college
 
 @college.route('/colleges', methods=['GET', 'POST'])
-def colleges():
+def colleges() -> str:
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_statistics()
@@ -20,7 +20,7 @@ def colleges():
 
 
 @college.route('/colleges/add', methods=['GET', 'POST'])
-def add():
+def add() -> str:
     if request.method == 'POST':
         college = {
             'code': request.form.get('college-code'),
@@ -34,7 +34,7 @@ def add():
 
 
 @college.route('/colleges/search', methods=['GET', 'POST'])
-def search():
+def search() -> str:
     user_input = request.form.get('user-input')
     field = request.form.get('field')
 
@@ -61,7 +61,7 @@ def search():
 
 
 @college.route('/colleges/delete/<string:id>')
-def delete(id):
+def delete(id: str) -> str:
     try:
         College().delete(id)
         flash(f'{id} deleted from the database.', 'info')
@@ -72,7 +72,7 @@ def delete(id):
 
 
 @college.route('/colleges/update/<string:id>', methods=['GET', 'POST'])
-def update(id):
+def update(id: str) -> str:
     if request.method == 'POST':
         college = {
             'code': id,

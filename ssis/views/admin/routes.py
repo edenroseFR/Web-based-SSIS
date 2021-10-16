@@ -4,19 +4,19 @@ from .utils import verified
 from . import admin
 
 @admin.route('/', methods=['GET', 'POST'])
-def login():
+def login() -> str:
     if request.method == 'POST':
         redirect(url_for('homepage'))
     return render_template('index.html')
 
 
 @admin.route('/admin/signup')
-def signup():
+def signup() -> str:
     return render_template('signup.html')
 
 
 @admin.route('/admin/confirm_identity', methods=['GET', 'POST'])
-def confirm_identity():
+def confirm_identity() -> str:
     username = request.form.get('username')
     password = request.form.get('password')
     password2 = request.form.get('passwordConfirmation')

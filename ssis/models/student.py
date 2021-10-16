@@ -3,15 +3,15 @@ from . import cursor, db
 class Student():
     def __init__(
         self, 
-        id=None,
-        firstName=None,
-        middleName=None,
-        lastName=None,
-        yearLevel=None,
-        gender=None,
-        course=None,
-        college=None,
-        photo=None):
+        id: str = None,
+        firstName: str = None,
+        middleName: str = None,
+        lastName: str = None,
+        yearLevel: str = None,
+        gender: str = None,
+        course: str = None,
+        college: str = None,
+        photo: str = None) -> None:
         
         self.id = id
         self.firstName = firstName
@@ -24,7 +24,7 @@ class Student():
         self.photo = photo
 
 
-    def get_all(self):
+    def get_all(self) -> list:
         query = '''
             SELECT id, 
                    firstname, 
@@ -49,7 +49,7 @@ class Student():
         return students
 
 
-    def search(self, keyword=None, field=None):
+    def search(self, keyword: str = None, field: str = None) -> list:
         keyword = keyword.upper()
         students = self.get_all()
         result = []
@@ -75,7 +75,7 @@ class Student():
 
 
     @staticmethod
-    def search_by_field(rows=None, keyword=None, field='id'):
+    def search_by_field(rows: list = None, keyword: str = None, field: str = None) -> list:
         result = []
         for row in rows:
             row_allcaps = [str(cell).upper() for cell in row]
@@ -111,7 +111,7 @@ class Student():
 
 
     @staticmethod
-    def get_IDs():
+    def get_IDs() -> list:
         query = '''
             SELECT id
             FROM students
@@ -123,7 +123,7 @@ class Student():
     
 
     @staticmethod
-    def get_student(id=None):
+    def get_student(id: str = None) -> str:
         query = f'''
             SELECT id, 
                    firstname, 
@@ -140,7 +140,7 @@ class Student():
         student = list(cursor.fetchone())
         return student
 
-    def add_new(self):
+    def add_new(self) -> None:
         query = f'''
             INSERT INTO students (
                 id, 
@@ -171,7 +171,7 @@ class Student():
     
 
     @staticmethod
-    def delete(id=None):
+    def delete(id: str = None) -> None:
         query = f'''
             DELETE FROM students
             WHERE id='{id}'
@@ -181,7 +181,7 @@ class Student():
         return None
 
 
-    def update(self):
+    def update(self) -> None:
         query = f'''
             UPDATE students
             SET 

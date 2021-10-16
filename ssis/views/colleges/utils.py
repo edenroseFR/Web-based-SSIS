@@ -1,6 +1,6 @@
 from ssis.models.college import College
 
-def add_college_to_db(college=None):
+def add_college_to_db(college: str = None) -> bool:
     code = (college['code'].strip()).upper()
     name = (college['name'].strip()).title()
     # code validation
@@ -17,7 +17,7 @@ def add_college_to_db(college=None):
     return False
 
 
-def update_college_record(college=None):
+def update_college_record(college: str = None) -> bool:
     code = college['code']
     name = college['name'].strip()
     

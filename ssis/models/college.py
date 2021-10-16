@@ -3,14 +3,14 @@ from . import cursor, db
 class College():
     def __init__(
         self, 
-        code=None,
-        name=None):
+        code: str = None,
+        name: str = None) -> None:
         
         self.code = code
         self.name = name
     
 
-    def get_all(self):
+    def get_all(self) -> list:
         query = '''
             SELECT code, name
             FROM college;
@@ -21,7 +21,7 @@ class College():
         return colleges
 
     
-    def get_statistics(self):
+    def get_statistics(self) -> list:
         colleges = self.get_all()
         query = '''
             SELECT college.code, college.name, COUNT(*) AS courses, enrolled.student as enrolled
@@ -46,7 +46,7 @@ class College():
 
 
     @staticmethod
-    def get_departments():
+    def get_departments() -> list:
         query = '''
             SELECT college.code, course.name
             FROM college
@@ -59,7 +59,7 @@ class College():
         return departments
 
 
-    def search(self, keyword=None, field=None):
+    def search(self, keyword: str = None, field: str = None) -> list:
         keyword = keyword.upper()
         colleges = self.get_statistics()
         result = []
@@ -79,7 +79,7 @@ class College():
 
 
     @staticmethod
-    def search_by_field(rows=None, keyword=None, field=None):
+    def search_by_field(rows: list = None, keyword: str = None, field: str = None) -> list:
         result = []
         for row in rows:
             row_allcaps = [str(cell).upper() for cell in row]
@@ -104,7 +104,7 @@ class College():
         return result
 
 
-    def add_new(self):
+    def add_new(self) -> None:
         query = f'''
             INSERT INTO college (
                 code,
@@ -121,7 +121,7 @@ class College():
     
 
     @staticmethod
-    def delete(code=None):
+    def delete(code: str = None) -> None:
         query = f'''
             DELETE FROM college
             WHERE code='{code}'
@@ -131,7 +131,7 @@ class College():
         return None
 
 
-    def update(self):
+    def update(self) -> None:
         query = f'''
             UPDATE college
             SET 
@@ -146,7 +146,7 @@ class College():
 
 
     @staticmethod
-    def get_collegecode_for(course_name=None):
+    def get_collegecode_for(course_name: str = None) -> str:
         query = f'''
             SELECT code
             FROM college
@@ -158,7 +158,7 @@ class College():
 
 
     @staticmethod
-    def get_collegecodes():
+    def get_collegecodes() -> list:
         query = '''
             SELECT code
             FROM college
