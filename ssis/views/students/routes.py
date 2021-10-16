@@ -1,6 +1,6 @@
 from flask import request, render_template, redirect, flash
 from flask.helpers import url_for
-from .utils import add_student_to_db, update_student_record, save_image
+from .utils import add_student_to_db, update_student_record, save_image, get_pagecount
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
@@ -14,7 +14,7 @@ def students():
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_all()
-
+    pagecount = get_pagecount(len(students))
     if request.method == 'POST ':
         if admin_found(username, password):
             return render_template(
@@ -126,3 +126,10 @@ def delete(id):
     Student().delete(id)
     flash(f'{data[0]} deleted from the database.', 'info')
     return redirect(url_for('student.students'))
+
+
+@student.route('/students/next')
+def next():
+    current_page = request.form.get('current_page')
+    print(current_page)
+    return "<h1>Next Page</h1>"

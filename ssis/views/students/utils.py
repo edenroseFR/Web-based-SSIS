@@ -68,4 +68,15 @@ def save_image(file=None, config=None):
     filename = secure_filename(file.filename)
     image.save(os.path.join(parent_folder, filename))
     return filename
-    
+
+
+def get_pagecount(num_of_students=None):
+    pagecount = 0
+    if num_of_students % 2 == 0:
+        pagecount = num_of_students / 10
+    else:
+        pagecount = (num_of_students / 10) + 1
+
+    return pagecount
+
+
