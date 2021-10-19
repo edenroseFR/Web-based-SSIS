@@ -1,6 +1,6 @@
 # CRUD WEB APPLICATION (CCC181 Assignment)
 
-![crudwebapp](https://github.com/edenroseFR/Web-based-SSIS/blob/main/image.PNG)
+![crudwebapp](https://github.com/edenroseFR/Web-based-SSIS/blob/readme_files/image.PNG)
 ## FEATURES
 - Display data
 - Add data
