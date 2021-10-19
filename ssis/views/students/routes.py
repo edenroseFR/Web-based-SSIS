@@ -7,6 +7,8 @@ from ssis.models.college import College
 from ssis.views.admin.utils import admin_found
 from . import student
 
+
+
 @student.route('/students', methods=['GET', 'POST'])
 def students() -> str:
     username = request.form.get('username')
@@ -17,17 +19,16 @@ def students() -> str:
 
     if request.method == 'POST ':
         if admin_found(username, password):
-            return render_template(
-                'students.html', 
-                data = [students,courses,colleges], 
-                datacount = f'{len(students)} Students')
+            return render_template('students.html', 
+                                    data = [students,courses,colleges],
+                                    datacount = f'{len(students)} Students'
+                                   )
         else:
             return redirect(url_for('admin.login'))
     else:
-        return render_template(
-            'students.html', 
-            data = [students,courses,colleges],
-            datacount = f'{len(students)} Students')
+        return render_template('students.html', 
+                                data = [students,courses,colleges],
+                                datacount = f'{len(students)} Students')
 
 
 
@@ -59,10 +60,10 @@ def search() -> str:
             result = []
 
         if len(result) != 0:
-            return render_template(
-                'students.html', 
-                data=[result],
-                datacount = f'Search Result: {len(result)}')
+            return render_template('students.html', 
+                                    data=[result],
+                                    datacount = f'Search Result: {len(result)}'
+                                   )
         else:
             flash(f'No student found', 'info')
             return redirect(url_for('student.students'))

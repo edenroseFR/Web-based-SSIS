@@ -11,10 +11,10 @@ def courses() -> str:
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_all()
-    return render_template(
-        'courses.html', 
-        data=[students,courses,colleges],
-        datacount = f'{len(courses)} Courses')
+    return render_template('courses.html', 
+                            data=[students,courses,colleges],
+                            datacount = f'{len(courses)} Courses'
+                           )
 
 
 @course.route('/course/add', methods=['GET', 'POST'])
@@ -50,10 +50,10 @@ def search() -> str:
         result = []
 
     if len(result) != 0:
-        return render_template(
-            'courses.html', 
-            data=['', result],
-            datacount = f'Search Result: {len(result)}')
+        return render_template('courses.html', 
+                                data=['', result],
+                                datacount = f'Search Result: {len(result)}'
+                               )
     else:
         return redirect(url_for('course.courses'))
 

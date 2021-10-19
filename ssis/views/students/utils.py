@@ -28,7 +28,7 @@ def add_student_to_db(student: list) -> bool:
                     college=Course().get_collegecode(course),
                     photo = photo
                 ).add_new()
-                return
+                return None
             else:
                 return False
         else:
@@ -57,13 +57,14 @@ def update_student_record(student: list = None) -> bool:
             course=Course().get_coursecode_for(course),
             college=Course().get_collegecode(course)
         ).update()
-        return
+        return None
     else:
         return False
 
 
 def save_image(file: str = None, config=None) -> str:
-    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\static\entity_photos\students'
+    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+                    '\static\entity_photos\students'
     image = file
     filename = secure_filename(file.filename)
     image.save(os.path.join(parent_folder, filename))

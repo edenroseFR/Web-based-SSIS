@@ -1,4 +1,3 @@
-
 from flask import request, render_template, redirect, flash
 from flask.helpers import url_for
 from ssis.models.student import Student
@@ -7,16 +6,19 @@ from ssis.models.college import College
 from .utils import add_college_to_db, update_college_record
 from . import college
 
+
 @college.route('/colleges', methods=['GET', 'POST'])
 def colleges() -> str:
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_statistics()
     departments = College().get_departments()
-    return render_template(
-        'colleges.html', 
-        data=[students,courses,colleges,departments],
-        datacount = f'{len(colleges)} Colleges')
+    colleges_count = len(colleges)
+
+    return render_template('colleges.html', 
+                            data=[students,courses,colleges,departments], 
+                            datacount=f'{colleges_count} Colleges'
+                           )
 
 
 @college.route('/colleges/add', methods=['GET', 'POST'])
@@ -52,10 +54,10 @@ def search() -> str:
         result = []
 
     if len(result) != 0:
-        return render_template(
-            'colleges.html', 
-            data=['', '', result],
-            datacount = f'Search Result: {len(result)}')
+        return render_template('colleges.html', 
+                                data=['', '', result], 
+                                datacount=f'Search Result: {len(result)}'
+                               )
     else:
         return redirect(url_for('college.colleges'))
 

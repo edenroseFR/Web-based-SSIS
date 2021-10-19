@@ -14,7 +14,7 @@ def add_course_to_db(course: str = None) -> bool:
                 name,
                 college
             ).add_new()
-            return
+            return None
         else:
             return False
     return False
@@ -33,6 +33,6 @@ def update_course_record(course: str = None) -> bool:
             name,
             College().get_collegecode_for(college)
         ).update()
-        return
+        return None
     else:
         return False

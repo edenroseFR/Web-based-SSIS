@@ -11,7 +11,7 @@ def add_college_to_db(college: str = None) -> bool:
                 code,
                 name
             ).add_new()
-            return
+            return None
         else:
             return False
     return False
@@ -26,6 +26,6 @@ def update_college_record(college: str = None) -> bool:
             code,
             name
         ).update()
-        return
+        return None
     else:
         return False
