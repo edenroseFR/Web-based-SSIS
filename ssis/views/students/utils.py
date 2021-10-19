@@ -3,7 +3,7 @@ from ssis.models.course import Course
 from werkzeug.utils import secure_filename
 import os
 
-def add_student_to_db(student):
+def add_student_to_db(student: list) -> bool:
     id = student['id'].strip()
     firstname = (student['firstname'].strip()).title()
     middlename = (student['middlename'].strip()).title()
@@ -28,7 +28,7 @@ def add_student_to_db(student):
                     college=Course().get_collegecode(course),
                     photo = photo
                 ).add_new()
-                return
+                return None
             else:
                 return False
         else:
@@ -37,7 +37,7 @@ def add_student_to_db(student):
 
 
 
-def update_student_record(student=None):
+def update_student_record(student: list = None) -> bool:
     id = student['id'].strip()
     firstname = student['firstname'].strip()
     middlename = student['middlename'].strip()
@@ -57,13 +57,14 @@ def update_student_record(student=None):
             course=Course().get_coursecode_for(course),
             college=Course().get_collegecode(course)
         ).update()
-        return
+        return None
     else:
         return False
 
 
-def save_image(file=None, config=None):
-    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\static\entity_photos\students'
+def save_image(file: str = None, config=None) -> str:
+    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+                    '\static\entity_photos\students'
     image = file
     filename = secure_filename(file.filename)
     image.save(os.path.join(parent_folder, filename))

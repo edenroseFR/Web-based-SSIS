@@ -6,4 +6,5 @@ Jinja2==3.0.2
 MarkupSafe==2.0.1
 mysql-connector-python==8.0.26
 protobuf==3.18.1
+typing==3.7.4.3
 Werkzeug==2.0.1

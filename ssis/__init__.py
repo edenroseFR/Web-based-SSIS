@@ -1,7 +1,7 @@
 from flask import Flask
 
 
-def create_app():
+def create_app() -> object:
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'piesXfrenchwatermelon'
 
