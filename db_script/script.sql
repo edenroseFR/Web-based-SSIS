@@ -1,4 +1,6 @@
-
+DROP DATABASE IF EXISTS `heroku_7cab8ea6c6ec62e`;
+CREATE DATABASE IF NOT EXISTS `heroku_7cab8ea6c6ec62e` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `heroku_7cab8ea6c6ec62e`;
 CREATE TABLE `admin`(
 username VARCHAR(20) NOT NULL,
 password VARCHAR(100) NOT NULL,
