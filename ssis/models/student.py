@@ -26,6 +26,7 @@ class Student():
 
     def get_all(self) -> list:
         query = '''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT id, 
                    firstname, 
                    middlename, 
@@ -113,6 +114,7 @@ class Student():
     @staticmethod
     def get_IDs() -> list:
         query = '''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT id
             FROM students
         '''
@@ -125,6 +127,7 @@ class Student():
     @staticmethod
     def get_student(id: str = None) -> str:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT id, 
                    firstname, 
                    middlename, 
@@ -142,6 +145,7 @@ class Student():
 
     def add_new(self) -> None:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             INSERT INTO students (
                 id, 
                 firstname, 
@@ -173,6 +177,7 @@ class Student():
     @staticmethod
     def delete(id: str = None) -> None:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             DELETE FROM students
             WHERE id='{id}'
         '''
@@ -183,6 +188,7 @@ class Student():
 
     def update(self) -> None:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             UPDATE students
             SET 
                 firstname = '{self.firstName}',

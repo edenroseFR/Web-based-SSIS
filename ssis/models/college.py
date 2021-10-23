@@ -12,6 +12,7 @@ class College():
 
     def get_all(self) -> list:
         query = '''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT code, name
             FROM college;
         '''
@@ -24,6 +25,7 @@ class College():
     def get_statistics(self) -> list:
         colleges = self.get_all()
         query = '''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT college.code, college.name, COUNT(*) AS courses, enrolled.student as enrolled
             FROM college
             JOIN course
@@ -48,6 +50,7 @@ class College():
     @staticmethod
     def get_departments() -> list:
         query = '''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT college.code, course.name
             FROM college
             JOIN course
@@ -106,6 +109,7 @@ class College():
 
     def add_new(self) -> None:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             INSERT INTO college (
                 code,
                 name
@@ -123,6 +127,7 @@ class College():
     @staticmethod
     def delete(code: str = None) -> None:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             DELETE FROM college
             WHERE code='{code}'
         '''
@@ -133,6 +138,7 @@ class College():
 
     def update(self) -> None:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             UPDATE college
             SET 
                 code = '{self.code}',
@@ -148,6 +154,7 @@ class College():
     @staticmethod
     def get_collegecode_for(course_name: str = None) -> str:
         query = f'''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT code
             FROM college
             WHERE name = '{course_name}'
@@ -160,6 +167,7 @@ class College():
     @staticmethod
     def get_collegecodes() -> list:
         query = '''
+            USE heroku_7cab8ea6c6ec62e;
             SELECT code
             FROM college
         '''
