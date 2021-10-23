@@ -10,6 +10,7 @@ PRIMARY KEY(username)
 CREATE TABLE `course`(
 code VARCHAR(10) NOT NULL,
 name VARCHAR(50) NOT NULL,
+college VARCHAR(45) NOT NULL,
 PRIMARY KEY(code)
 );
 CREATE TABLE `college`(
