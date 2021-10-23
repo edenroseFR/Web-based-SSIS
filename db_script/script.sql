@@ -27,7 +27,7 @@ year INT(1) NOT NULL,
 gender VARCHAR(10) NOT NULL,
 coursecode VARCHAR(10) NOT NULL,
 collegecode VARCHAR(10),
-photo VARCHAR(100),
+photo VARCHAR(500),
 PRIMARY KEY(id),
 FOREIGN KEY(coursecode) REFERENCES course(code),
 FOREIGN KEY(collegecode) REFERENCES college(code)
