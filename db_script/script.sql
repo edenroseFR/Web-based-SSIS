@@ -1,5 +1,9 @@
-CREATE DATABASE SSISdb;
-USE SSISdb;
+
+CREATE TABLE `admin`(
+username VARCHAR(20) NOT NULL,
+password VARCHAR(100) NOT NULL,
+PRIMARY KEY(username)
+);
 
 CREATE TABLE `course`(
 code VARCHAR(10) NOT NULL,
