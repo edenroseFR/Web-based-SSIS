@@ -1,5 +1,6 @@
 from flask import request, render_template, redirect
 from flask.helpers import url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 from .utils import verified
 from . import admin
 
