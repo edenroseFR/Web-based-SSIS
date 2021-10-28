@@ -1,6 +1,6 @@
 # CRUD WEB APPLICATION (CCC181 Assignment)
 
-![crudwebapp](https://github.com/edenroseFR/Web-based-SSIS/blob/main/image.PNG)
+![crudwebapp](https://github.com/edenroseFR/Web-based-SSIS/blob/main/readme_files/image.PNG)
 ## FEATURES
 - Display data
 - Add data
@@ -13,7 +13,7 @@
 ```bash
 clone 'https://github.com/edenroseFR/Web-based-SSIS.git'
 ```
-2. Navigate to the Web-based-SSIS\venv folder and run the following on the command-line
+2. Navigate to the Web-based-SSIS folder and run the following on the command-line
 ```bash
 flask run
 ```
