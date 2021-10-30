@@ -24,7 +24,7 @@ type nul > .env
 4. Open the .env file and write the following:
 ```python
 DB_HOST=your_database_host
-DB_NAME=your_databasse_name
+DB_NAME=your_database_name
 DB_USERNAME=your_database_username
 DB_PASSWORD=your_database_password
 ```
