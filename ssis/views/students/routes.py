@@ -11,24 +11,12 @@ current_page = 1
 
 @student.route('/students', methods=['GET', 'POST'])
 def students(page_num: int = 1, limit: int = None) -> str:
-    username = request.form.get('username') 
-    password = request.form.get('password')
-    students = Student().get_all(current_page, 5)
+    students = Student().get_all(page_num, 5)
     courses = Course().get_all()
     colleges = College().get_all()
-    if request.method == 'POST':
-        if admin_found(username, password):
-            return render_template(
-                'students.html', 
-                data = [students,courses,colleges], 
-                datacount = f'{len(students)} Students')
-        else:
-            return redirect(url_for('admin.login'))
-    else:
-        return render_template(
-            'students.html', 
-            data = [students,courses,colleges],
-            datacount = f'{len(students)} Students')
+    return render_template('students.html', 
+                            data = [students,courses,colleges], 
+                            datacount = f'{len(students)} Students')
 
 
 
