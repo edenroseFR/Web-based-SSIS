@@ -1,22 +1,65 @@
 from flask import request, render_template, redirect, flash
 from flask.helpers import url_for
-from .utils import add_student_to_db, update_student_record, save_image
+from .utils import add_student_to_db, update_student_record, save_image, get_pagecount
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
 from . import student
+from math import ceil
 
+current_page = 1
 
-
-@student.route('/students')
-def students() -> str:
-    students = Student().get_all()
+@student.route('/students', methods=['GET', 'POST'])
+def students(page_num: int = 1, limit: int = None) -> str:
+    username = request.form.get('username') 
+    password = request.form.get('password')
+    students = Student().get_all(current_page, 5)
     courses = Course().get_all()
     colleges = College().get_all()
+    if request.method == 'POST':
+        if admin_found(username, password):
+            return render_template(
+                'students.html', 
+                data = [students,courses,colleges], 
+                datacount = f'{len(students)} Students')
+        else:
+            return redirect(url_for('admin.login'))
+    else:
+        return render_template(
+            'students.html', 
+            data = [students,courses,colleges],
+            datacount = f'{len(students)} Students')
 
-    return render_template('students.html', 
-                            data = [students,courses,colleges],
-                            datacount = f'{len(students)} Students')
+
+
+@student.route('/students/next', methods=['GET', 'POST'])
+def next() -> str:
+    global current_page
+    student_count = Student().get_total()
+    current_page += 1
+    limit_page = ceil(student_count/5)
+    max_page_reached = current_page > limit_page
+
+    if not max_page_reached:
+        return redirect(url_for('student.students', page_num=current_page))
+    else:
+        current_page -= 1
+        return redirect(url_for('student.students', page_num=current_page, limit=True))
+
+
+
+@student.route('/students/prev', methods=['GET', 'POST'])
+def prev() -> str:
+    global current_page
+    student_count = Student().get_total()
+    current_page -= 1
+    min_page_reached = current_page < 1
+
+    if not min_page_reached:
+        return redirect(url_for('student.students', page_num=current_page))
+    else:
+        current_page = 1
+        return redirect(url_for('student.students', page_num=current_page, limit=True))
 
 
 
@@ -118,3 +161,5 @@ def delete(id: str) -> str:
     Student().delete(id)
     flash(f'{data[0]} deleted from the database.', 'info')
     return redirect(url_for('student.students'))
+
+
