@@ -11,7 +11,7 @@ current_page = 1
 
 @student.route('/students', methods=['GET', 'POST'])
 def students(page_num: int = 1, limit: int = None) -> str:
-    students = Student().get_all(page_num, 5)
+    students = Student().get_all(current_page, 5)
     courses = Course().get_all()
     colleges = College().get_all()
     return render_template('students.html', 
