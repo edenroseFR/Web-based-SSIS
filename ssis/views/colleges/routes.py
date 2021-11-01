@@ -9,7 +9,7 @@ from . import college
 
 @college.route('/colleges', methods=['GET', 'POST'])
 def colleges() -> str:
-    students = Student().get_all()
+    students = Student().get_all(paginate=False)
     courses = Course().get_all()
     colleges = College().get_statistics()
     departments = College().get_departments()

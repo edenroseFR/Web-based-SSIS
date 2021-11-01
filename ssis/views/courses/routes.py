@@ -8,7 +8,7 @@ from . import course
 
 @course.route('/courses')
 def courses() -> str:
-    students = Student().get_all()
+    students = Student().get_all(paginate=False)
     courses = Course().get_all()
     colleges = College().get_all()
     return render_template('courses.html', 
