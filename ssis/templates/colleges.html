@@ -142,5 +142,27 @@
           </div>
     {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      
+                      <form action="{{ url_for('student.prev') }}" method="post">
+                        <li class="page-item">
+                          <button type="submit" class="page-link" aria-label="Previous" name="previous">Previous</button>
+                        </li>
+                      </form>
+                
+                      <form action="{{ url_for('student.next') }}" method="post">
+                        <li class="page-item">
+                          <button type="submit" class="page-link"  aria-label="Next" name="next">Next</button>
+                        </li>
+                      </form>
+                    </ul>
+                </nav>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 {% endblock %}
