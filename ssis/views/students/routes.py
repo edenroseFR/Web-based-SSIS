@@ -4,31 +4,19 @@ from .utils import add_student_to_db, update_student_record, save_image
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
-from ssis.views.admin.utils import admin_found
 from . import student
 
 
 
-@student.route('/students', methods=['GET', 'POST'])
+@student.route('/students')
 def students() -> str:
-    username = request.form.get('username')
-    password = request.form.get('password')
     students = Student().get_all()
     courses = Course().get_all()
     colleges = College().get_all()
 
-    if request.method == 'POST ':
-        if admin_found(username, password):
-            return render_template('students.html', 
-                                    data = [students,courses,colleges],
-                                    datacount = f'{len(students)} Students'
-                                   )
-        else:
-            return redirect(url_for('admin.login'))
-    else:
-        return render_template('students.html', 
-                                data = [students,courses,colleges],
-                                datacount = f'{len(students)} Students')
+    return render_template('students.html', 
+                            data = [students,courses,colleges],
+                            datacount = f'{len(students)} Students')
 
 
 
