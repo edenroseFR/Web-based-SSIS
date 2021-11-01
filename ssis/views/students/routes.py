@@ -4,15 +4,14 @@ from .utils import add_student_to_db, update_student_record, save_image, get_pag
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
-from ssis.views.admin.utils import admin_found
 from . import student
 from math import ceil
 
 current_page = 1
 
 @student.route('/students', methods=['GET', 'POST'])
-def students(page_num=1, limit=None):
-    username = request.form.get('username')
+def students(page_num: int = 1, limit: int = None) -> str:
+    username = request.form.get('username') 
     password = request.form.get('password')
     students = Student().get_all(current_page, 5)
     courses = Course().get_all()
@@ -32,8 +31,9 @@ def students(page_num=1, limit=None):
             datacount = f'{len(students)} Students')
 
 
+
 @student.route('/students/next', methods=['GET', 'POST'])
-def next():
+def next() -> str:
     global current_page
     student_count = Student().get_total()
     current_page += 1
@@ -49,7 +49,7 @@ def next():
 
 
 @student.route('/students/prev', methods=['GET', 'POST'])
-def prev():
+def prev() -> str:
     global current_page
     student_count = Student().get_total()
     current_page -= 1
@@ -64,7 +64,7 @@ def prev():
 
 
 @student.route('/students/search', methods=['GET', 'POST'])
-def search():
+def search() -> str:
     if request.method == 'POST':
 
         user_input = request.form.get('user-input')
@@ -91,20 +91,23 @@ def search():
             result = []
 
         if len(result) != 0:
-            return render_template(
-                'students.html', 
-                data=[result],
-                datacount = f'Search Result: {len(result)}')
+            return render_template('students.html', 
+                                    data=[result],
+                                    datacount = f'Search Result: {len(result)}'
+                                   )
         else:
             flash(f'No student found', 'info')
-            return redirect(url_for('student.students'))
+            return render_template('students.html', 
+                                    data=[result],
+                                    datacount = f'Search Result: {len(result)}'
+                                   )
     else:
         return redirect(url_for('student.students'))
 
 
 
 @student.route('/students/add', methods=['GET', 'POST'])
-def add():
+def add() -> str:
     if request.method == 'POST':
         image = request.files['selected-image']
         try:
@@ -132,7 +135,7 @@ def add():
 
 
 @student.route('/students/update/<string:id>', methods=['GET', 'POST'])
-def update(id):
+def update(id: str) -> str:
     if request.method == 'POST':
 
         student = {
@@ -153,7 +156,7 @@ def update(id):
 
 
 @student.route('/students/delete/<string:id>')
-def delete(id):
+def delete(id: str) -> str:
     data = Student().get_student(id)
     Student().delete(id)
     flash(f'{data[0]} deleted from the database.', 'info')

@@ -1,4 +1,4 @@
-{% extends "homepage.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 <title>Students</title> 
@@ -8,7 +8,7 @@
 <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item active" id="btn-student">
-            <a class="nav-link active" id="activeLink">
+            <a href="{{url_for('student.students')}}" class="nav-link active" id="activeLink">
                 Students
             </a>
         </li>

@@ -3,15 +3,15 @@ from . import cursor, db
 class Admin():
     def __init__(
         self,
-        username=None,
-        password=None,
-        password2=None):
+        username: str = None,
+        password: str = None,
+        password2: str = None) -> None:
 
         self.username = username
         self.password = password
         self.password2 = password2
     
-    def register(self):
+    def register(self) -> None:
         query = f'''
             INSERT INTO admin(username, password)
             VALUE('{self.username}',
@@ -22,7 +22,7 @@ class Admin():
         return
 
     @staticmethod
-    def get_usernames():
+    def get_usernames() -> list:
         query = f'''
             SELECT username
             FROM admin
@@ -34,7 +34,7 @@ class Admin():
         return usernames
 
     
-    def registered_user(self):
+    def registered_user(self) -> bool:
         query = f'''
             SELECT username, password 
             FROM admin
