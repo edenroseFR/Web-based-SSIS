@@ -273,8 +273,14 @@
 
     {% endfor %}
     </tbody>
-    {% include 'pagination.html' %}
+    <tfoot>
+        <tr>
+            <td>{% include 'pagination.html' %}</td>
+        </tr>
+    </tfoot>
 </table>
+<div>
+</div>
 
 {% endblock %}
 
