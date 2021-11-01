@@ -24,8 +24,9 @@ class Student():
         self.photo = photo
 
 
-    def get_all(self):
-        query = '''
+    def get_all(self, page_num: int = None, item_per_page: int = None):
+        offset = (page_num - 1) * item_per_page
+        query = f'''
             SELECT id, 
                    firstname, 
                    middlename, 
@@ -42,11 +43,21 @@ class Student():
             ON students.coursecode = course.code
             JOIN college
             ON students.collegecode = college.code
+            LIMIT {item_per_page} OFFSET {offset}
         '''
         cursor.execute(query)
         result = cursor.fetchall()
         students = [list(student) for student in result]
         return students
+    
+    
+    @staticmethod
+    def get_total():
+        query = '''SELECT * FROM students'''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        total = len(result)
+        return total
 
 
     def search(self, keyword=None, field=None):

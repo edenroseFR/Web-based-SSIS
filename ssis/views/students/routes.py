@@ -6,16 +6,18 @@ from ssis.models.course import Course
 from ssis.models.college import College
 from ssis.views.admin.utils import admin_found
 from . import student
+from math import ceil
+
+current_page = 1
 
 @student.route('/students', methods=['GET', 'POST'])
-def students():
+def students(page_num=1, limit=None):
     username = request.form.get('username')
     password = request.form.get('password')
-    students = Student().get_all()
+    students = Student().get_all(current_page, 5)
     courses = Course().get_all()
     colleges = College().get_all()
-    pagecount = get_pagecount(len(students))
-    if request.method == 'POST ':
+    if request.method == 'POST':
         if admin_found(username, password):
             return render_template(
                 'students.html', 
@@ -28,6 +30,36 @@ def students():
             'students.html', 
             data = [students,courses,colleges],
             datacount = f'{len(students)} Students')
+
+
+@student.route('/students/next', methods=['GET', 'POST'])
+def next():
+    global current_page
+    student_count = Student().get_total()
+    current_page += 1
+    limit_page = ceil(student_count/5)
+    max_page_reached = current_page > limit_page
+
+    if not max_page_reached:
+        return redirect(url_for('student.students', page_num=current_page))
+    else:
+        current_page -= 1
+        return redirect(url_for('student.students', page_num=current_page, limit=True))
+
+
+
+@student.route('/students/prev', methods=['GET', 'POST'])
+def prev():
+    global current_page
+    student_count = Student().get_total()
+    current_page -= 1
+    min_page_reached = current_page < 1
+
+    if not min_page_reached:
+        return redirect(url_for('student.students', page_num=current_page))
+    else:
+        current_page = 1
+        return redirect(url_for('student.students', page_num=current_page, limit=True))
 
 
 
@@ -128,8 +160,3 @@ def delete(id):
     return redirect(url_for('student.students'))
 
 
-@student.route('/students/next')
-def next():
-    current_page = request.form.get('current_page')
-    print(current_page)
-    return "<h1>Next Page</h1>"
