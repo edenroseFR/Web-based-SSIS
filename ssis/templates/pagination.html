@@ -1,45 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <script>
-    function incrementPageNumber() {
-      var currentPage = document.getElementById("current_page").value;
-      var newValue = Number(currentPage) + 1 ;
-      document.getElementById("current_page").value = String(newValue);
-    }
-
-    function decrementPageNumber() {
-      var currentPage = document.getElementById("current_page").value;
-      var newValue = Number(currentPage) - 1;
-      document.getElementById("current_page").value = String(newValue);
-    }
-  </script>
-
-</head>
-
-<body>
-
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       <form action="{{ url_for('student.prev') }}" method="post">
         <li class="page-item">
-          <button type="submit" class="page-link" onClick= "decrementPageNumber()" aria-label="Previous" name="previous">Previous</button>
+          <button type="submit" class="page-link" aria-label="Previous" name="previous">Previous</button>
         </li>
       </form>
 
       <form action="{{ url_for('student.next') }}" method="post">
         <li class="page-item">
-          <button type="submit" class="page-link"  onClick= "incrementPageNumber()" aria-label="Next" name="next">Next</button>
+          <button type="submit" class="page-link"  aria-label="Next" name="next">Next</button>
         </li>
       </form>
     </ul>
   </nav>
 
-</body>
 
-</html>
 
 
 
