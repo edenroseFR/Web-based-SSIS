@@ -56,10 +56,12 @@ def search() -> str:
     if len(result) != 0:
         return render_template('colleges.html', 
                                 data=['', '', result], 
-                                datacount=f'Search Result: {len(result)}'
-                               )
+                                datacount=f'Search Result: {len(result)}')
     else:
-        return redirect(url_for('college.colleges'))
+        flash(f'No college found', 'info')
+        return render_template('colleges.html', 
+                                data=['', '', result], 
+                                datacount=f'Search Result: {len(result)}')
 
 
 @college.route('/colleges/delete/<string:id>')

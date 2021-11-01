@@ -52,10 +52,12 @@ def search() -> str:
     if len(result) != 0:
         return render_template('courses.html', 
                                 data=['', result],
-                                datacount = f'Search Result: {len(result)}'
-                               )
+                                datacount = f'Search Result: {len(result)}')
     else:
-        return redirect(url_for('course.courses'))
+        flash(f'No course found', 'info')
+        return render_template('courses.html', 
+                                data=['', result],
+                                datacount = f'Search Result: {len(result)}')
 
 
 

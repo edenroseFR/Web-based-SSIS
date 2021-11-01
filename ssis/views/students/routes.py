@@ -54,7 +54,10 @@ def search() -> str:
                                    )
         else:
             flash(f'No student found', 'info')
-            return redirect(url_for('student.students'))
+            return render_template('students.html', 
+                                    data=[result],
+                                    datacount = f'Search Result: {len(result)}'
+                                   )
     else:
         return redirect(url_for('student.students'))
 
