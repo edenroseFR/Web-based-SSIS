@@ -24,8 +24,8 @@ class Student():
         self.photo = photo
 
 
-
-    def get_all(self, page_num: int = None, item_per_page: int = None) -> list:
+    @staticmethod
+    def get_all(page_num: int = None, item_per_page: int = None) -> list:
         offset = (page_num - 1) * item_per_page
         query = f'''
             SELECT id, 
