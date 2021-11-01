@@ -56,9 +56,6 @@
                                 <button type="submit" class="btn1">{% block button %} Log in {% endblock %}</button>
                             </div>
                         </div> <!--end of Login Button-->
-                        {% block switchPage_prompt %}
-                        <p>No account? <a href="{{ url_for("admin.signup") }}">Sign Up</a></p>
-                        {% endblock %}
                     </form>
                 </div>
             </div>
