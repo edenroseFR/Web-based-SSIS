@@ -19,7 +19,7 @@ def verify() -> str:
         password = request.form.get('password')
         print(username,password)
         if admin_found(username, password):
-            students = Student().get_all()
+            students = Student().get_all(1,5)
             courses = Course().get_all()
             colleges = College().get_all()
             return render_template('students.html', 
