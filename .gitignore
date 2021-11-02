@@ -92,3 +92,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+#SSIS utility
+add_admin.py
+tempCodeRunnerFile.py

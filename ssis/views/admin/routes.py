@@ -1,6 +1,5 @@
 from flask import request, render_template, redirect
 from flask.helpers import url_for
-from werkzeug.security import generate_password_hash, check_password_hash
 from ...models.student import Student
 from ...models.course import Course
 from ...models.college import College

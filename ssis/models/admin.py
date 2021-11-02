@@ -1,4 +1,5 @@
 from . import cursor, db
+from werkzeug.security import check_password_hash
 
 class Admin():
     def __init__(
@@ -38,10 +39,11 @@ class Admin():
         query = f'''
             SELECT username, password 
             FROM admin
-            WHERE username = '{self.username}' and password = '{self.password}';
+            WHERE username = '{self.username}';
         '''
         cursor.execute(query)
-        admin = cursor.fetchone()
-        if admin:
-            return True
+        username, password = cursor.fetchone()
+        if username:
+            if check_password_hash(password, self.password):
+                return True
 
