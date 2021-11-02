@@ -10,20 +10,11 @@ class College():
         self.name = name
     
 
-    def get_all(self) -> list:
-        query = '''
-            SELECT code, name
-            FROM college;
-        '''
-        cursor.execute(query)
-        result = cursor.fetchall()
-        colleges = [list(college) for college in result]
-        return colleges
-
-    
-    def get_statistics(self) -> list:
-        colleges = self.get_all()
-        query = '''
+    def get_all(self, page_num: int = None, item_per_page: int = None, paginate: bool = True) -> list:
+        if not paginate:
+            return self.college_list()
+        offset = (page_num - 1) * item_per_page
+        query = f'''
             SELECT college.code, college.name, COUNT(*) AS courses, enrolled.student as enrolled
             FROM college
             JOIN course
@@ -33,16 +24,38 @@ class College():
                         GROUP BY collegecode) enrolled
             ON college.code = enrolled.collegecode
             GROUP BY college.code
+            LIMIT {item_per_page} OFFSET {offset}
         '''
         cursor.execute(query)
         result = cursor.fetchall()
-        stat = [list(college) for college in result]
+        colleges = [list(college) for college in result]
 
-        for college in colleges:
-            if college[0] not in [code[0] for code in stat]:
-                stat.append([college[0], college[1], None, None])
-        
-        return stat
+        all_colleges = self.college_list()
+        for college in all_colleges:
+            if college[0] not in [code[0] for code in colleges]:
+                colleges.append([college[0], college[1], None, None])
+
+        return colleges
+
+
+    @staticmethod
+    def get_total() -> int:
+        query = '''SELECT * FROM college'''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        total = len(result)
+        return total
+
+
+    def college_list(self) -> list:
+        query = '''
+            SELECT code, name
+            FROM college;
+        '''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        colleges = [list(college) for college in result]
+        return colleges
 
 
     @staticmethod

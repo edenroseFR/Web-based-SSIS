@@ -10,10 +10,10 @@ from math import ceil
 current_page = 1
 
 @student.route('/students', methods=['GET', 'POST'])
-def students(page_num: int = 1, limit: int = None) -> str:
+def students(page_num: int = 1, limit: bool = None) -> str:
     students = Student().get_all(current_page, 5)
-    courses = Course().get_all()
-    colleges = College().get_all()
+    courses = Course().get_all(paginate=False)
+    colleges = College().get_all(paginate=False)
     return render_template('students.html', 
                             data = [students,courses,colleges], 
                             datacount = f'{len(students)} Students')

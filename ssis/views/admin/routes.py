@@ -20,8 +20,8 @@ def verify() -> str:
         print(username,password)
         if admin_found(username, password):
             students = Student().get_all(1,5)
-            courses = Course().get_all()
-            colleges = College().get_all()
+            courses = Course().get_all(paginate=False)
+            colleges = College().get_all(paginate=False)
             return render_template('students.html', 
                                     data = [students,courses,colleges],
                                     datacount = f'{len(students)} Students')

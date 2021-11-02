@@ -5,16 +5,48 @@ from ssis.models.course import Course
 from ssis.models.college import College
 from .utils import add_course_to_db, update_course_record
 from . import course
+from math import ceil
+
+current_page = 1
 
 @course.route('/courses')
-def courses() -> str:
+def courses(page_num: int = 1, limit: bool = None) -> str:
     students = Student().get_all(paginate=False)
-    courses = Course().get_all()
-    colleges = College().get_all()
+    courses = Course().get_all(current_page, 5)
+    colleges = College().get_all(paginate=False)
     return render_template('courses.html', 
                             data=[students,courses,colleges],
                             datacount = f'{len(courses)} Courses'
                            )
+
+
+@course.route('/courses/next', methods=['GET', 'POST'])
+def next() -> str:
+    global current_page
+    course_count = Course().get_total()
+    current_page += 1
+    limit_page = ceil(course_count/5)
+    max_page_reached = current_page > limit_page
+
+    if not max_page_reached:
+        return redirect(url_for('course.courses', page_num=current_page))
+    else:
+        current_page -= 1
+        return redirect(url_for('course.courses', page_num=current_page, limit=True))
+
+
+@course.route('/courses/prev', methods=['GET', 'POST'])
+def prev() -> str:
+    global current_page
+    course_count = Course().get_total()
+    current_page -= 1
+    max_page_reached = current_page <1
+
+    if not max_page_reached:
+        return redirect(url_for('course.courses', page_num=current_page))
+    else:
+        current_page = 1
+        return redirect(url_for('course.courses', page_num=current_page, limit=True))
 
 
 @course.route('/course/add', methods=['GET', 'POST'])

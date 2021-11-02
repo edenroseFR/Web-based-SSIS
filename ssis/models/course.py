@@ -12,8 +12,35 @@ class Course():
         self.college = college
     
 
-    def get_all(self) -> list:
-        query = '''
+    def get_all(self, page_num: int = None, item_per_page: int = None, paginate: bool = True) -> list:
+        if not paginate:
+            return self.course_list()
+        offset = (page_num - 1) * item_per_page
+        query = f'''
+            SELECT course.code, course.name, course.college, college.name
+            FROM course
+            JOIN college
+            ON course.college = college.code
+            LIMIT {item_per_page} OFFSET {offset}
+        '''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        courses = [list(course) for course in result]
+        return courses
+
+    
+    @staticmethod
+    def get_total() -> int:
+        query = '''SELECT * FROM course'''
+        cursor.execute(query)
+        result = cursor.fetchall()
+        total = len(result)
+        return total
+
+
+    @staticmethod
+    def course_list() -> list:
+        query = f'''
             SELECT course.code, course.name, course.college, college.name
             FROM course
             JOIN college
