@@ -120,13 +120,11 @@ class Course():
             INSERT INTO course (
                 code,
                 name,
-                college
-            )
+                college)
             VALUES (
                 '{self.code}',
                 '{self.name}',
-                '{self.college}'
-            )
+                '{self.college}')
         '''
         cursor.execute(query)
         db.commit()

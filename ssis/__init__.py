@@ -1,9 +1,9 @@
 from flask import Flask
-import os
+from os import getenv
 
 def create_app() -> object:
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 
     # import blueprints
     from .views.admin import admin

@@ -1,7 +1,9 @@
 from ssis.models.student import Student
 from ssis.models.course import Course
 from werkzeug.utils import secure_filename
+import cloudinary.uploader as cloud
 import os
+from os import getenv
 
 def add_student_to_db(student: list) -> bool:
     id = student['id'].strip()
@@ -35,8 +37,6 @@ def add_student_to_db(student: list) -> bool:
             return False
 
 
-
-
 def update_student_record(student: list = None) -> bool:
     id = student['id'].strip()
     firstname = student['firstname'].strip()
@@ -63,21 +63,34 @@ def update_student_record(student: list = None) -> bool:
 
 
 def save_image(file: str = None, config=None) -> str:
-    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
-                    '/static/entity_photos/students'
-    image = file
-    filename = secure_filename(file.filename)
-    image.save(os.path.join(parent_folder, filename))
-    return filename
-
-
-def get_pagecount(num_of_students=None):
-    pagecount = 0
-    if num_of_students % 2 == 0:
-        pagecount = num_of_students / 10
+    local_upload = 'local' == getenv('LOCAL_UPLOAD')
+    if local_upload:
+        parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+                        '/static/entity_photos/students'
+        image = file
+        filename = secure_filename(file.filename)
+        image.save(os.path.join(parent_folder, filename))
+        return filename
     else:
-        pagecount = (num_of_students / 10) + 1
+        result = cloud.upload(file)
+        url = result.get('url')
+        return url
 
-    return pagecount
+
+def check_page_limit(min: bool = None, max: bool = None) -> str:
+    if min:
+        return 'min'
+    elif max:
+        return 'max'
+    else:
+        return
 
 
+def check_limit_validity(number_input: int = None, max_limit: int = None) -> int:
+    if number_input < 5:
+        return 5
+    elif number_input > max_limit:
+        return max_limit
+    else:
+        
+        return number_input

@@ -190,8 +190,7 @@ class Student():
                 gender, 
                 coursecode, 
                 collegecode,
-                photo
-            )
+                photo)
             VALUES (
                 '{self.id}',
                 '{self.firstName}',
@@ -201,8 +200,7 @@ class Student():
                 '{self.gender}',
                 '{self.course}',
                 '{self.college}',
-                '{self.photo}'
-            )
+                '{self.photo}')
         '''
         cursor.execute(query)
         db.commit()

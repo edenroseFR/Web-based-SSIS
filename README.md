@@ -40,6 +40,11 @@ FLASK_RUN_PORT=8080
 ```
 
 ## RUNNING THE APP
+1. Activate the virtual environment
+```bash
+cd venv/Scripts/activate
+```
+2. Run
 ```bash
 flask run
 ```

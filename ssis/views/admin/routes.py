@@ -1,8 +1,5 @@
 from flask import request, render_template, redirect
 from flask.helpers import url_for
-from ...models.student import Student
-from ...models.course import Course
-from ...models.college import College
 from . import admin
 from .utils import admin_found
 
@@ -16,12 +13,6 @@ def verify() -> str:
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        print(username,password)
         if admin_found(username, password):
-            students = Student().get_all(1,5)
-            courses = Course().get_all(paginate=False)
-            colleges = College().get_all(paginate=False)
-            return render_template('students.html', 
-                                    data = [students,courses,colleges],
-                                    datacount = f'{len(students)} Students')
+            return redirect(url_for('student.students'))
     return redirect(url_for('admin.login'))

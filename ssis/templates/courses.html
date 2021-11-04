@@ -28,7 +28,7 @@
                 <h4 class="p-2" id="table-title">Courses Information</h4>
                 <button class="btn btn-primary" id="addNew" data-bs-toggle="modal" data-bs-target="#addCourseForm"><img src="../static/images/addcourseICON.png" alt="" id="addICON"></button>
             </div>
-            <div>
+            <div class="pt-3 pb-3 d-flex align-items-center caption-lower">
                 <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('course.search') }}">
                     <select id="field" name="field" class="form-select p-2">
                         <option value="select">Select Field</option>
@@ -36,12 +36,16 @@
                         <option value="name">Course Name</option>
                         <option value="college">College</option>
                     </select>
-                    <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using Course Code, Course Name, and College Code">
+                    <input id="searchField" type="text" class="p-2 m-2 searchfield" name="user-input" placeholder="Type to search using Course Code, Course Name, and College Code">
                     <button class="btn-search">
                         <div class="search">
                             <div class="icon"></div>
                         </div>
                     </button>
+                </form>
+                <form class="p-2" action="{{ url_for('course.courses') }}">
+                    <label for="limit-field">Limit: </label>
+                    <input id="limit-field" name="limit-field" type="number" value="{{course_limit}}" min="5" max="{{datacount}}">
                 </form>
             </div>
         </div>
@@ -123,13 +127,21 @@
                       
                       <form action="{{ url_for('course.prev') }}" method="post">
                         <li class="page-item">
+                          {% if limit == 'min' or limit == 'min-and-max' %}
+                          <button type="submit" class="page-link" aria-label="Previous" name="previous" disabled>Previous</button>
+                          {% else %}
                           <button type="submit" class="page-link" aria-label="Previous" name="previous">Previous</button>
+                          {% endif %}
                         </li>
                       </form>
                 
                       <form action="{{ url_for('course.next') }}" method="post">
                         <li class="page-item">
+                          {% if limit == 'max' or limit == 'min-and-max' %}
+                          <button type="submit" class="page-link"  aria-label="Next" name="next" disabled>Next</button>
+                          {% else %}
                           <button type="submit" class="page-link"  aria-label="Next" name="next">Next</button>
+                          {% endif %}
                         </li>
                       </form>
                     </ul>

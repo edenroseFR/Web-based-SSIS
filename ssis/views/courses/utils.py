@@ -36,3 +36,22 @@ def update_course_record(course: str = None) -> bool:
         return None
     else:
         return False
+
+
+def check_page_limit(min: bool = None, max: bool = None) -> str:
+    if min:
+        return 'min'
+    elif max:
+        return 'max'
+    else:
+        return
+
+
+def check_limit_validity(number_input: int = None, max_limit: int = None) -> int:
+    if number_input < 5:
+        return 5
+    elif number_input > max_limit:
+        return max_limit
+    else:
+        
+        return number_input

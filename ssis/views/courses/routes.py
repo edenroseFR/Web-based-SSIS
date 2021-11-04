@@ -3,21 +3,37 @@ from flask.helpers import url_for
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
-from .utils import add_course_to_db, update_course_record
+from .utils import add_course_to_db, update_course_record, check_page_limit, check_limit_validity
 from . import course
 from math import ceil
 
 current_page = 1
+course_limit = 5
 
 @course.route('/courses')
-def courses(page_num: int = 1, limit: bool = None) -> str:
+def courses() -> str:
+    global course_limit
+
+    min_page = request.args.get('min_page')
+    max_page = request.args.get('max_page')
+    page_limit = check_page_limit(min_page, max_page)
+    course_count = str(Course().get_total())
+    entered_limit = request.args.get('limit-field')
+    if entered_limit == course_count:
+        page_limit = 'min-and-max'
+    try:
+        course_limit = check_limit_validity(int(entered_limit), int(course_count))
+    except:
+        course_limit = course_limit
     students = Student().get_all(paginate=False)
-    courses = Course().get_all(current_page, 5)
+    courses = Course().get_all(current_page, course_limit)
     colleges = College().get_all(paginate=False)
     return render_template('courses.html', 
                             data=[students,courses,colleges],
-                            datacount = f'{len(courses)} Courses'
-                           )
+                            datacount = course_count,
+                            course_limit = course_limit,
+                            limit=page_limit)
+
 
 
 @course.route('/courses/next', methods=['GET', 'POST'])
@@ -25,28 +41,26 @@ def next() -> str:
     global current_page
     course_count = Course().get_total()
     current_page += 1
-    limit_page = ceil(course_count/5)
-    max_page_reached = current_page > limit_page
+    limit_page = ceil(course_count/course_limit)
+    max_page_reached = current_page == limit_page
 
     if not max_page_reached:
         return redirect(url_for('course.courses', page_num=current_page))
     else:
-        current_page -= 1
-        return redirect(url_for('course.courses', page_num=current_page, limit=True))
+        return redirect(url_for('course.courses', page_num=current_page, max_page=True))
 
 
 @course.route('/courses/prev', methods=['GET', 'POST'])
 def prev() -> str:
     global current_page
-    course_count = Course().get_total()
-    current_page -= 1
-    max_page_reached = current_page <1
+    max_page_reached = current_page == 1
 
     if not max_page_reached:
+        current_page -= 1
         return redirect(url_for('course.courses', page_num=current_page))
     else:
         current_page = 1
-        return redirect(url_for('course.courses', page_num=current_page, limit=True))
+        return redirect(url_for('course.courses', page_num=current_page, min_page=True))
 
 
 @course.route('/course/add', methods=['GET', 'POST'])

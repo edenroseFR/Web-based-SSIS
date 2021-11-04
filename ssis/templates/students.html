@@ -35,7 +35,7 @@
                 <h4 class="p-2" id="table-title">Student Information</h4>
                 <button id="addNew" data-bs-toggle="modal" data-bs-target="#addStudentForm"><img src="../static/images/addICON.png" alt="" id="addICON"></button>
             </div>
-            <div>
+            <div class="pt-3 pb-3 d-flex align-items-center caption-lower">
                 <form class="pt-3 pb-3 d-flex align-items-center caption-lower" method="post" action="{{ url_for('student.search') }}">
                     <select id="field" name="field" class="form-select p-2">
                         <option value="select">Select Field</option>
@@ -47,12 +47,16 @@
                         <option value="year">Year Level</option>
                         <option value="course">Course</option>
                     </select>
-                    <input id="searchField" type="text" class="p-2 searchfield" name="user-input" placeholder="Type to search using ID, Name, Gender, Level, and Course">
-                    <button class="p-2 btn-search">
+                    <input id="searchField" type="text" class="p-2 m-2 searchfield" name="user-input" placeholder="Type to search using ID, Name, Gender, Level, and Course">
+                    <button class="btn-search">
                         <div class="search">
                             <div class="icon"></div>
                         </div>
                     </button>
+                </form>
+                <form class="p-2" action="{{ url_for('student.students') }}">
+                    <label for="limit-field">Limit: </label>
+                    <input id="limit-field" name="limit-field" type="number" value="{{student_limit}}" min="5" max="{{datacount}}">
                 </form>
             </div>
         </div>
@@ -74,21 +78,26 @@
     {% for student in data[0] %}
         <tr>
             <td><b>{{student.0}}</b></td>
-            {% if student.7 %}
-                <td data-bs-toggle="modal" data-bs-target="#student{{student.0}}">
-                    <div class="student-table-image-container">
-                        <img class="student-table-image"
-                        src="../static/entity_photos/students/{{student.7}}">
-                    </div>
-                </td>
-            {% endif %}
-            {% if not student.7 %}
-                <td>
-                    <div style="width: 50px; height: 50px; border-radius: 50px; display: flex; overflow: hidden;">
-                        <img style="display: flex; justify-content: center;" 
-                        src="../static/entity_photos/students/student-profile-template.png">
-                    </div>
-                </td>
+            {% if student.7 and ('cloudinary.com' not in student.7) %}
+            <td data-bs-toggle="modal" data-bs-target="#student{{student.0}}">
+                <div class="student-table-image-container">
+                    <img class="student-table-image"
+                    src="../static/entity_photos/students/{{student.7}}">
+                </div>
+            </td>
+            {% elif 'cloudinary.com' in student.7 %}
+            <td data-bs-toggle="modal" data-bs-target="#student{{student.0}}">
+                <div class="student-table-image-container">
+                    <img class="student-table-image" src="{{student.7}}">
+                </div>
+            </td>
+            {% else %}
+            <td>
+                <div style="width: 50px; height: 50px; border-radius: 50px; display: flex; overflow: hidden;">
+                    <img style="display: flex; justify-content: center;" 
+                    src="../static/entity_photos/students/student-profile-template.png">
+                </div>
+            </td>
             {% endif %}
             {% if student[2].strip() != '' %}
             <td>{{student.1}} {{student[2][0]}}. {{student.3}}</td>
@@ -223,7 +232,11 @@
                 <div class="modal-body">
                 <center>
                     <div class="student-details-image-container">
+                        {% if student.7 and 'cloudinary.com' not in student.7 %}
                         <img class="student-details-image" src="../static/entity_photos/students/{{student.7}}">
+                        {% elif 'cloudinary.com' in student.7 %}
+                        <img class="student-details-image" src="{{student.7}}">
+                        {% endif %}
                     </div>
                     
                     <div class="basic-info">
@@ -281,13 +294,21 @@
                       
                       <form action="{{ url_for('student.prev') }}" method="post">
                         <li class="page-item">
+                          {% if limit == 'min' or limit == 'min-and-max' %}
+                          <button type="submit" class="page-link" aria-label="Previous" name="previous" disabled>Previous</button>
+                          {% else %}
                           <button type="submit" class="page-link" aria-label="Previous" name="previous">Previous</button>
+                          {% endif %}
                         </li>
                       </form>
                 
                       <form action="{{ url_for('student.next') }}" method="post">
                         <li class="page-item">
+                          {% if limit == 'max' or limit == 'min-and-max' %}
+                          <button type="submit" class="page-link"  aria-label="Next" name="next" disabled>Next</button>
+                          {% else %}
                           <button type="submit" class="page-link"  aria-label="Next" name="next">Next</button>
+                          {% endif %}
                         </li>
                       </form>
                     </ul>

@@ -1,6 +1,6 @@
-from flask import request, render_template, redirect, flash
+from flask import request, render_template, redirect, flash, session
 from flask.helpers import url_for
-from .utils import add_student_to_db, update_student_record, save_image, get_pagecount
+from .utils import add_student_to_db, update_student_record, save_image, check_page_limit, check_limit_validity
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
@@ -8,15 +8,31 @@ from . import student
 from math import ceil
 
 current_page = 1
+student_limit = 5
 
 @student.route('/students', methods=['GET', 'POST'])
-def students(page_num: int = 1, limit: bool = None) -> str:
-    students = Student().get_all(current_page, 5)
+def students() -> str:
+    global student_limit
+
+    min_page = request.args.get('min_page')
+    max_page = request.args.get('max_page')
+    page_limit = check_page_limit(min_page, max_page)
+    student_count = str(Student().get_total())
+    entered_limit = request.args.get('limit-field')
+    if entered_limit == student_count:
+        page_limit = 'min-and-max'
+    try:
+        student_limit = check_limit_validity(int(entered_limit), int(student_count))
+    except:
+        student_limit = student_limit
+    students = Student().get_all(current_page, student_limit)
     courses = Course().get_all(paginate=False)
     colleges = College().get_all(paginate=False)
     return render_template('students.html', 
                             data = [students,courses,colleges], 
-                            datacount = f'{len(students)} Students')
+                            datacount = student_count,
+                            student_limit = student_limit,
+                            limit = page_limit)
 
 
 
@@ -25,29 +41,27 @@ def next() -> str:
     global current_page
     student_count = Student().get_total()
     current_page += 1
-    limit_page = ceil(student_count/5)
-    max_page_reached = current_page > limit_page
+    limit_page = ceil(student_count/student_limit)
+    max_page_reached = current_page == limit_page
 
     if not max_page_reached:
         return redirect(url_for('student.students', page_num=current_page))
     else:
-        current_page -= 1
-        return redirect(url_for('student.students', page_num=current_page, limit=True))
+        return redirect(url_for('student.students', page_num=current_page, max_page=True))
 
 
 
 @student.route('/students/prev', methods=['GET', 'POST'])
 def prev() -> str:
     global current_page
-    student_count = Student().get_total()
-    current_page -= 1
-    min_page_reached = current_page < 1
+    min_page_reached = current_page == 1
 
     if not min_page_reached:
+        current_page -= 1
         return redirect(url_for('student.students', page_num=current_page))
     else:
         current_page = 1
-        return redirect(url_for('student.students', page_num=current_page, limit=True))
+        return redirect(url_for('student.students', page_num=current_page, min_page=True))
 
 
 
@@ -99,7 +113,7 @@ def add() -> str:
     if request.method == 'POST':
         image = request.files['selected-image']
         try:
-            filename = save_image(image)
+            cloud_link = save_image(image)
         except Exception as e:
             print("Can't save image")
             print(e)
@@ -112,10 +126,13 @@ def add() -> str:
             'gender': request.form.get('gender'),
             'yearlevel': request.form.get('yearlevel'),
             'course': request.form.get('course'),
-            'photo': filename
+            'photo': cloud_link
         }
-        add_student_to_db(student)
-        flash(f'{student["firstname"]} is added succesfully!', 'info')
+        added = add_student_to_db(student)
+        if added:
+            flash(f'{student["firstname"]} is added succesfully!', 'info')
+        else:
+            flash(f'{student["firstname"]} cannot be added. Make sure the ID is unique.', 'info')
         return redirect(url_for('student.students'))
     else:
         return redirect(url_for('student.students'))
