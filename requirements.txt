@@ -1,4 +1,6 @@
+certifi==2021.10.8
 click==8.0.1
+cloudinary==1.26.0
 colorama==0.4.4
 Flask==2.0.2
 gunicorn==20.1.0
@@ -8,5 +10,7 @@ MarkupSafe==2.0.1
 mysql-connector-python==8.0.26
 protobuf==3.18.1
 python-dotenv==0.19.1
+six==1.16.0
 typing==3.7.4.3
+urllib3==1.26.7
 Werkzeug==2.0.1
