@@ -63,18 +63,25 @@ def update_student_record(student: list = None) -> bool:
 
 
 def save_image(file: str = None, config=None) -> str:
-    local_upload = 'local' == getenv('LOCAL_UPLOAD')
-    if local_upload:
-        parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
                         '/static/entity_photos/students'
-        image = file
-        filename = secure_filename(file.filename)
-        image.save(os.path.join(parent_folder, filename))
-        return filename
-    else:
-        result = cloud.upload(file)
-        url = result.get('url')
-        return url
+    image = file
+    filename = secure_filename(file.filename)
+    image.save(os.path.join(parent_folder, filename))
+    return filename
+    
+    # local_upload = 'local' == getenv('LOCAL_UPLOAD')
+    # if local_upload:
+    #     parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+    #                     '/static/entity_photos/students'
+    #     image = file
+    #     filename = secure_filename(file.filename)
+    #     image.save(os.path.join(parent_folder, filename))
+    #     return filename
+    # else:
+    #     result = cloud.upload(file)
+    #     url = result.get('url')
+    #     return url
 
 
 def check_page_limit(min: bool = None, max: bool = None) -> str:
