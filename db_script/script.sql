@@ -8,7 +8,7 @@ PRIMARY KEY(username)
 );
 
 INSERT INTO `admin`(`username`, `password`)
-VALUES ('eden', 'rose');
+VALUES ('eden', 'sha256$ULUS96W3djTrRi7e$233ff68eb2b2c3593440e1d6c0dabaaea17a9f246328db4ab1f09d05f5929568');
 
 CREATE TABLE `course`(
 code VARCHAR(10) NOT NULL,

@@ -55,8 +55,9 @@
                     </button>
                 </form>
                 <form class="p-2" action="{{ url_for('student.students') }}">
-                    <label for="limit-field">Limit: </label>
+                    <label for="limit-field">Show </label>
                     <input id="limit-field" name="limit-field" type="number" value="{{student_limit}}" min="5" max="{{datacount}}">
+                    <label for="limit-field"> students</label>
                 </form>
             </div>
         </div>
