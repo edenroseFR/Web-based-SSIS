@@ -90,7 +90,7 @@ class Student():
 
     def search(self, keyword: str = None, field: str = None) -> list:
         keyword = keyword.upper()
-        students = self.get_all()
+        students = self.get_all(paginate=False)
         result = []
 
         if field is None: 

@@ -74,7 +74,7 @@ class College():
 
     def search(self, keyword: str = None, field: str = None) -> list:
         keyword = keyword.upper()
-        colleges = self.get_statistics()
+        colleges = self.get_all(paginate=False)
         result = []
 
         if field is None: 

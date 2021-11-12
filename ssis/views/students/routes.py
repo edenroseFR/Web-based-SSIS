@@ -95,13 +95,15 @@ def search() -> str:
         if len(result) != 0:
             return render_template('students.html', 
                                     data=[result],
-                                    datacount = f'Search Result: {len(result)}'
+                                    datacount = str(len(result)),
+                                    student_limit = '5',
                                    )
         else:
             flash(f'No student found', 'info')
             return render_template('students.html', 
                                     data=[result],
-                                    datacount = f'Search Result: {len(result)}'
+                                    datacount = str(len(result)),
+                                    student_limit = '5',
                                    )
     else:
         return redirect(url_for('student.students'))

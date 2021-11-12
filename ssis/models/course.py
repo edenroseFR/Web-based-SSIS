@@ -54,7 +54,7 @@ class Course():
 
     def search(self, keyword: str = None, field: str = None) -> list:
         keyword = keyword.upper()
-        courses = self.get_all()
+        courses = self.get_all(paginate=False)
         result = []
 
         if field is None: 

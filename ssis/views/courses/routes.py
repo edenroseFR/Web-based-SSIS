@@ -98,12 +98,14 @@ def search() -> str:
     if len(result) != 0:
         return render_template('courses.html', 
                                 data=['', result],
-                                datacount = f'Search Result: {len(result)}')
+                                datacount = str(len(result)),
+                                course_limit = '5')
     else:
         flash(f'No course found', 'info')
         return render_template('courses.html', 
                                 data=['', result],
-                                datacount = f'Search Result: {len(result)}')
+                                datacount = str(len(result)),
+                                course_limit = '5')
 
 
 
