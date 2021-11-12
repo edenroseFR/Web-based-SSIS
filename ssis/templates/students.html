@@ -133,30 +133,6 @@
 
                     <div class="modal-body">
                         <form class="needs-validation" action="{{ url_for('student.update', id=student.0) }}" method="post" enctype="multipart/form-data">
-                        
-                            <!-- <div class="image-container flex-column">
-                                <div class="image-wrapper ">
-                                    <div class="image">
-                                        <img id="selected-image" src="../static/entity_photos/students/student-profile-template.png" alt="">
-                                        {% if student.7 %}
-                                        <img id="selected-image" name="photo" src="../static/entity_photos/students/{{student.7}}" alt="">
-                                        {% endif %}
-                                        {% if not student.7 %}
-                                        <img id="selected-image" src="../static/entity_photos/students/student-profile-template.png" alt="">
-                                        {% endif %} -->
-                                    <!-- </div>
-                                </div>
-                                <div>
-                                <input type="file" id="default-btn" class="form-control-file" accept="image/png, image/jpeg" name="selected-image" value="" hidden>
-                                <button onclick="defaultBtnActive();" id="custom-btn">CHOOSE PHOTO</button>
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="mb-3">
-                                <label for="waiter" class="form-label">waiter</label>
-                                <input type="studentinfo" class="form-control" id="waiter" value="" name="waiter" required>
-                            </div> -->
-
                             <div class="mb-3">
                                 <label for="student-id" class="form-label">Student ID</label>
                                 <input type="studentinfo" class="form-control" id="student-id" value="{{student.0}}" name="student-id" disabled>
@@ -191,7 +167,7 @@
                                 <label for="yearlevel" class="form-label">Year Level</label>
                                 <select id="yearlevel" name="yearlevel" class="form-select">
                                     <option value="{{student.5}}" selected>{{student.5}}</option>
-                                    {% for year in range (1,7) %}
+                                    {% for year in range (1,5) %}
                                         {% if year != student[5] %}
                                             <option value="{{year}}">{{year}}</option>
                                         {% endif %}
