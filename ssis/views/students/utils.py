@@ -30,7 +30,7 @@ def add_student_to_db(student: list) -> bool:
                     college=Course().get_collegecode(course),
                     photo = photo
                 ).add_new()
-                return None
+                return True
             else:
                 return False
         else:

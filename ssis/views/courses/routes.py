@@ -28,7 +28,7 @@ def courses() -> str:
     students = Student().get_all(paginate=False)
     courses = Course().get_all(current_page, course_limit)
     colleges = College().get_all(paginate=False)
-    return render_template('courses.html', 
+    return render_template('/course/courses.html', 
                             data=[students,courses,colleges],
                             datacount = course_count,
                             course_limit = course_limit,
@@ -96,13 +96,13 @@ def search() -> str:
         result = []
 
     if len(result) != 0:
-        return render_template('courses.html', 
+        return render_template('/course/courses.html', 
                                 data=['', result],
                                 datacount = str(len(result)),
                                 course_limit = '5')
     else:
         flash(f'No course found', 'info')
-        return render_template('courses.html', 
+        return render_template('/course/courses.html', 
                                 data=['', result],
                                 datacount = str(len(result)),
                                 course_limit = '5')

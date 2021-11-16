@@ -28,7 +28,7 @@ def students() -> str:
     students = Student().get_all(current_page, student_limit)
     courses = Course().get_all(paginate=False)
     colleges = College().get_all(paginate=False)
-    return render_template('students.html', 
+    return render_template('/student/students.html', 
                             data = [students,courses,colleges], 
                             datacount = student_count,
                             student_limit = student_limit,
@@ -71,7 +71,6 @@ def search() -> str:
 
         user_input = request.form.get('user-input')
         field = request.form.get('field')
-        print(user_input,field)
 
         if field == 'select':
             result = Student().search(keyword=user_input)
@@ -93,14 +92,14 @@ def search() -> str:
             result = []
 
         if len(result) != 0:
-            return render_template('students.html', 
+            return render_template('/student/students.html', 
                                     data=[result],
                                     datacount = str(len(result)),
                                     student_limit = '5',
                                    )
         else:
             flash(f'No student found', 'info')
-            return render_template('students.html', 
+            return render_template('/student/students.html', 
                                     data=[result],
                                     datacount = str(len(result)),
                                     student_limit = '5',
@@ -137,7 +136,10 @@ def add() -> str:
             flash(f'{student["firstname"]} cannot be added. Make sure the ID is unique.', 'info')
         return redirect(url_for('student.students'))
     else:
-        return redirect(url_for('student.students'))
+        courses = Course().get_all(paginate=False)
+        colleges = College().get_all(paginate=False)
+        return render_template('/student/form.html', 
+                                data = [[],courses,colleges])
 
 
 

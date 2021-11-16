@@ -16,7 +16,7 @@ def colleges() -> str:
     colleges = College().get_all(current_page, 5)
     departments = College().get_departments()
     colleges_count = len(colleges)
-    return render_template('colleges.html', 
+    return render_template('/college/colleges.html', 
                             data=[students,courses,colleges,departments], 
                             datacount=f'{colleges_count} Colleges'
                            )
@@ -86,12 +86,12 @@ def search() -> str:
         result = []
 
     if len(result) != 0:
-        return render_template('colleges.html', 
+        return render_template('/college/colleges.html', 
                                 data=['', '', result], 
                                 datacount= str(len(result)))
     else:
         flash(f'No college found', 'info')
-        return render_template('colleges.html', 
+        return render_template('/college/colleges.html', 
                                 data=['', '', result], 
                                 datacount= str(len(result)))
 

@@ -5,7 +5,7 @@ from .utils import admin_found
 
 @admin.route('/')
 def login() -> str:
-    return render_template('index.html')
+    return render_template('/admin/login.html')
 
 
 @admin.route('/login', methods = ['POST'])
