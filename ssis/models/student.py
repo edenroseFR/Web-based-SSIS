@@ -232,20 +232,35 @@ class Student():
 
 
     def update(self) -> None:
-        query = f'''
-            UPDATE students
-            SET 
-                firstname = '{self.firstName}',
-                middlename = '{self.middleName}',
-                lastname = '{self.lastName}',
-                year = {self.yearLevel},
-                photo = '{self.photo}',
-                gender = '{self.gender}',
-                coursecode = '{self.course}',
-                collegecode = '{self.college}'
-            WHERE
-                id = '{self.id}'
-        '''
+        if self.photo:
+            query = f'''
+                UPDATE students
+                SET 
+                    firstname = '{self.firstName}',
+                    middlename = '{self.middleName}',
+                    lastname = '{self.lastName}',
+                    year = {self.yearLevel},
+                    photo = '{self.photo}',
+                    gender = '{self.gender}',
+                    coursecode = '{self.course}',
+                    collegecode = '{self.college}'
+                WHERE
+                    id = '{self.id}'
+            '''
+        else:
+            query = f'''
+                UPDATE students
+                SET 
+                    firstname = '{self.firstName}',
+                    middlename = '{self.middleName}',
+                    lastname = '{self.lastName}',
+                    year = {self.yearLevel},
+                    gender = '{self.gender}',
+                    coursecode = '{self.course}',
+                    collegecode = '{self.college}'
+                WHERE
+                    id = '{self.id}'
+            '''
         cursor.execute(query)
         db.commit()
         return None

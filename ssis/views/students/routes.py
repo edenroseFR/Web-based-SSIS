@@ -152,13 +152,15 @@ def add() -> str:
 def update(id: str) -> str:
     if request.method == 'POST':
         image = request.files['selected-image']
+        cloud_link = ''
         try:
             cloud_link = save_image(image)
         except Exception as e:
             print("Can't save image")
             print(e)
-
-        student = {
+        
+        if cloud_link:
+            student = {
             'id': id,
             'firstname': request.form.get('firstname'),
             'middlename': request.form.get('middlename'),
@@ -167,8 +169,21 @@ def update(id: str) -> str:
             'yearlevel': request.form.get('yearlevel'),
             'course': request.form.get('course'),
             'photo' : cloud_link
-        }
-        update_student_record(student)
+            }
+            update_student_record(student)
+        else:
+            student = {
+            'id': id,
+            'firstname': request.form.get('firstname'),
+            'middlename': request.form.get('middlename'),
+            'lastname': request.form.get('lastname'),
+            'gender': request.form.get('gender'),
+            'yearlevel': request.form.get('yearlevel'),
+            'course': request.form.get('course'),
+            'photo' : cloud_link
+            }
+            update_student_record(student)
+
         flash(f"{student['firstname']}'s data has been changed succesfully!", 'info')
         return redirect(url_for('student.students'))
     else:

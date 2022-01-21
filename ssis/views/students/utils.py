@@ -48,17 +48,29 @@ def update_student_record(student: list = None) -> bool:
     photo = student['photo']
     
     if firstname and lastname:
-        Student(
-            id=id, 
-            firstName=firstname,
-            middleName=middlename, 
-            lastName=lastname,
-            photo=photo,
-            yearLevel=yearlevel,
-            gender=gender, 
-            course=Course().get_coursecode_for(course),
-            college=Course().get_collegecode(course)
-        ).update()
+        if photo:
+            Student(
+                id=id, 
+                firstName=firstname,
+                middleName=middlename, 
+                lastName=lastname,
+                photo=photo,
+                yearLevel=yearlevel,
+                gender=gender, 
+                course=Course().get_coursecode_for(course),
+                college=Course().get_collegecode(course)
+            ).update()
+        else:
+            Student(
+                id=id, 
+                firstName=firstname,
+                middleName=middlename, 
+                lastName=lastname,
+                yearLevel=yearlevel,
+                gender=gender, 
+                course=Course().get_coursecode_for(course),
+                college=Course().get_collegecode(course)
+            ).update()
         return None
     else:
         return False
