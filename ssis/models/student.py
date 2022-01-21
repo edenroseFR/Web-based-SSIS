@@ -179,6 +179,19 @@ class Student():
         student = list(cursor.fetchone())
         return student
 
+
+    @staticmethod
+    def get_image_url(id: str = None) -> str:
+        query = f'''
+            SELECT photo
+            FROM students
+            WHERE id = '{id}'
+        '''
+        cursor.execute(query)
+        image_url = list(cursor.fetchone())
+        return image_url
+        
+
     def add_new(self) -> None:
         query = f'''
             INSERT INTO students (
@@ -226,6 +239,7 @@ class Student():
                 middlename = '{self.middleName}',
                 lastname = '{self.lastName}',
                 year = {self.yearLevel},
+                photo = '{self.photo}',
                 gender = '{self.gender}',
                 coursecode = '{self.course}',
                 collegecode = '{self.college}'

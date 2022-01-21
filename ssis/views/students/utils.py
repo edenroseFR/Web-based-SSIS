@@ -45,6 +45,7 @@ def update_student_record(student: list = None) -> bool:
     gender = student['gender'].strip()
     yearlevel = student['yearlevel']
     course = student['course']
+    photo = student['photo']
     
     if firstname and lastname:
         Student(
@@ -52,6 +53,7 @@ def update_student_record(student: list = None) -> bool:
             firstName=firstname,
             middleName=middlename, 
             lastName=lastname,
+            photo=photo,
             yearLevel=yearlevel,
             gender=gender, 
             course=Course().get_coursecode_for(course),
@@ -62,26 +64,36 @@ def update_student_record(student: list = None) -> bool:
         return False
 
 
-def save_image(file: str = None, config=None) -> str:
-    parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
-                        '/static/entity_photos/students'
-    image = file
-    filename = secure_filename(file.filename)
-    image.save(os.path.join(parent_folder, filename))
-    return filename
-    
-    # local_upload = 'local' == getenv('LOCAL_UPLOAD')
-    # if local_upload:
-    #     parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+def save_image(file: str = None) -> str:
+    # parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
     #                     '/static/entity_photos/students'
-    #     image = file
-    #     filename = secure_filename(file.filename)
-    #     image.save(os.path.join(parent_folder, filename))
-    #     return filename
-    # else:
-    #     result = cloud.upload(file)
-    #     url = result.get('url')
-    #     return url
+    # image = file
+    # filename = secure_filename(file.filename)
+    # image.save(os.path.join(parent_folder, filename))
+    # return filename
+    
+    local_upload = 'local' == getenv('PHOTO_UPLOAD')
+    if local_upload:
+        parent_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + \
+                        '/static/entity_photos/students'
+        image = file
+        filename = secure_filename(file.filename)
+        image.save(os.path.join(parent_folder, filename))
+        return filename
+    else:
+        result = cloud.upload(file)
+        url = result.get('url')
+        return url
+
+
+def delete_image(id: str = None) -> bool:
+    local_upload = 'local' == getenv('LOCAL_UPLOAD')
+    if not local_upload:
+        image_url = (Student().get_image_url(id))[0]
+        file_name = (image_url.split('/')[-1]).split('.')[0]
+        print(file_name)
+        cloud.destroy(file_name)
+    return 
 
 
 def check_page_limit(min: bool = None, max: bool = None) -> str:

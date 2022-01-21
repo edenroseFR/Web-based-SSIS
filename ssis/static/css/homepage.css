@@ -91,7 +91,6 @@ caption{
     transition: 0.5s;
 }
 .logout-text{
-    text-decoration: none;
     color: white;
     font-weight: 500px;
 }
@@ -332,3 +331,5 @@ footer{
     margin-top: 3%;
     text-align: center;
 }
+
+

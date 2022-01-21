@@ -1,11 +1,16 @@
 from flask import request, render_template, redirect, flash, session
 from flask.helpers import url_for
-from .utils import add_student_to_db, update_student_record, save_image, check_page_limit, check_limit_validity
 from ssis.models.student import Student
 from ssis.models.course import Course
 from ssis.models.college import College
 from . import student
 from math import ceil
+from .utils import (add_student_to_db,
+    update_student_record,
+    save_image, 
+    delete_image, 
+    check_page_limit,
+    check_limit_validity)
 
 current_page = 1
 student_limit = 5
@@ -28,11 +33,11 @@ def students() -> str:
     students = Student().get_all(current_page, student_limit)
     courses = Course().get_all(paginate=False)
     colleges = College().get_all(paginate=False)
-    return render_template('/student/students.html', 
-                            data = [students,courses,colleges], 
-                            datacount = student_count,
-                            student_limit = student_limit,
-                            limit = page_limit)
+    return render_template('/student/students.html',
+        data = [students,courses,colleges],
+        datacount = student_count,
+        student_limit = student_limit,
+        limit = page_limit)
 
 
 
@@ -131,7 +136,7 @@ def add() -> str:
         }
         added = add_student_to_db(student)
         if added:
-            flash(f'{student["firstname"]} is added succesfully!', 'info')
+            flash(f'{student["firstname"]} is added succesfully!', 'success')
         else:
             flash(f'{student["firstname"]} cannot be added. Make sure the ID is unique.', 'info')
         return redirect(url_for('student.students'))
@@ -146,6 +151,12 @@ def add() -> str:
 @student.route('/students/update/<string:id>', methods=['GET', 'POST'])
 def update(id: str) -> str:
     if request.method == 'POST':
+        image = request.files['selected-image']
+        try:
+            cloud_link = save_image(image)
+        except Exception as e:
+            print("Can't save image")
+            print(e)
 
         student = {
             'id': id,
@@ -154,7 +165,8 @@ def update(id: str) -> str:
             'lastname': request.form.get('lastname'),
             'gender': request.form.get('gender'),
             'yearlevel': request.form.get('yearlevel'),
-            'course': request.form.get('course')
+            'course': request.form.get('course'),
+            'photo' : cloud_link
         }
         update_student_record(student)
         flash(f"{student['firstname']}'s data has been changed succesfully!", 'info')
@@ -167,6 +179,7 @@ def update(id: str) -> str:
 @student.route('/students/delete/<string:id>')
 def delete(id: str) -> str:
     data = Student().get_student(id)
+    delete_image(id)
     Student().delete(id)
     flash(f'{data[0]} deleted from the database.', 'info')
     return redirect(url_for('student.students'))

@@ -133,6 +133,20 @@
 
                     <div class="modal-body">
                         <form class="needs-validation" action="{{ url_for('student.update', id=student.0) }}" method="post" enctype="multipart/form-data">
+                            
+                            <div class="image-container flex-column">
+                                <div class="image-wrapper ">
+                                    <div class="image">
+                                        <img id="displayed-image" src="{{student.7}}" alt="">
+                                    </div>
+                                </div>
+                                <div>
+                                  <input type="file" class="form-control" accept="image/png, image/jpeg" id="a-btn"  value="" name="selected-image" hidden>
+                                  <button onclick="afg()" id="custom-btn" type="button">CHOOSE PHOTO</button>
+                                </div>
+                            </div>
+
+
                             <div class="mb-3">
                                 <label for="student-id" class="form-label">Student ID</label>
                                 <input type="studentinfo" class="form-control" id="student-id" value="{{student.0}}" name="student-id" disabled>
@@ -232,34 +246,6 @@
             </div>
         </div> <!-- end of student detailed view-->
 
-        <script>
-            var defaultBtn = document.getElementById("default-btn");
-
-            function defaultBtnActive(){
-                defaultBtn.click();
-            }
-            defaultBtn.addEventListener("change", function(){
-                var customBtn = document.getElementById("custom-btn");
-                var img = document.getElementById('selected-image');
-                var fileName = document.getElementById("file-name");
-                var waiter = document.getElementById("waiter");
-                var file = this.files[0];
-                if(file){
-                    var reader = new FileReader();
-                    reader.onload = function(){
-                        defaultBtn.value = reader.result;
-                        img.src = reader.result;
-                        waiter.value = img.src;
-                        
-                    }
-                    reader.readAsDataURL(file);
-                }
-                if (this.value){
-                    let filename = this.file;
-                    fileName.value = filename;
-                }
-            });
-        </script>
 
     {% endfor %}
     </tbody>
@@ -296,6 +282,7 @@
 </table>
 <div>
 </div>
+
 
 {% endblock %}
 
