@@ -1,6 +1,6 @@
 certifi==2021.10.8
 click==8.0.1
-cloudinary==1.26.0
+cloudinary==1.29.0
 colorama==0.4.4
 Flask==2.0.2
 gunicorn==20.1.0
