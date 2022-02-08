@@ -8,7 +8,7 @@ itsdangerous==2.0.1
 Jinja2==3.0.3
 MarkupSafe==2.0.1
 mysql-connector-python==8.0.26
-protobuf==3.18.1
+protobuf==3.19.4
 python-dotenv==0.19.2
 six==1.16.0
 typing==3.7.4.3
