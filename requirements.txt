@@ -13,4 +13,4 @@ python-dotenv==0.19.2
 six==1.16.0
 typing==3.7.4.3
 urllib3==1.26.8
-Werkzeug==2.0.2
+Werkzeug==2.0.3
