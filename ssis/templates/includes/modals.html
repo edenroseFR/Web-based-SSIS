@@ -19,13 +19,13 @@
                       <div class="image-container flex-column">
                           <div class="image-wrapper ">
                               <div class="image">
-                                  <img id="selected-image" src="../static/images/student-profile-template.png" alt="">
+                                  <img id="add-selected-image" src="../static/images/student-profile-template.png" alt="">
                               </div>
                               <div id="file-name" hidden></div>
                           </div>
                           <div>
-                            <input type="file" class="form-control" accept="image/png, image/jpeg" id="default-btn" value="" name="selected-image" required hidden>
-                            <button onclick="defaultBtnActive()" id="custom-btn" type="button">CHOOSE PHOTO</button>
+                            <input type="file" class="form-control" accept="image/png, image/jpeg" id="add-image-inp" value="" name="selected-image" required hidden>
+                            <button onclick="addImage()" id="custom-btn" type="button">CHOOSE PHOTO</button>
                           </div>
                       </div>
 
