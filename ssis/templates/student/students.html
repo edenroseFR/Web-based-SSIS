@@ -134,15 +134,15 @@
                     <div class="modal-body">
                         <form class="needs-validation" action="{{ url_for('student.update', id=student.0) }}" method="post" enctype="multipart/form-data">
                             
-                            <div class="image-container flex-column">
+                            <div class="image-container flex-column {{student.0}}">
                                 <div class="image-wrapper ">
                                     <div class="image">
                                         <img id="displayed-image" src="{{student.7}}" alt="">
                                     </div>
                                 </div>
                                 <div>
-                                  <input type="file" class="form-control" accept="image/png, image/jpeg" id="a-btn"  value="{{student.7}}" name="selected-image" hidden>
-                                  <button onclick="afg()" id="custom-btn" type="button">CHOOSE PHOTO</button>
+                                  <input type="file" class="form-control" accept="image/png, image/jpeg" id="update-image-inp"  value="{{student.7}}" name="selected-image" hidden>
+                                  <button onclick="updateImage()" id="custom-btn" type="button">CHOOSE PHOTO</button>
                                 </div>
                             </div>
 

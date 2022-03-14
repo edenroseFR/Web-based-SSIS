@@ -1,36 +1,32 @@
-var defaultBtn = document.getElementById("default-btn");
+const addImageInp = document.getElementById("add-image-inp")
+const updateImageInp = document.getElementById("update-image-inp")
 
-function defaultBtnActive(){
-    defaultBtn.click();
-}
-defaultBtn.addEventListener("change", function(){
-    var img = document.getElementById('selected-image');
-    var file = this.files[0];
+const addImage = () => addImageInp.click()
+const updateImage = () => updateImageInp.click()
+
+addImageInp.addEventListener("change", function(){
+    const img = document.getElementById('add-selected-image')
+    const file = this.files[0]
     if(file){
-        var reader = new FileReader();
+        let reader = new FileReader()
         reader.onload = function(){
-            img.src = reader.result;
-            document.getElementsByName("selected-image").value = reader.result;
+            img.src = reader.result
+            addImageInp.value = reader.result
         }
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
     }
 });
 
-
-function afg(){
-    var abtn = document.getElementById("a-btn")
-    abtn.click();
-}
-document.getElementById("a-btn").addEventListener("change", function(){
-    var img = document.getElementById('displayed-image');
-    var inp = document.getElementsByName("selected-image")
-    var file = this.files[0];
+updateImageInp.addEventListener("change", function(){
+    console.log('here');
+    let img = document.getElementById('displayed-image')
+    let file = this.files[0]
     if(file){
-        var reader = new FileReader();
+        let reader = new FileReader()
         reader.onload = function(){
-            img.src = reader.result;
-            inp.value = reader.result;
+            img.src = reader.result
+            updateImageInp.value = reader.result
         }
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
     }
 });
