@@ -1,8 +1,13 @@
 const addImageInp = document.getElementById("add-image-inp")
-const updateImageInp = document.getElementById("update-image-inp")
+let updateImageInp = document.getElementById("update-image-inp")
+let studentID = ""
 
 const addImage = () => addImageInp.click()
-const updateImage = () => updateImageInp.click()
+let updateImage = (studID) => {
+    studentID = studID
+    updateImageInp = document.getElementById("update-image-inp"+studentID)
+    updateImageInp.click()
+}
 
 addImageInp.addEventListener("change", function(){
     const img = document.getElementById('add-selected-image')
@@ -17,16 +22,14 @@ addImageInp.addEventListener("change", function(){
     }
 });
 
-updateImageInp.addEventListener("change", function(){
-    console.log('here');
-    let img = document.getElementById('displayed-image')
-    let file = this.files[0]
-    if(file){
+function updateDisplay(){
+    let img = document.getElementById('displayed-image'+studentID)
+    let file = updateImageInp.files[0]
+    if (file){
         let reader = new FileReader()
         reader.onload = function(){
             img.src = reader.result
-            updateImageInp.value = reader.result
         }
         reader.readAsDataURL(file)
     }
-});
+}

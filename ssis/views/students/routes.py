@@ -151,7 +151,7 @@ def add() -> str:
 @student.route('/students/update/<string:id>', methods=['GET', 'POST'])
 def update(id: str) -> str:
     if request.method == 'POST':
-        image = request.files['selected-image']
+        image = request.files['selected-image'+id]
         cloud_link = ''
         try:
             cloud_link = save_image(image)
