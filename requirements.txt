@@ -2,7 +2,7 @@ certifi==2021.10.8
 click==8.1.2
 cloudinary==1.29.0
 colorama==0.4.4
-Flask==2.0.3
+Flask==2.1.1
 gunicorn==20.1.0
 itsdangerous==2.1.2
 Jinja2==3.0.3
