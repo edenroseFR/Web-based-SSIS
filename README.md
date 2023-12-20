@@ -60,3 +60,10 @@ cd venv/Scripts/activate
 ```bash
 flask run
 ```
+
+# HOW TO CONTRIBUTE
+### Opening Issues
+If you encounter a bug, have a question, or want to suggest an enhancement, please open an issue. Be sure to provide as much detail as possible, including steps to reproduce the issue or a clear description of your feature request.
+
+### Pull Requests
+If you'd like to contribute code, feel free to submit a Pull Request to the `develop` branch :)
