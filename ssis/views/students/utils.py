@@ -99,7 +99,7 @@ def save_image(file: str = None) -> str:
 
 
 def delete_image(id: str = None) -> bool:
-    local_upload = 'local' == getenv('LOCAL_UPLOAD')
+    local_upload = getenv('PHOTO_UPLOAD') == 'local'
     if not local_upload:
         image_url = (Student().get_image_url(id))[0]
         file_name = (image_url.split('/')[-1]).split('.')[0]
